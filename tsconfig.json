@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "ES6",
+    "module": "ES2020",
+    "rootDirs": [
+      "./src/frontend"
+    ],
+    "allowImportingTsExtensions": true,
+    "allowJs": false,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "directory",
+    "archive",
+    "**/result",
+    "estree",
+    "**/estree",
+    "**/backend"
+  ],
+  "files": [
+    "src/index.ts",
+  ]
+}
