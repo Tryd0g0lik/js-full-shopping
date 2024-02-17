@@ -1,5 +1,5 @@
 import React from 'react';
-import { A } from './imtarses.ts';
+import { A } from './interfaces.ts';
 
 /**
  * @param `name`: `string`. It's `<a className="classname" href="...">...</a>`

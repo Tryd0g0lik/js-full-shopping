@@ -7,13 +7,15 @@ export interface A extends Str {
   context: string
 }
 /**
- * @type `Dash`
- * dashbord: {
-    path: string,
-    context: string
-  }
+ * @type `Dash` it's
+  `{ name: string,
+    dashbord: {
+      path: string,
+      context: string
+    }
+  }`
  */
-interface Dash {
+export interface Dash extends Str {
   dashbord: {
     path: string
     context: string
@@ -32,6 +34,6 @@ interface Dash {
     }
    ]`
  */
-export interface DArr extends Str {
+export interface DArr extends Dash {
   dashbordArr: Dash[]
 }
