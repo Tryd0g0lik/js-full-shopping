@@ -1,3 +1,5 @@
+// src\frontend\src\components\pages\Header\index.tsx
+
 import React, { JSX } from 'react';
 import headerLogo from '@Img/header-logo.png';
 
@@ -16,13 +18,13 @@ export default function HeaderFC(): JSX.Element {
                   <a className="nav-link" href="/">Главная</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/catalog.html">Каталог</a>
+                  <a className="nav-link" href="/catalog">Каталог</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/about.html">О магазине</a>
+                  <a className="nav-link" href="/about">О магазине</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/contacts.html">Контакты</a>
+                  <a className="nav-link" href="/contacts">Контакты</a>
                 </li>
               </ul>
               <div>

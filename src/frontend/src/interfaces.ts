@@ -10,6 +10,13 @@ export enum Pages {
   'Undefin' = '/404'
 }
 
+export enum PTitle {
+  '/' = 'Главная',
+  '/catalog' = 'Каталог',
+  '/about' = 'О магазине',
+  '/contacts' = 'Контакты'
+}
+
 export interface Child {
   children: JSX.Element
 }
