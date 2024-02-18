@@ -1,7 +1,7 @@
 import React, { JSX, Fragment } from 'react';
 import { HomepageFC } from './Home/index.tsx';
 import { MainFC } from './Home/Main/index.tsx';
-import HeaderFC from './Header/index.tsx';
+import { HeaderFC } from './Header/index.tsx';
 import { FooterFC } from './Footer/index.tsx';
 /* below is a code from loader.html */
 import { LoaderFC } from './Loader/index.tsx';
@@ -22,7 +22,7 @@ import { AMain } from './About/Main/index.tsx';
 import { UndefinedFC } from './Undefined/index.tsx';
 import { UMainFC } from './Undefined/Main/index.tsx';
 
-export default function PagesFC(): JSX.Element {
+export function PagesFC(): JSX.Element {
   return (
     <>
       <hr />

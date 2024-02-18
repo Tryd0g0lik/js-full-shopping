@@ -18,7 +18,7 @@ module.exports = {
     alias: {
       '@Img': path.resolve(__dirname, 'src/img'),
       '@Root': path.resolve(__dirname, 'src/interfaces.ts'),
-      '@Pages': path.resolve(__dirname, 'src/components/pages/*')
+      '@Pages': path.resolve(__dirname, 'src/components/pages')
     }
   },
   module: {
