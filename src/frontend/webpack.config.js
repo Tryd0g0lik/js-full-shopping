@@ -1,4 +1,5 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   // devtool: 'evel-'
@@ -16,7 +17,8 @@ module.exports = {
     modules: [path.resolve(__dirname, "./.browserslistrc"), "node_modules"],
     alias: {
       '@Img': path.resolve(__dirname, 'src/img'),
-      '@Root': path.resolve(__dirname, 'src/interfaces.ts')
+      '@Root': path.resolve(__dirname, 'src/interfaces.ts'),
+      '@Pages': path.resolve(__dirname, 'src/components/pages/*')
     }
   },
   module: {
@@ -58,7 +60,7 @@ module.exports = {
     ],
   },
   plugins: [
-
+    new TsconfigPathsPlugin()
   ],
   watchOptions: {
     ignored: [

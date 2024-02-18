@@ -3,7 +3,7 @@
 import React, { JSX } from 'react';
 import headerLogo from '@Img/header-logo.png';
 
-export default function HeaderFC(): JSX.Element {
+export function HeaderFC(): JSX.Element {
   return (
     <header className="container">
       <div className="row">

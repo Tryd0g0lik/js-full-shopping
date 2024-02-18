@@ -1,34 +1,11 @@
+// src\frontend\src\App.tsx
+
 import React, { JSX } from 'react';
-import PagesFC from './components/pages/Pages.tsx';
-// const dashbordTop = {
-//   name: 'nav-item',
-//   dashbordArr: [
-//     {
-//       dashbord: {
-//         path: '/',
-//         context: 'Главная'
-//       }
-//     },
-//     {
-//       dashbord: {
-//         path: '/catalog.html',
-//         context: 'Каталог'
-//       }
-//     },
-//     {
-//       dashbord: {
-//         path: '/about.html',
-//         context: 'О магазине'
-//       }
-//     },
-//     {
-//       dashbord: {
-//         path: '/contacts.html',
-//         context: 'Контакты'
-//       }
-//     }
-//   ]
-// };
+import { BRowserRouter, Routes, Route } from 'react-router-dom';
+import { HeaderFC } from '@Pages/Header/index.tsx';
+import PagesFC from '@Pages/Pages.tsx';
+// import PagesFC from './components/pages/Pages.tsx';
+
 export function AppFC(): JSX.Element {
   return (
     <>

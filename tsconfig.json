@@ -18,7 +18,19 @@
     "noImplicitAny": true,
     "strictPropertyInitialization": false,
     "skipLibCheck": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@Root": [
+        "src/frontend/src/interfaces.ts",
+      ],
+      "@Img/*": [
+        "src/frontend/src/img/*"
+      ],
+      "@Pages/*": [
+        "./src/frontend/src/components/pages/*"
+      ]
+    }
   },
   "include": [
     "**/*.ts",
