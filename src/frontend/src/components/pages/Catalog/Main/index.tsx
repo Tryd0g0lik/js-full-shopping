@@ -4,6 +4,14 @@ import SandalsMyer from '@Img/products/sandals_myer.jpg';
 import SuperheroSneakers from '@Img/products/superhero_sneakers.jpg';
 import SandalsKeira from '@Img/products/sandals_keira.jpg';
 
+/**
+ * `DMainFC` - it value is:
+ *
+ * `D` - a 'catalog' is replace on `directory`
+ * `F` - `function`
+ * `C` - `components`
+ * @returns html
+ */
 export function DMainFC(): JSX.Element {
   return (
     <>
