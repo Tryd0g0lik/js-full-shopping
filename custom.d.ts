@@ -7,3 +7,8 @@ declare module '@Img/*' {
   const content: string;
   export default content;
 }
+
+declare module '@Root' {
+  const content: any;
+  export default content;
+}

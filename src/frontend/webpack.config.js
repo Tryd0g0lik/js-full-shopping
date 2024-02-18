@@ -15,7 +15,8 @@ module.exports = {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
     modules: [path.resolve(__dirname, "./.browserslistrc"), "node_modules"],
     alias: {
-      '@Img': path.resolve(__dirname, 'src/img')
+      '@Img': path.resolve(__dirname, 'src/img'),
+      '@Root': path.resolve(__dirname, 'src/interfaces.ts')
     }
   },
   module: {

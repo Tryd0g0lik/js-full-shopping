@@ -35,7 +35,6 @@
     "**/backend"
   ],
   "files": [
-    "src/index.ts",
-    "custom.d.ts"
+    "src/index.ts"
   ]
 }
