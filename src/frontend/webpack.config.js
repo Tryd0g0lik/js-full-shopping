@@ -1,7 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const webpack = require('webpack')
+
 module.exports = {
   // devtool: 'evel-'
 
@@ -16,6 +14,10 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
     modules: [path.resolve(__dirname, "./.browserslistrc"), "node_modules"],
+    alias: {
+      '@Img': path.resolve(__dirname, 'src/img'),
+      '@Root': path.resolve(__dirname, 'src/interfaces.ts')
+    }
   },
   module: {
     rules: [
@@ -49,8 +51,9 @@ module.exports = {
         test: /\.(png|jpe?g|svg)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name][ext]',
-        },
+          filename: 'img/[name][ext]',
+        }
+        // loader: 'file-loader',
       },
     ],
   },
@@ -78,4 +81,5 @@ module.exports = {
     open: true,
     // port: 8080
   }
+
 };

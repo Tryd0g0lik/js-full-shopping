@@ -34,6 +34,7 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "css-loader": "^6.8.1",
     "daisyui": "^4.4.19",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",
     "jsdom": "^23.0.1",
     "postcss": "^8.4.32",

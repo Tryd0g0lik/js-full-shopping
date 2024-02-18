@@ -1,34 +1,32 @@
-import React, { JSX } from 'react';
-import LiFC from '../site/Li.tsx';
-import { DArr } from '../site/imtarses.ts';
-export default function HeaderFC(props): JSX.Element {
-  const { ...prop }: DArr = props;
+// src\frontend\src\components\pages\Header\index.tsx
 
+import React, { JSX } from 'react';
+import headerLogo from '@Img/header-logo.png';
+
+export default function HeaderFC(): JSX.Element {
   return (
     <header className="container">
       <div className="row">
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <a className="navbar-brand" href="/">
-              <img src="./img/header-logo.png" alt="Bosa Noga" />
+              <img src={headerLogo} alt="Bosa Noga" />
             </a>
             <div className="collapse navbar-collapse" id="navbarMain">
-                <LiFC
-                  name={prop.name}
-                  dashbordArr={prop.dashbordArr}
-                />
-                {/* <li className="nav-item active">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item active">
                   <a className="nav-link" href="/">Главная</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/catalog.html">Каталог</a>
+                  <a className="nav-link" href="/catalog">Каталог</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/about.html">О магазине</a>
+                  <a className="nav-link" href="/about">О магазине</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/contacts.html">Контакты</a>
-                </li> */}
+                  <a className="nav-link" href="/contacts">Контакты</a>
+                </li>
+              </ul>
               <div>
                 <div className="header-controls-pics">
                   <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
