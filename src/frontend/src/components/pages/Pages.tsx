@@ -12,9 +12,21 @@ import { CMainFC } from './Contacts/Main/index.tsx';
 /* below is a code from catalog.html */
 import { CatalogFC } from './Catalog/index.tsx';
 import { DMainFC } from './Catalog/Main/index.tsx';
+/* below is a code from catalog.html */
+import { CartFC } from './Cart/imdex.tsx';
+import { CMFC } from './Cart/Main/index.tsx'; // the parh main of cart.html
+
 export default function PagesFC(): JSX.Element {
   return (
     <>
+      { /* Cart page is below */}
+      <CartFC>
+        <Fragment>
+          <HeaderFC />
+          <CMFC />
+          <FooterFC />
+        </Fragment>
+      </CartFC>
       { /* Catalog page is below */}
       <CatalogFC>
         <Fragment>
