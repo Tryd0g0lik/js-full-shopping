@@ -1,92 +1,44 @@
-import React, { JSX, Fragment } from 'react';
+import React, { JSX } from 'react';
+import { Pages, PTitle } from '@Root';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HomepageFC } from './Home/index.tsx';
-import { MainFC } from './Home/Main/index.tsx';
-import HeaderFC from './Header/index.tsx';
-import { FooterFC } from './Footer/index.tsx';
 /* below is a code from loader.html */
-import { LoaderFC } from './Loader/index.tsx';
-import { LMain } from './Loader/Main/index.tsx';
+import { LoaderpageFC } from './Loader/index.tsx';
 /* below is a code from contacts.html */
-import { ContactsFC } from './Contacts/index.tsx';
-import { CMainFC } from './Contacts/Main/index.tsx';
+import { ContactspageFC } from './Contacts/index.tsx';
 /* below is a code from catalog.html */
-import { CatalogFC } from './Catalog/index.tsx';
-import { DMainFC } from './Catalog/Main/index.tsx';
+import { CatalogpageFC } from './Catalog/index.tsx';
 /* below is a code from catalog.html */
-import { CartFC } from './Cart/imdex.tsx';
-import { CMFC } from './Cart/Main/index.tsx'; // the parh main of cart.html
+import { CartpageFC } from './Cart/imdex.tsx';
 /* below is a code from about.html */
-import { AboutFC } from './About/index.tsx';
-import { AMain } from './About/Main/index.tsx';
+import { AboutpageFC } from './About/index.tsx';
 /* below is a code from 404.html */
-import { UndefinedFC } from './Undefined/index.tsx';
-import { UMainFC } from './Undefined/Main/index.tsx';
+import { UnderfinedpageFC } from './Undefined/index.tsx';
 
-export default function PagesFC(): JSX.Element {
+/**
+ * Determine the route
+ * @returns
+ */
+export function PagesFC(): JSX.Element {
   return (
     <>
-      <hr />
-      <UndefinedFC>
-        <Fragment>
-          <HeaderFC />
-          <UMainFC />
-          <FooterFC />
-        </Fragment>
-      </UndefinedFC>
-      <hr />
-      { /* About page is below */}
-      <AboutFC>
-        <Fragment>
-          <HeaderFC />
-          <AMain />
-          <FooterFC />
-        </Fragment>
-      </AboutFC>
-      <hr />
-      { /* Cart page is below */}
-      <CartFC>
-        <Fragment>
-          <HeaderFC />
-          <CMFC />
-          <FooterFC />
-        </Fragment>
-      </CartFC>
-      <hr />
-      { /* Catalog page is below */}
-      <CatalogFC>
-        <Fragment>
-          <HeaderFC />
-          <DMainFC />
-          <FooterFC />
-        </Fragment>
-      </CatalogFC>
-      <hr />
-      { /* Contacts page is below */}
-      <ContactsFC>
-        <Fragment>
-          <HeaderFC />
-          <CMainFC />
-          <FooterFC />
-        </Fragment>
-      </ContactsFC>
-      <hr />
-      { /* Loader page is below */}
-      <LoaderFC>
-        <Fragment>
-          <HeaderFC />
-          <LMain />
-          <FooterFC />
-        </Fragment>
-      </LoaderFC>
-      <hr />
-      { /* Main page is below */}
-      <HomepageFC>
-        <Fragment>
-          <HeaderFC />
-          <MainFC />
-          <FooterFC />
-        </Fragment>
-      </HomepageFC>
+      <BrowserRouter>
+        <Routes>
+          { /* About page is below */}
+          <Route path={Pages.About} element={<AboutpageFC />} />
+          { /* Cart page is below */}
+          <Route path={Pages.Cart} element={<CartpageFC />} />
+          { /* Catalog page is below */}
+          <Route path={Pages.Catalog} element={<CatalogpageFC />} />
+          { /* Contacts page is below */}
+          <Route path={Pages.Contacts} element={<ContactspageFC />} />
+          { /* Loader page is below */}
+          <Route path={Pages.Loader} element={<LoaderpageFC />} />
+          { /* Main page is below */}
+          <Route path={Pages.Home} element={<HomepageFC />} />
+          <Route path='*' element={<UnderfinedpageFC />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
