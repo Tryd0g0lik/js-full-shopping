@@ -1,9 +1,19 @@
-import React from 'react';
+// src\frontend\src\components\pages\Catalog\Main\index.tsx
+
+import React, { Fragment } from 'react';
 import Banner from '@Img/banner.jpg';
 import SandalsMyer from '@Img/products/sandals_myer.jpg';
 import SuperheroSneakers from '@Img/products/superhero_sneakers.jpg';
 import SandalsKeira from '@Img/products/sandals_keira.jpg';
+import HeadFC from '@Attribute/Headers.tsx';
+import BannerFC from '@Attribute/Baners.tsx';
+import ImageFC from '@Attribute/Img.tsx';
 
+import FormFC from '@Attribute/Forms/index.tsx';
+import { InputsFC } from '@Attribute/Forms/Imputs.tsx';
+
+import LiFC from '@Attribute/Li.tsx';
+import AncorFC from '@Attribute/Ancor';
 /**
  * `import { DMainFC } from './Main/index.tsx';`
  *
@@ -14,21 +24,25 @@ import SandalsKeira from '@Img/products/sandals_keira.jpg';
  * `C` - `components`
  * @returns html
  */
-export function DMainFC(): JSX.Element {
+export function DMainFC(props: string[]): JSX.Element {
   return (
     <>
       <main className="container">
         <div className="row">
           <div className="col">
-            <div className="banner">
-              <img src={Banner} className="img-fluid" alt="К весне готовы!" />
-              <h2 className="banner-header">К весне готовы!</h2>
-            </div>
+            {/* Top baner */}
+            <BannerFC>
+              <Fragment>
+                <ImageFC path={Banner} classes='img-fluid' context='К весне готовы!' />
+                <HeadFC number={2} classes='banner-header' title='К весне готовы!' />
+              </Fragment>
+            </BannerFC>
             <section className="catalog">
-              <h2 className="text-center">Каталог</h2>
-              <form className="catalog-search-form form-inline">
-                <input className="form-control" placeholder="Поиск" />
-              </form>
+              <HeadFC number={2} classes='text-center' title='Каталог' />
+              {/* Top form search by directory */}
+              <FormFC classes='catalog-search-form form-inline'>
+                <InputsFC classes="form-control" placeholder="Поиск" />
+              </FormFC>
               <ul className="catalog-categories nav justify-content-center">
                 <li className="nav-item">
                   <a className="nav-link active" href="#">Все</a>

@@ -1,5 +1,10 @@
 // src\frontend\src\interfaces.ts
 
+/**
+ * file: `src\frontend\src\interfaces.ts`
+ *
+ * `import { Pages} from '@Root';`
+ */
 export enum Pages {
   'Home' = '/',
   'Loader' = '/loader',
@@ -10,6 +15,12 @@ export enum Pages {
   'Undefin' = '/404'
 }
 
+/**
+ * file: `src\frontend\src\interfaces.ts`
+ *
+ * `import { PTitle } from '@Root';`
+ *
+  */
 export enum PTitle {
   '/' = 'Главная',
   '/catalog' = 'Каталог',
@@ -17,6 +28,24 @@ export enum PTitle {
   '/contacts' = 'Контакты'
 }
 
+/**
+ * file: `src\frontend\src\interfaces.ts`
+ *
+ * import { Child } from '@Root';
+ */
 export interface Child {
   children: JSX.Element
+}
+
+/**
+ * file: `src\frontend\src\interfaces.ts`
+ *
+ * import { MultiProps } from '@Root';
+ *
+ * Extends the interface `Child`
+ *
+ * @prop `classes?`: `string` It is single a class name or multiple. Also is possible and without him.
+ */
+export interface MultiProps extends Child {
+  classes?: string
 }

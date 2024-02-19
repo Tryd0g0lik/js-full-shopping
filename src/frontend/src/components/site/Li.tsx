@@ -1,40 +1,18 @@
 import React, { JSX, JSXElementConstructor, useId } from 'react';
-import { Dash } from './interfaces.ts';
+import { MultiProps } from '@Root';
 import AncorFC from './Ancor.tsx';
 
 /**
- * @param `props` has type
- * `
-  {
-    name: string,
-    dashbordArr: [{
-      dashbord: {
-        path: string
-        context: string
-      }
-    }]
-}`
-
- * `name` - this is a class with name common. It's has a patern `<li className={name}>...`
-
- * `path' - this is a  path name for additions to the URL `<a className="..." href="path">...</a>` from <AncorFC ... >.
-
- * `context`- It's `<a className="..." href="..">context</a>`.
-
- * @returns array `<li ...><a ...> ....</a></li>`
+ * file: `src\frontend\src\components\site\Li.tsx`
+ *
+ * `import LiFC from '@Attribute/Li.tsx';`
+ *
+ * @returns array `<li ...> ....</li>`
  */
-export default function LiFC({ name, dashbord }: Dash): JSX.Element | undefined { // React.ReactElement[] |
-  // const { ...line } = dashbord;
-  // debugger;
-  // debugger;
-  // if (ldashbord !== undefined && line.name !== null) {
+export default function LiFC({ classes, children }: MultiProps): JSX.Element { // React.ReactElement[] |
   return (
-    <li className={name}>
-      < AncorFC
-        name='nav-link'
-        path={dashbord.path}
-        context={dashbord.context}
-      />
+    <li className={classes}>
+      {children}
     </li>
   );
 // }
