@@ -1,20 +1,28 @@
 // src\frontend\src\components\pages\About\Main\index.tsx
 
-import React, { JSX } from 'react';
+import React, { JSX, Fragment } from 'react';
+import BannerFC from '@Attribute/Baners.tsx';
 import Banner from '@Img/banner.jpg';
+import HeadFC from '@Attribute/Headers.tsx';
+import ImageFC from '@Attribute/Img.tsx';
 
+/**
+ * `import { AMain } from './Main/index.tsx';`
+ */
 export function AMain(): JSX.Element {
   return (
     <>
       <main className="container">
         <div className="row">
           <div className="col">
-            <div className="banner">
-              <img src={Banner} className="img-fluid" alt="К весне готовы!" />
-              <h2 className="banner-header">К весне готовы!</h2>
-            </div>
+            <BannerFC>
+              <Fragment>
+                <ImageFC path={Banner} classes="img-fluid" context="К весне готовы!" />
+                <HeadFC number={2} classes='banner-header' title='К весне готовы!' />
+              </Fragment>
+            </BannerFC>
             <section className="top-sales">
-              <h2 className="text-center">О магазине</h2>
+              <HeadFC number={2} classes='text-center' title='О магазине' />
               <p>
                 В Интернете можно встретить немало магазинов, предлагающих аксессуары. Но именно к нам хочется
                 возвращаться снова и снова.

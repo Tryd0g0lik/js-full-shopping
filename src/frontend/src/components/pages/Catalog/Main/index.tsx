@@ -5,6 +5,8 @@ import SuperheroSneakers from '@Img/products/superhero_sneakers.jpg';
 import SandalsKeira from '@Img/products/sandals_keira.jpg';
 
 /**
+ * `import { DMainFC } from './Main/index.tsx';`
+ *
  * `DMainFC` - it value is:
  *
  * `D` - a 'catalog' is replace on `directory`

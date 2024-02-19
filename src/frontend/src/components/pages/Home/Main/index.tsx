@@ -1,32 +1,30 @@
-import React, { JSX } from 'react';
-import Banner from '@Img/banner.jpg';
+// src\frontend\src\components\pages\Home\Main\index.tsx
 
+import React, { JSX, Fragment } from 'react';
+import Banner from '@Img/banner.jpg';
+import HeadFC from '@Attribute/Headers.tsx';
+import ImageFC from '@Attribute/Img.tsx';
+import ImLoader from '@Attribute/ImgLoader.tsx';
+
+/**
+ * `import { MainFC } from './Main/index.tsx';`
+ */
 export function MainFC(): JSX.Element {
   return (
     <main className="container">
       <div className="row">
         <div className="col">
-          <div className="banner">
-            <img src={Banner} className="img-fluid" alt="К весне готовы!" />
-            <h2 className="banner-header">К весне готовы!</h2>
-          </div>
+          <Fragment>
+            <ImageFC path={Banner} classes="img-fluid" context="К весне готовы!" />
+            <HeadFC number={2} classes='banner-header' title='К весне готовы!' />
+          </Fragment>
           <section className="top-sales">
-            <h2 className="text-center">Хиты продаж!</h2>
-            <div className="preloader">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+            <HeadFC number={2} classes='text-center' title='Хиты продаж!' />
+            <ImLoader />
           </section>
           <section className="catalog">
-            <h2 className="text-center">Каталог</h2>
-            <div className="preloader">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+            <HeadFC number={2} classes='text-center' title='Каталог' />
+            <ImLoader />
           </section>
         </div>
       </div>

@@ -1,3 +1,5 @@
+// src\frontend\src\components\pages\Catalog\index.tsx
+
 import React, { JSX, Fragment } from 'react';
 import { Child } from '@Root';
 
@@ -13,6 +15,9 @@ export function CatalogFC({ children }: Child): JSX.Element {
   );
 }
 
+/**
+ * `import { CatalogpageFC } from './Catalog/index.tsx';`
+ */
 export function CatalogpageFC(): JSX.Element {
   return (
     <CatalogFC>

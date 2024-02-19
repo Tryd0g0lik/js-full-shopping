@@ -1,41 +1,20 @@
-export interface Str {
-  name: string
+/**
+ * * @prop `classes?`: `string`. It is single a class name or multiple. Also is possible and without him.
+ */
+interface Class {
+  classes?: string
 }
 
-export interface A extends Str {
+/**
+ * This is an interface for headers html's tag.
+ * @prop `classes?`: `string` It is single a class name or multiple. Also is possible and without him.
+ * @prop `path`: `string` It's a path-name from URL.
+ * @prop `context?`: string`  It sets the link title `<html><a>Your title</a></html>`. Also is possible without him
+ * @returns exemple `<img src="./" className="img-fluid" alt="К весне готовы!" />`
+ */
+export interface A extends Class {
   path: string
-  context: string
-}
-/**
- * @type `Dash` it's
-  `{ name: string,
-    dashbord: {
-      path: string,
-      context: string
-    }
-  }`
- */
-export interface Dash extends Str {
-  dashbord: {
-    path: string
-    context: string
-  }
-}
-
-/**
- * @type `dashbordArr: Dash[]`
- *
- * `Dash[]` it's `[
-    {
-      dashbord: {
-      path: string,
-      context: string
-      }
-    }
-   ]`
- */
-export interface DArr extends Dash {
-  dashbordArr: Dash[]
+  context?: string
 }
 
 /**
@@ -45,8 +24,7 @@ export interface DArr extends Dash {
  * @prop `title?` : `string`. It sets the titles `<html><h2>Your title</h2></html>`. Also is possible without him
  *
  */
-export interface Head {
+export interface Head extends Class {
   number: number
-  classes?: string
   title?: string
 }
