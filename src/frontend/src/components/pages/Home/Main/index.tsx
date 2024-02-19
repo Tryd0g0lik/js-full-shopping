@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import Banner from '@Img/banner.jpg'
+import Banner from '@Img/banner.jpg';
 
 export function MainFC(): JSX.Element {
   return (
