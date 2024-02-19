@@ -3,9 +3,9 @@
 export enum Pages {
   'Home' = '/',
   'Loader' = '/loader',
-  'Contacts' = './contacts',
-  'Catalog' = './catalog',
-  'Cart' = '/v?',
+  'Contacts' = '/contacts',
+  'Catalog' = '/catalog',
+  'Cart' = '/cart',
   'About' = '/about',
   'Undefin' = '/404'
 }

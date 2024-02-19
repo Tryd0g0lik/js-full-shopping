@@ -1,7 +1,11 @@
 // src\frontend\src\components\pages\Cart\imdex.tsx
 
-import React, { JSX } from 'react';
+import React, { JSX, Fragment } from 'react';
 import { Child } from '@Root';
+
+import { HeaderFC } from '@Pages/Header';
+import { FooterFC } from '@Pages/Footer';
+import { CMFC } from './Main/index.tsx';
 
 export function CartFC({ children }: Child): JSX.Element {
   return (
@@ -9,4 +13,16 @@ export function CartFC({ children }: Child): JSX.Element {
       {children}
     </>
   );
+}
+
+export function CartpageFC(): JSX.Element {
+  return (
+    <CartFC>
+      <Fragment>
+        <HeaderFC />
+        <CMFC />
+        <FooterFC />
+      </Fragment>
+    </CartFC>
+  )
 }
