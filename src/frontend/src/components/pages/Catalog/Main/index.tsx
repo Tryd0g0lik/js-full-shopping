@@ -14,6 +14,16 @@ import { InputsFC } from '@Attribute/Forms/Imputs.tsx';
 
 import LiFC from '@Attribute/Li.tsx';
 import AncorFC from '@Attribute/Ancor';
+
+interface Categore {
+  id: number
+  title: string
+  path: string
+}
+
+interface Categories {
+  categories: Categore[]
+}
 /**
  * `import { DMainFC } from './Main/index.tsx';`
  *
@@ -24,7 +34,7 @@ import AncorFC from '@Attribute/Ancor';
  * `C` - `components`
  * @returns html
  */
-export function DMainFC(props: string[]): JSX.Element {
+export function DMainFC({ categories }: Categories): JSX.Element {
   return (
     <>
       <main className="container">
@@ -44,21 +54,18 @@ export function DMainFC(props: string[]): JSX.Element {
                 <InputsFC classes="form-control" placeholder="Поиск" />
               </FormFC>
               <ul className="catalog-categories nav justify-content-center">
-                <li className="nav-item">
+                {
+                  categories.map((obj) => (
+                    <>
+                      <LiFC key={String(obj.id)} classes='nav-item'>
+                        <AncorFC classes='nav-link' path={obj.path} context={obj.title} />
+                      </LiFC>
+                    </>
+                  ))
+                }
+                {/* <li className="nav-item">
                   <a className="nav-link active" href="#">Все</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Женская обувь</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Мужская обувь</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Обувь унисекс</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Детская обувь</a>
-                </li>
+                </li> */}
               </ul>
               <div className="row">
                 <div className="col-4">
