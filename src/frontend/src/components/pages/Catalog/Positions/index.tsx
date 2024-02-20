@@ -16,7 +16,9 @@ export function PositionFC({ title, price = '0', children }: Position): JSX.Elem
   return (
     <div className="col-4">
       <div className="card catalog-item-card">
-        {children}
+        <div className='catalog-card-previw'>
+          {children}
+        </div>
         <div className="card-body">
           <p className="card-text">{title}</p>
           <p className="card-text">{price} руб.</p>

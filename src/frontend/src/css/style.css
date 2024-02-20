@@ -176,7 +176,19 @@ section {
   font-size: 1.3rem;
   margin-bottom: 2em;
 }
+.catalog-item-card {
+	min-height: 478px;
+	height: 100%;
+	max-height: 478px;
 
+}
+
+.catalog-item-card .catalog-card-previw {
+	display: inline-block;
+	min-height: calc(100% - 159px);
+	max-height: calc(100% - 159px);
+	overflow: clip;
+}
 .catalog-item-card {
   margin-bottom: 1em;
 }
