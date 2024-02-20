@@ -49,7 +49,7 @@ export function DMainFC({ categories }: Categories): JSX.Element {
               {/* This categories is located under the catalog's search form */}
               <ul className="catalog-categories nav justify-content-center">
                 {
-                  categories.map((obj) => (
+                  Array.from(categories).map((obj) => (
                     <>
                       <LiFC key={String(obj.id)} classes='nav-item'>
                         <AncorFC classes='nav-link' path='#' context={obj.title} />
