@@ -1,7 +1,6 @@
 // src\frontend\src\App.tsx
 
 import React, { JSX } from 'react';
-import { HeaderFC } from '@Pages/Header/index.tsx';
 import { PagesFC } from '@Pages/Pages.tsx';
 // import PagesFC from './components/pages/Pages.tsx';
 

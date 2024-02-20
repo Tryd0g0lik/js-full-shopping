@@ -29,6 +29,9 @@
       ],
       "@Pages/*": [
         "./src/frontend/src/components/pages/*"
+      ],
+      "@Attribute/*": [
+        "./src/frontend/src/components/site/*"
       ]
     }
   },

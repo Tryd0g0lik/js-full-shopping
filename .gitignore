@@ -4,6 +4,7 @@
  /node_modules
 **/node_modules
 ./styleguide
+**/components/pages/Catalog/Main/db.ts
 /.pnp
 .pnp.js
 # testing
