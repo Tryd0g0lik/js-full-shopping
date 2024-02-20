@@ -2,9 +2,6 @@
 
 import React, { Fragment } from 'react';
 import Banner from '@Img/banner.jpg';
-import SandalsMyer from '@Img/products/sandals_myer.jpg';
-import SuperheroSneakers from '@Img/products/superhero_sneakers.jpg';
-import SandalsKeira from '@Img/products/sandals_keira.jpg';
 import HeadFC from '@Attribute/Headers.tsx';
 import BannerFC from '@Attribute/Baners.tsx';
 import ImageFC from '@Attribute/Img.tsx';

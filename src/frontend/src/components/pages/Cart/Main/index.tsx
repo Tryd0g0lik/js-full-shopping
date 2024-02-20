@@ -1,6 +1,9 @@
 // src\frontend\src\components\pages\Cart\Main\index.tsx
-import React, { JSX } from 'react';
+import React, { JSX, Fragment } from 'react';
 import Banner from '@Img/banner.jpg';
+import HeadFC from '@Attribute/Headers.tsx';
+import BannerFC from '@Attribute/Baners.tsx';
+import ImageFC from '@Attribute/Img.tsx';
 
 /**
  * `CMFC` - it value is:
@@ -17,10 +20,12 @@ export function CMFC(): JSX.Element { // the parh main of cart.html
       <main className="container">
         <div className="row">
           <div className="col">
-            <div className="banner">
-              <img src={Banner} className="img-fluid" alt="К весне готовы!" />
-              <h2 className="banner-header">К весне готовы!</h2>
-            </div>
+            <BannerFC>
+              <Fragment>
+                <ImageFC path={Banner} classes="img-fluid" context="К весне готовы!" />
+                <HeadFC number={2} classes='banner-header' title='К весне готовы!' />
+              </Fragment>
+            </BannerFC>
             <section className="cart">
               <h2 className="text-center">Корзина</h2>
               <table className="table table-bordered">
