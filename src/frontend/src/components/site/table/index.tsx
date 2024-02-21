@@ -30,6 +30,7 @@ export default function TableFc({ headers }: Heads): JSX.Element {
           </Fragment>
         </TrFC>
       </thead>
+      { /* Форма json  ? */}
       <tbody>
         <tr>
           <td scope="row">1</td>

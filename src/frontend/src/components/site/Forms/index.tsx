@@ -1,7 +1,9 @@
 // src\frontend\src\components\site\Forms\index.tsx
-import React, { JSX } from 'react';
+import React, { FormEvent, JSX } from 'react';
 import { MultiProps } from '@Root';
-
+// const handler = (e: FormEvent): void => {
+//   e.preventDefault();
+// };
 /**
  * file: `src\frontend\src\components\site\Forms\index.tsx`
  *
@@ -10,9 +12,9 @@ import { MultiProps } from '@Root';
  * @param param0
  * @returns
  */
-export default function FormFC({ children, classes = '' }: MultiProps): JSX.Element {
+export default function FormFC({ children, classes = '', handler }: MultiProps): JSX.Element {
   return (
-    <form className={classes}>
+    <form className={classes} onSubmit={handler}>
       {children}
     </form>
   );

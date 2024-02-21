@@ -7,7 +7,7 @@ import BannerFC from '@Attribute/Baners.tsx';
 import ImageFC from '@Attribute/Img.tsx';
 
 import FormFC from '@Attribute/Forms/index.tsx';
-import { InputsFC } from '@Attribute/Forms/Imputs.tsx';
+import InputsFC from '@Attribute/Forms/Imputs.tsx';
 
 import { Categories } from '@Root';
 import LiFC from '@Attribute/Li.tsx';

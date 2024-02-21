@@ -34,7 +34,7 @@ export enum PTitle {
  * import { Child } from '@Root';
  */
 export interface Child {
-  children: JSX.Element
+  children?: JSX.Element
 }
 
 /**
@@ -48,6 +48,7 @@ export interface Child {
  */
 export interface MultiProps extends Child {
   classes?: string
+  handler?: () => void
 }
 
 /**
@@ -82,9 +83,39 @@ export interface Categories {
  *
  * @prop `title`: `string`. It is a name position
  * @prop `price?`: `string` Default values is '0'. This is the main price.
- * @prop `children: JSX.Element`
+ * @prop `children?: JSX.Element`
  */
 export interface Position extends Child {
   title: string
   price?: string
+}
+
+/**
+ * file: `src\frontend\src\interfaces.ts`
+ *
+ * import { Td } from '@Root';
+ *
+ * @prop `children?: JSX.Element`
+ * ```
+ * function COmponent(): JSX.Element {
+ *  return(
+ *    <>
+ *    <Fragment>
+ *      { children }
+ *    </Fragment>
+ *    </>
+ *  );
+ * }
+ *
+ * ```
+ * @prop `context: `string`  It is context for display on the page `<html><tr><th>Your contex</th></tr></html>`.
+ * @prop `cspan` : `string` It's property css 'collspan'.
+ */
+export interface TableRow extends MultiProps {
+  scop?: string
+  context: string
+}
+
+export interface Heads {
+  headers: string[][]
 }

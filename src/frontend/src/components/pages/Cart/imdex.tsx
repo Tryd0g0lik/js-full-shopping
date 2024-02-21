@@ -3,8 +3,8 @@
 import React, { JSX, Fragment } from 'react';
 import { Child } from '@Root';
 
-import { HeaderFC } from '@Pages/Header';
-import { FooterFC } from '@Pages/Footer';
+import { HeaderFC } from '@Pages/Header/index.tsx';
+import { FooterFC } from '@Pages/Footer/index.tsx';
 import { CMFC } from './Main/index.tsx';
 
 export function CartFC({ children }: Child): JSX.Element {
@@ -24,5 +24,5 @@ export function CartpageFC(): JSX.Element {
         <FooterFC />
       </Fragment>
     </CartFC>
-  )
+  );
 }
