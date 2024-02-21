@@ -1,20 +1,34 @@
-import React, { JSX } from 'react';
-import { TrFC } from './Tr/index.tsx';
-import { ThFC } from './Th/index.tsx';
+import React, { JSX, Fragment, useId } from 'react';
 
-export function TableFc(): JSX.Element {
+/* Teble */
+import TrFC from './Tr/index.tsx';
+import ThFC from './Th/index.tsx';
+/* inteface */
+import { Heads } from '@Root';
+
+/**
+ * `src\frontend\src\components\site\table\index.tsx`
+ *
+ * `import TableFc from '@Attribute/table/index.tsx';`
+ *
+ * `<table class='...'>`
+ *
+ * @param `headers`: `string[][]`. It's array headers. We can to see table's headers
+ * @returns teble, it's React.JSX.Element
+ */
+export default function TableFc({ headers }: Heads): JSX.Element {
   return (
     <table className="table table-bordered">
       <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Название</th>
-          <th scope="col">Размер</th>
-          <th scope="col">Кол-во</th>
-          <th scope="col">Стоимость</th>
-          <th scope="col">Итого</th>
-          <th scope="col">Действия</th>
-        </tr>
+        <TrFC>
+          <Fragment>
+            {
+              Array.from(headers).map((arr) => (
+                <ThFC key={useId()} scop={arr[0]} context={arr[1]} />
+              ))
+            };
+          </Fragment>
+        </TrFC>
       </thead>
       <tbody>
         <tr>
@@ -35,4 +49,3 @@ export function TableFc(): JSX.Element {
 
   );
 }
-
