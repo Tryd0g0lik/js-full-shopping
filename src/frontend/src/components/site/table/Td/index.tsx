@@ -2,7 +2,7 @@ import React, { JSX } from 'react';
 import { TableRow } from '@Root';
 
 /**
- * `src\frontend\src\components\site\table\Th\index.tsx`
+ * `src\frontend\src\components\site\table\Td\index.tsx`
  *
  * `import TdFC from './Th/index.tsx';`
  *
