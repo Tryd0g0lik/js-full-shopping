@@ -15,7 +15,7 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: './src/server/db', to: './server/db', }
+        { from: './src/data', to: './server/data', }
       ],
     }),
   ],

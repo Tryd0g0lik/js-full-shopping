@@ -9,7 +9,9 @@ module.exports = {
     main: './src/index.tsx'
 
   },
-
+  output: {
+    path: path.resolve(__dirname, '../../dist')
+  },
 
   target: 'web',
   resolve: {
@@ -61,7 +63,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new TsconfigPathsPlugin()
+    // new TsconfigPathsPlugin()
   ],
   watchOptions: {
     ignored: [

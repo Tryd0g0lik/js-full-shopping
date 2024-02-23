@@ -8,6 +8,10 @@ interface Classes {
   classes?: string
 }
 
+export interface ID {
+  ind: string
+}
+
 /**
  * file: `src\frontend\src\components\site\interfaces.ts`
  *
@@ -45,6 +49,7 @@ export interface Head extends Classes {
  *
  * `import { Form } from './interfaces.ts';`
  *
+ * @prop `ind?`: `string`
  * @prop `classes?`: `string`. It inheritance from `interface Classes`.
  *  Is single a class name or multiple. Also is possible and without him.
  * @prop `placeholder?`: `string`. It is single a string value. Also is possible and without him. https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/placeholder
@@ -53,12 +58,16 @@ export interface Head extends Classes {
  * @prop `name?`: `string`
  * @prop `value?`: `string`
  * @prop `onChange?`: `ChangeEventHandler<HTMLInputElement>`
+ * @prop `context?`: `string`
  */
 export interface Forms extends Classes {
+  ind?: ID['ind']
   placeholder?: string
-  type?: string
+  types?: string
   size?: number
   name?: string
   value?: string
   onChange?: ChangeEventHandler<HTMLInputElement>
+  htmlfor?: string
+  context?: string
 }

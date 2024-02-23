@@ -1,11 +1,24 @@
 import React, { JSX } from 'react';
-import Banner from '@Img/banner.jpg'
-import SandalsMyer from '@Img/products/sandals_myer.jpg'
-import SandalsKeira from '@Img/products/sandals_keira.jpg'
-import SuperheroSneakers from '@Img/products/superhero_sneakers.jpg'
+import Banner from '@Img/banner.jpg';
+import SandalsMyer from '@Img/products/sandals_myer.jpg';
+import SandalsKeira from '@Img/products/sandals_keira.jpg';
+import SuperheroSneakers from '@Img/products/superhero_sneakers.jpg';
 
+/* Categories */
+import { Categories } from '@Root';
+import LiFC from '@Attribute/Li.tsx';
+import AncorFC from '@Attribute/Ancor';
 
-export function LMain(): JSX.Element {
+/* Positions */
+import { PositionFC } from '@Pages/Catalog/Positions/index.tsx';
+import { positionsArr } from './db.ts';
+import ImageFC from '@Attribute/Img.tsx';
+
+/* Forms */
+import ButtonFC from '@Attribute/Forms/Button.tsx';
+
+export function LMain({ categories }: Categories): JSX.Element {
+  const arr = Array.from(positionsArr);
   return (
     <main className="container">
       <div className="row">
@@ -20,9 +33,9 @@ export function LMain(): JSX.Element {
               <div className="col-4">
                 <div className="card">
                   <img src={SandalsMyer}
-                    className="card-img-top img-fluid" alt="Босоножки 'MYER'" />
+                    className="card-img-top img-fluid" alt="Босоножки MYER" />
                   <div className="card-body">
-                    <p className="card-text">Босоножки 'MYER'</p>
+                    <p className="card-text">Босоножки MYER</p>
                     <p className="card-text">34 000 руб.</p>
                     <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
                   </div>
@@ -31,9 +44,9 @@ export function LMain(): JSX.Element {
               <div className="col-4">
                 <div className="card">
                   <img src={SandalsKeira}
-                    className="card-img-top img-fluid" alt="Босоножки 'Keira'" />
+                    className="card-img-top img-fluid" alt="Босоножки Keira" />
                   <div className="card-body">
-                    <p className="card-text">Босоножки 'Keira'</p>
+                    <p className="card-text">Босоножки Keira</p>
                     <p className="card-text">7 600 руб.</p>
                     <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
                   </div>
@@ -55,29 +68,33 @@ export function LMain(): JSX.Element {
           <section className="catalog">
             <h2 className="text-center">Каталог</h2>
             <ul className="catalog-categories nav justify-content-center">
-              <li className="nav-item">
-                <a className="nav-link active" href="#">Все</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Женская обувь</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Мужская обувь</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Обувь унисекс</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Детская обувь</a>
-              </li>
+              {
+                Array.from(categories).map((obj) => (
+                  <>
+                    <LiFC key={String(obj.id)} classes='nav-item'>
+                      <AncorFC classes='nav-link' path='#' context={obj.title} />
+                    </LiFC>
+                  </>
+                ))
+              }
             </ul>
             <div className="row">
-              <div className="col-4">
+              {/* This is positions by a page 'Категории' */}
+              {
+                arr.map((obj) => (
+                  <>
+                    <PositionFC title={obj.title} price={String(obj.price)}>
+                      <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
+                    </PositionFC>
+                  </>
+                ))
+              }
+              {/* <div className="col-4">
                 <div className="card catalog-item-card">
                   <img src={SandalsMyer}
-                    className="card-img-top img-fluid" alt="Босоножки 'MYER'" />
+                    className="card-img-top img-fluid" alt="Босоножки MYER" />
                   <div className="card-body">
-                    <p className="card-text">Босоножки 'MYER'</p>
+                    <p className="card-text">Босоножки MYER</p>
                     <p className="card-text">34 000 руб.</p>
                     <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
                   </div>
@@ -86,9 +103,9 @@ export function LMain(): JSX.Element {
               <div className="col-4">
                 <div className="card catalog-item-card">
                   <img src={SandalsKeira}
-                    className="card-img-top img-fluid" alt="Босоножки 'Keira'" />
+                    className="card-img-top img-fluid" alt="Босоножки Keira" />
                   <div className="card-body">
-                    <p className="card-text">Босоножки 'Keira'</p>
+                    <p className="card-text">Босоножки Keira</p>
                     <p className="card-text">7 600 руб.</p>
                     <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
                   </div>
@@ -108,9 +125,9 @@ export function LMain(): JSX.Element {
               <div className="col-4">
                 <div className="card catalog-item-card">
                   <img src={SandalsMyer}
-                    className="card-img-top img-fluid" alt="Босоножки 'MYER'" />
+                    className="card-img-top img-fluid" alt="Босоножки MYER" />
                   <div className="card-body">
-                    <p className="card-text">Босоножки 'MYER'</p>
+                    <p className="card-text">Босоножки MYER</p>
                     <p className="card-text">34 000 руб.</p>
                     <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
                   </div>
@@ -119,9 +136,9 @@ export function LMain(): JSX.Element {
               <div className="col-4">
                 <div className="card catalog-item-card">
                   <img src={SandalsKeira}
-                    className="card-img-top img-fluid" alt="Босоножки 'Keira'" />
+                    className="card-img-top img-fluid" alt="Босоножки Keira" />
                   <div className="card-body">
-                    <p className="card-text">Босоножки 'Keira'</p>
+                    <p className="card-text">Босоножки Keira</p>
                     <p className="card-text">7 600 руб.</p>
                     <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
                   </div>
@@ -137,7 +154,7 @@ export function LMain(): JSX.Element {
                     <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="text-center">
               <button className="btn btn-outline-primary">Загрузить ещё</button>

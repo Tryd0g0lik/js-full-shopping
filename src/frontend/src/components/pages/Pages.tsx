@@ -1,9 +1,9 @@
 import React, { JSX } from 'react';
-import { Pages, PTitle } from '@Root';
+import { Pages } from '@Root';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HomepageFC } from './Home/index.tsx';
-/* below is a code from loader.html */
-import { LoaderpageFC } from './Loader/index.tsx';
+/* below is a code from loaded.html */
+import { LoadedpageFC } from './Loaded/index.tsx';
 /* below is a code from contacts.html */
 import { ContactspageFC } from './Contacts/index.tsx';
 /* below is a code from catalog.html */
@@ -32,8 +32,8 @@ export function PagesFC(): JSX.Element {
           <Route path={Pages.Catalog} element={<CatalogpageFC />} />
           { /* Contacts page is below */}
           <Route path={Pages.Contacts} element={<ContactspageFC />} />
-          { /* Loader page is below */}
-          <Route path={Pages.Loader} element={<LoaderpageFC />} />
+          { /* Loaded page is below */}
+          <Route path={Pages.Loaded} element={<LoadedpageFC />} />
           { /* Main page is below */}
           <Route path={Pages.Home} element={<HomepageFC />} />
           <Route path='*' element={<UnderfinedpageFC />} />
