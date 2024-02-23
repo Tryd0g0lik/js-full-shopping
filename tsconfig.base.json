@@ -6,12 +6,9 @@
     "rootDirs": [
       "./src/frontend"
     ],
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
     "allowJs": false,
     "sourceMap": true,
     "outDir": "./dist",
-  
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

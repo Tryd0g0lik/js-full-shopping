@@ -9,10 +9,12 @@ import ImageFC from '@Attribute/Img.tsx';
 import FormFC from '@Attribute/Forms/index.tsx';
 import InputsFC from '@Attribute/Forms/Imputs.tsx';
 
+/* Categories */
 import { Categories } from '@Root';
 import LiFC from '@Attribute/Li.tsx';
 import AncorFC from '@Attribute/Ancor';
 
+/* Positions */
 import { PositionFC } from '../Positions/index.tsx';
 import { positionsArr } from './db.ts';
 /**
@@ -28,6 +30,7 @@ import { positionsArr } from './db.ts';
  * @returns html
  */
 export function DMainFC({ categories }: Categories): JSX.Element {
+  const arr = Array.from(positionsArr);
   return (
     <>
       <main className="container">
@@ -61,7 +64,7 @@ export function DMainFC({ categories }: Categories): JSX.Element {
               <div className="row">
                 {/* This is positions by a page 'Категории' */}
                 {
-                  positionsArr.map((obj) => (
+                  arr.map((obj) => (
                     <>
                       <PositionFC title={obj.title} price={String(obj.price)}>
                         <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />

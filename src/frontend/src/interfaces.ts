@@ -7,7 +7,7 @@
  */
 export enum Pages {
   'Home' = '/',
-  'Loader' = '/loaded',
+  'Loaded' = '/loaded',
   'Contacts' = '/contacts',
   'Catalog' = '/catalog',
   'Cart' = '/cart',

@@ -6,17 +6,6 @@ module.exports = {
     "commonjs": true,
     "es6": true
   },
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "react",
-    "eslint-plugin-react",
-    "@typescript-eslint",
-    "@stylistic",
-    "@stylistic/js",
-    "@stylistic/eslint-plugin-ts",
-    "@stylistic/jsx",
-    "@stylistic/eslint-plugin-plus"
-  ],
   "extends": [
 
     "eslint:recommended", // https://typescript-eslint.io/linting/configs#eslint-recommended plugins::eslint-plugin-react
@@ -30,9 +19,9 @@ module.exports = {
     "plugin:@typescript-eslint/strict", // https://typescript-eslint.io/linting/configs#strict
     "plugin:@typescript-eslint/strict-type-checked", // https://typescript-eslint.io/linting/configs/#strict-type-checked
   ],
-
+  "parser": "@typescript-eslint/parser",
   "parserOptions": { // Configure parserOptions to enable support for other ECMAScript versions as well as JSX. https://typescript-eslint.io/linting/typed-linting/monorepos#one-tsconfigjson-per-package-and-an-optional-one-in-the-root
-
+    "project": ["./tsconfig.base.json"],
     "ecmaVersion": "ES2021",
     "sourceType": "module",
     "tsconfigRootDir": __dirname,
@@ -43,6 +32,16 @@ module.exports = {
       "tsx": true
     }
   },
+  "plugins": [
+    "react",
+    "eslint-plugin-react",
+    "@typescript-eslint",
+    "@stylistic",
+    "@stylistic/js",
+    "@stylistic/eslint-plugin-ts",
+    "@stylistic/jsx",
+    "@stylistic/eslint-plugin-plus"
+  ],
   "rules": {
     "quotes": "off",
     "import/extensions": [ // укзываем расширение файлов?
@@ -80,19 +79,14 @@ module.exports = {
     }],
     "import/no-extraneous-dependencies": "off" // импорт внешних модулей
   },
-  "overrides": [
-    {
-      "exclude": [
-        "node_modules",
-        "**/node_modules",
-        "**/dist",
-        "./tsconfig.json"
-      ]
-    },
-    // {
-    //   "files": [
-    //     "src/index.tsx",
-    //   ]
-    // }
+  "ignorePatterns": [
+    "./*.config.js",
+    "./*.dev.js",
+    "./**/*.config.js",
+    "./**/*.dev.js",
+    "./custom.d.ts",
+    "./*.js",
+    "./dist/*.js",
+    "./dist/**/*.js"
   ]
 }

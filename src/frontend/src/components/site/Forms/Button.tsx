@@ -1,7 +1,16 @@
-import React, { JSX } from 'react';
+// src\frontend\src\components\site\Forms\Button.tsx
+import React from 'react';
 import { Forms } from '@Attribute/interfaces.ts';
 
-export default function ButtonFC({ classes = '', context }: Forms): JSX.Element {
+/**
+ * `src\frontend\src\components\site\Forms\Button.tsx`
+ *
+ * `import ButtonFC from '@Attribute/Forms/Button.tsx';`
+ *
+ * @param param0
+ * @returns
+ */
+export default function ButtonFC({ classes = '', context }: Forms): React.JSX.Element {
   return (
     <button type='submit' className={classes}>{context}</button>
   );
