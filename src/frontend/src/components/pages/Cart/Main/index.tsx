@@ -1,4 +1,5 @@
 // src\frontend\src\components\pages\Cart\Main\index.tsx
+
 import React, { JSX, Fragment } from 'react';
 import Banner from '@Img/banner.jpg';
 import HeadFC from '@Attribute/Headers.tsx';

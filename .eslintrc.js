@@ -1,3 +1,4 @@
+//Rules v2: https://github.com/typescript-eslint/typescript-eslint/tree/v2.20.0/packages/eslint-plugin#supported-rules
 module.exports = {
   "root": true,
   "env": {
@@ -31,7 +32,7 @@ module.exports = {
   ],
 
   "parserOptions": { // Configure parserOptions to enable support for other ECMAScript versions as well as JSX. https://typescript-eslint.io/linting/typed-linting/monorepos#one-tsconfigjson-per-package-and-an-optional-one-in-the-root
-    "project": ["./tsconfig.json"],
+
     "ecmaVersion": "ES2021",
     "sourceType": "module",
     "tsconfigRootDir": __dirname,
@@ -52,6 +53,7 @@ module.exports = {
         "tsx": "always"
       }
     ],
+    "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/consistent-type-imports": "off", // ключевое слово при импорте
     "@typescript-eslint/no-unnecessary-condition": "off", // if else for, while, &&, || and ?:
     "no-unused-vars": "off",
@@ -79,13 +81,14 @@ module.exports = {
     "import/no-extraneous-dependencies": "off" // импорт внешних модулей
   },
   "overrides": [
-    // {
-    //   "exclude": [
-    //     "node_modules",
-    //     "**/node_modules",
-    //     "**/dist"
-    //   ]
-    // },
+    {
+      "exclude": [
+        "node_modules",
+        "**/node_modules",
+        "**/dist",
+        "./tsconfig.json"
+      ]
+    },
     // {
     //   "files": [
     //     "src/index.tsx",

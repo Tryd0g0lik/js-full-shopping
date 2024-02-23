@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "package.json": "^2.0.1",
+    "backend": "^1.0.0",
+    "forever": "^0.14.2",
+    "frontend": "^0.1.0",
+    "package.json": "^0.0.0",
+    "react-scripts": "^5.0.1",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "workspace": "^0.0.1-preview.1"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^1.5.1",
@@ -36,25 +41,27 @@
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",
-    "webpack-merge": "^5.10.0",
-    "yarn": "^1.22.21"
+    "webpack-merge": "^5.10.0"
   },
   "engines": {
-    "node": ">=18",
-    "yarn": ">=1.22.21"
+    "node": ">=18"
   },
   "workspaces": [
-    "./src/frontend",
-    "./src/backend"
+    "src/frontend",
+    "src/backend"
   ],
   "scripts": {
     "lint": "eslint . ",
-    "server": "webpack server --mode=development",
+    "server:front": "webpack server --mode=development",
     "build:dev": "webpack --mode=development --config ./webpack.config.js",
-    "build": "webpack --mode=production --config ./webpack.config.js",
-    "start": "yarn workspace crud-backend build:dev && yarn workspace crud-backend start",
+    "build": "npm run build --workspace=frontend",
+    "watch": "npm --workspace=backend run watch",
     "build:render": "yarn workspace crud-backend run build:render",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "./src/index.ts",
+  "author": "",
+  "license": "ISC"
 }
