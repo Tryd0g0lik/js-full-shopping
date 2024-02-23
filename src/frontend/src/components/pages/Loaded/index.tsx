@@ -36,7 +36,6 @@ export function LoadedFC({ children }: Child): JSX.Element {
 }
 
 export function LoadedpageFC(): JSX.Element {
-
   return (
     <LoadedFC>
       <Fragment>

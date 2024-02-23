@@ -7,8 +7,9 @@ import { Forms } from '@Attribute/interfaces.ts';
  *
  * `import ButtonFC from '@Attribute/Forms/Button.tsx';`
  *
- * @param param0
- * @returns
+ * @param `classes`: `string`
+ * @param `context`: `string`
+ * @returns ` <button type='submit' className={classes}>{context}</button>`
  */
 export default function ButtonFC({ classes = '', context }: Forms): React.JSX.Element {
   return (
