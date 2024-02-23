@@ -13,10 +13,13 @@ import InputsFC from '@Attribute/Forms/Imputs.tsx';
 import { Categories } from '@Root';
 import LiFC from '@Attribute/Li.tsx';
 import AncorFC from '@Attribute/Ancor';
+import ButtonFC from '@Attribute/Forms/Button.tsx';
 
 /* Positions */
 import { PositionFC } from '../Positions/index.tsx';
+
 import { positionsArr } from './db.ts';
+
 /**
  * src\frontend\src\components\pages\Catalog\Main\index.tsx
  *
@@ -30,7 +33,7 @@ import { positionsArr } from './db.ts';
  * @returns html
  */
 export function DMainFC({ categories }: Categories): JSX.Element {
-  const arr = Array.from(positionsArr);
+  const arr = positionsArr;
   return (
     <>
       <main className="container">
@@ -64,9 +67,9 @@ export function DMainFC({ categories }: Categories): JSX.Element {
               <div className="row">
                 {/* This is positions by a page 'Категории' */}
                 {
-                  arr.map((obj) => (
+                  Array.from(arr).map((obj) => (
                     <>
-                      <PositionFC title={obj.title} price={String(obj.price)}>
+                      <PositionFC title={obj.title} price={obj.price}>
                         <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
                       </PositionFC>
                     </>
@@ -74,7 +77,7 @@ export function DMainFC({ categories }: Categories): JSX.Element {
                 }
               </div>
               <div className="text-center">
-                <button className="btn btn-outline-primary">Загрузить ещё</button>
+                <ButtonFC classes="btn btn-outline-primary" context="Загрузить ещё" />
               </div>
             </section>
           </div>

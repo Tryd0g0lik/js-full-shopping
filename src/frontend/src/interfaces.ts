@@ -81,13 +81,37 @@ export interface Categories {
  *
  * `import { Position } from '@Root';`
  *
- * @prop `title`: `string`. It is a name position
- * @prop `price?`: `string` Default values is '0'. This is the main price.
- * @prop `children?: JSX.Element`
+ * @prop `id?`: `number`
+ * @prop `category?`: `number`
+ * @prop `title?`: `string`
+ * @prop `images?`: `string[]`
+ * @prop `sku?`: `string`
+ * @prop `manufacturer?`: `string`
+ * @prop `color?`: `string`
+ * @prop `material?`: `string`
+ * @prop `reason?`: `string`
+ * @prop `season?`: `string`
+ * @prop `heelSize?`: `string`
+ * @prop `price?`: `number`
+ * @prop `oldPrice?`: `number`
+ * @prop `sizes?`: `[Record<string, boolean>]`
+ * @prop `children?`: React.JSX.Elements
  */
 export interface Position extends Child {
-  title: string
-  price?: string
+  id?: number
+  category?: number
+  title?: string
+  images?: string[]
+  sku?: string
+  manufacturer?: string
+  color?: string
+  material?: string
+  reason?: string
+  season?: string
+  heelSize?: string
+  price?: number
+  oldPrice?: number
+  sizes?: [Record<string, boolean>]
 }
 
 /**

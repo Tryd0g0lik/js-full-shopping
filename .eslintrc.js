@@ -77,7 +77,9 @@ module.exports = {
       "functions": "never"
 
     }],
-    "import/no-extraneous-dependencies": "off" // импорт внешних модулей
+    "import/no-extraneous-dependencies": "off", // импорт внешних модулей
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off"
   },
   "ignorePatterns": [
     "./*.config.js",
