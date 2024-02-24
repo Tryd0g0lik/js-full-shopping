@@ -1,9 +1,16 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
-import React, { JSX } from 'react';
+import React, { JSX, useId } from 'react';
 import headerLogo from '@Img/header-logo.png';
-
+import LiFC from '@Attribute/Li.tsx';
+import AncorFC from '@Attribute/Ancor.tsx';
 export function HeaderFC(): JSX.Element {
+  const topMenu = [
+    { Главная: '/' },
+    { Каталог: '/сatalog' },
+    { 'О магазине': '/about' },
+    { Контакты: '/contacts' }
+  ];
   return (
     <header className="container">
       <div className="row">
@@ -14,6 +21,16 @@ export function HeaderFC(): JSX.Element {
             </a>
             <div className="collapse navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
+                {/* active */}
+                {/* {
+                  Array.from(Object.keys(topMenu)).map((str) => (
+                    <>
+                      <LiFC key={useId()} classes='nav-item'>
+                        <AncorFC classes='nav-link' path={topMenu[str]} context={str} />
+                      </LiFC>
+                    </>
+                  ))
+                } */}
                 <li className="nav-item active">
                   <a className="nav-link" href="/">Главная</a>
                 </li>
