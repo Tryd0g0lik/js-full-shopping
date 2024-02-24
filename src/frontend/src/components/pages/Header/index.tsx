@@ -4,13 +4,31 @@ import React, { JSX, useId } from 'react';
 import headerLogo from '@Img/header-logo.png';
 import LiFC from '@Attribute/Li.tsx';
 import AncorFC from '@Attribute/Ancor.tsx';
+import { Pages } from '@Root';
+const topMenuArr = [
+  {
+    id: 1,
+    title: 'Главная',
+    path: Pages.Home
+  },
+  {
+    id: 2,
+    title: 'Каталог',
+    path: Pages.Catalog
+  },
+  {
+    id: 3,
+    title: 'О магазине',
+    path: Pages.About
+  },
+  {
+    id: 4,
+    title: 'Контакты',
+    path: Pages.Contacts
+  }
+];
+
 export function HeaderFC(): JSX.Element {
-  const topMenu = [
-    { Главная: '/' },
-    { Каталог: '/сatalog' },
-    { 'О магазине': '/about' },
-    { Контакты: '/contacts' }
-  ];
   return (
     <header className="container">
       <div className="row">
@@ -22,27 +40,16 @@ export function HeaderFC(): JSX.Element {
             <div className="collapse navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
                 {/* active */}
-                {/* {
-                  Array.from(Object.keys(topMenu)).map((str) => (
+                {/* The top mennu of `<head>...</head>` */}
+                {
+                  Array.from(topMenuArr).map((obj) => (
                     <>
                       <LiFC key={useId()} classes='nav-item'>
-                        <AncorFC classes='nav-link' path={topMenu[str]} context={str} />
+                        <AncorFC classes='nav-link' path={obj.path} context={obj.title} />
                       </LiFC>
                     </>
                   ))
-                } */}
-                <li className="nav-item active">
-                  <a className="nav-link" href="/">Главная</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/catalog">Каталог</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/about">О магазине</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/contacts">Контакты</a>
-                </li>
+                }
               </ul>
               <div>
                 <div className="header-controls-pics">
