@@ -4,6 +4,18 @@
  * file: `src\frontend\src\interfaces.ts`
  *
  * `import { Pages} from '@Root';`
+ *
+ * @returns ```txt
+ * {
+ * 'Home' = '/',
+  'Loaded' = '/loaded',
+  'Contacts' = '/contacts',
+  'Catalog' = '/catalog',
+  'Cart' = '/cart',
+  'About' = '/about',
+  'Undefin' = '/404'
+ }
+  ```
  */
 export enum Pages {
   'Home' = '/',
