@@ -43,11 +43,11 @@ export function HeaderFC(): JSX.Element {
                 {/* The top mennu of `<head>...</head>` */}
                 {
                   Array.from(topMenuArr).map((obj) => (
-                    <>
-                      <LiFC key={obj.id} classes='nav-item'>
-                        <AncorFC classes='nav-link' path={obj.path} context={obj.title} />
-                      </LiFC>
-                    </>
+
+                    <LiFC key={obj.id} classes='nav-item'>
+                      <AncorFC classes='nav-link' path={obj.path} context={obj.title} />
+                    </LiFC>
+
                   ))
                 }
               </ul>

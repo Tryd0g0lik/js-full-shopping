@@ -68,6 +68,7 @@ module.exports = {
         }
       }
     ],
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": ["error", { // конечная запятая
       "arrays": "never",

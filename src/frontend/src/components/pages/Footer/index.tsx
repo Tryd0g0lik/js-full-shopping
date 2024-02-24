@@ -43,11 +43,9 @@ export function FooterFC(): JSX.Element {
               { /* Here is a menu of footer */}
               {
                 Array.from(footerMenuArr).map((obj) => (
-                  <>
-                    <LiFC key={useId()} classes='nav-item'>
-                      <AncorFC path={obj.path} context={obj.title} classes='nav-link' />
-                    </LiFC>
-                  </>
+                  <LiFC key={useId() + obj.path} classes='nav-item'>
+                    <AncorFC path={obj.path} context={obj.title} classes='nav-link' />
+                  </LiFC>
                 ))
               }
             </ul>
@@ -60,9 +58,7 @@ export function FooterFC(): JSX.Element {
             <div className="footer-pay">
               {
                 Array.from(classFooterBank).map((str) => (
-                  <>
-                    <DivFC key={useId()} classes={str} />
-                  </>
+                  <DivFC key={useId()} classes={str} />
                 ))
               }
             </div>

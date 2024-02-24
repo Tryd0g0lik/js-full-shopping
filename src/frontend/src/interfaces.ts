@@ -129,6 +129,38 @@ export interface Position extends Child {
 }
 
 /**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * `import { PromiseArr } from '@Root';`
+ *
+ * @returns `{
+ * id: number
+ * category: number
+ * title: string
+ * price: number
+ * images: string[]
+ * }`
+ */
+export interface PromiseOne {
+  id: number
+  category: number
+  title: string
+  price: number
+  images: string[]
+}
+
+/**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * `import { PromiseArr } from '@Root';`
+ *
+ * @returns `{promise: PromiseOne[]}`
+ */
+export interface PromiseArr {
+  promise: PromiseOne[]
+}
+
+/**
  * file: `src\frontend\src\interfaces.ts`
  *
  * import { Td } from '@Root';
@@ -156,4 +188,35 @@ export interface TableRow extends MultiProps {
 
 export interface Heads {
   headers: string[][]
+}
+
+/**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * @returns `type Str = string;`
+ */
+export type Str = string;
+
+/**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * @returns `type Val = string | number`
+ */
+export type Val = string | number;
+
+/**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * `import { Product } from '@Root';`
+ *
+ * ```
+ * ind?: number
+ * offset?: number
+ * q?: string
+  ```
+ */
+export interface Product {
+  ind?: number
+  offset?: number
+  q?: string
 }

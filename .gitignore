@@ -31,5 +31,5 @@ build
 dist
 design
 
-.env
-
+**/.env
+**/relevants.ts
