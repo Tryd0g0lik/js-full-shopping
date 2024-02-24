@@ -57,6 +57,8 @@ export interface Child {
  * Extends the interface `Child`
  *
  * @prop `classes?`: `string` It is single a class name or multiple. Also is possible and without him.
+ * @prop `handler?`: `() => void` Here is a handler for events.
+ * @prop `children?`: `() => React.JSX.Element` Is a child element JSX.
  */
 export interface MultiProps extends Child {
   classes?: string

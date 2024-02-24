@@ -1,4 +1,36 @@
-import React, { JSX } from 'react';
+import React, { JSX, Fragment, useId } from 'react';
+import LiFC from '@Attribute/Li.tsx';
+import AncorFC from '@Attribute/Ancor.tsx';
+import { Pages } from '@Root';
+import HeadFC from '@Attribute/Headers.tsx';
+import { HeaderFC } from '@Pages/Header/index.tsx';
+import DivFC from '@Attribute/Div.tsx';
+
+const footerMenuArr = [
+  {
+    id: 2,
+    title: 'Каталог',
+    path: Pages.Catalog
+  },
+  {
+    id: 3,
+    title: 'О магазине',
+    path: Pages.About
+  },
+  {
+    id: 4,
+    title: 'Контакты',
+    path: Pages.Contacts
+  }
+];
+const classFooterBank = [
+  'footer-pay-systems footer-pay-systems-paypal',
+  'footer-pay-systems footer-pay-systems-master-card',
+  'footer-pay-systems footer-pay-systems-visa',
+  'footer-pay-systems footer-pay-systems-yandex',
+  'footer-pay-systems footer-pay-systems-webmoney',
+  'footer-pay-systems footer-pay-systems-qiwi'
+];
 
 export function FooterFC(): JSX.Element {
   return (
@@ -6,24 +38,33 @@ export function FooterFC(): JSX.Element {
       <div className="row">
         <div className="col">
           <section>
-            <h5>Информация</h5>
+            <HeadFC number={5} title='Информация' />
             <ul className="nav flex-column">
-              <li className="nav-item"><a href="/about.html" className="nav-link">О магазине</a></li>
-              <li className="nav-item"><a href="/catalog.html" className="nav-link">Каталог</a></li>
-              <li className="nav-item"><a href="/contacts.html" className="nav-link">Контакты</a></li>
+              { /* Here is a menu of footer */}
+              {
+                Array.from(footerMenuArr).map((obj) => (
+                  <>
+                    <LiFC key={useId()} classes='nav-item'>
+                      <AncorFC path={obj.path} context={obj.title} classes='nav-link' />
+                    </LiFC>
+                  </>
+                ))
+              }
             </ul>
           </section>
         </div>
         <div className="col">
           <section>
-            <h5>Принимаем к оплате:</h5>
+            <HeadFC number={5} title='Принимаем к оплате:' />
+            {/** Here is a place for Visa cards of bank  */}
             <div className="footer-pay">
-              <div className="footer-pay-systems footer-pay-systems-paypal"></div>
-              <div className="footer-pay-systems footer-pay-systems-master-card"></div>
-              <div className="footer-pay-systems footer-pay-systems-visa"></div>
-              <div className="footer-pay-systems footer-pay-systems-yandex"></div>
-              <div className="footer-pay-systems footer-pay-systems-webmoney"></div>
-              <div className="footer-pay-systems footer-pay-systems-qiwi"></div>
+              {
+                Array.from(classFooterBank).map((str) => (
+                  <>
+                    <DivFC key={useId()} classes={str} />
+                  </>
+                ))
+              }
             </div>
           </section>
           <section>
@@ -34,14 +75,16 @@ export function FooterFC(): JSX.Element {
         </div>
         <div className="col text-right">
           <section className="footer-contacts">
-            <h5>Контакты:</h5>
-            <a className="footer-contacts-phone" href="tel:+7-495-790-35-03">+7 495 79 03 5 03</a>
+            <HeadFC number={5} title='Контакты:' />
+            <AncorFC classes='footer-contacts-phone' path='tel:+7-495-790-35-03' context='+7 495 79 03 5 03' />
             <span className="footer-contacts-working-hours">Ежедневно: с 09-00 до 21-00</span>
-            <a className="footer-contacts-email" href="mailto:office@bosanoga.ru">office@bosanoga.ru</a>
-            <div className="footer-social-links">
-              <div className="footer-social-link footer-social-link-twitter"></div>
-              <div className="footer-social-link footer-social-link-vk"></div>
-            </div>
+            <AncorFC classes='footer-contacts-email' path='mailto:office@bosanoga.ru' context='office@bosanoga.ru' />
+            <DivFC classes='footer-social-links'>
+              <Fragment>
+                <DivFC classes='footer-social-link footer-social-link-twitter' />
+                <DivFC classes='footer-social-link footer-social-link-vk' />
+              </Fragment>
+            </DivFC>
           </section>
         </div>
       </div>

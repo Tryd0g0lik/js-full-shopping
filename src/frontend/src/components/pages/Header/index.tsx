@@ -1,6 +1,6 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
-import React, { JSX, useId } from 'react';
+import React, { JSX } from 'react';
 import headerLogo from '@Img/header-logo.png';
 import LiFC from '@Attribute/Li.tsx';
 import AncorFC from '@Attribute/Ancor.tsx';
@@ -44,7 +44,7 @@ export function HeaderFC(): JSX.Element {
                 {
                   Array.from(topMenuArr).map((obj) => (
                     <>
-                      <LiFC key={useId()} classes='nav-item'>
+                      <LiFC key={obj.id} classes='nav-item'>
                         <AncorFC classes='nav-link' path={obj.path} context={obj.title} />
                       </LiFC>
                     </>
