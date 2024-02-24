@@ -49,7 +49,7 @@ const app = new Koa();
 app.use(logger());
 app.use(cors());
 const server = http.createServer(app.callback());
-const port = process.env.PORT || 7070;
+const port = process.env.PORT || 7070; 
 
 app.use(koaBody({
     json: true
@@ -119,9 +119,7 @@ router.post('/api/order', async (ctx, next) => {
 
     return fortune(ctx, null, 204);
 });
-app.on('error', err => {
-  log.error('[server ERROR]: ', err)
-});
+
 app.use(router.routes())
 app.use(router.allowedMethods());
 

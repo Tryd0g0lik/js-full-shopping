@@ -31,4 +31,5 @@ build
 dist
 design
 
+.env
 
