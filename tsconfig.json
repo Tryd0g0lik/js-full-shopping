@@ -26,7 +26,10 @@
         "src/frontend/src/interfaces.ts",
       ],
       "@img/*": [
-        "src/frontend/src/img/*"
+        "src/frontend/src/img/*",
+      ],
+      "@svgs/*": [
+        "src/frontend/src/svgs/*",
       ],
       "@pages/*": [
         "./src/frontend/src/components/pages/*"

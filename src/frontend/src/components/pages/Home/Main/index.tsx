@@ -5,16 +5,18 @@ import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
 import ImageFC from '@site/Img.tsx';
 import ImLoader from '@site/ImgLoader.tsx';
+import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
 import { Position } from '@type';
+
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 const server = new SFetch(url);
 /**
- * `import { MainFC } from './Main/index.tsx';`
+ * `import { UseMainFC } from './Main/index.tsx';`
  */
-export function useMainFC(): JSX.Element {
+export function UseMainFC(): JSX.Element {
   const [positions, usePositions] = useState<undefined | Position[]>();
   useEffect(() => {
   /* create a request to the server */
@@ -36,11 +38,14 @@ export function useMainFC(): JSX.Element {
             {
               (positions !== undefined)
                 ? (
-                  Array.from(positions).map((obj) => (
-                    <>
-                      {obj.price}
-                    </>
-                  ))
+                  <div className="row">
+                    {Array.from(positions).map((obj) => (
+                      <PositionFC key={obj.id} title={obj.title} price={obj.price} >
+                        <ImageFC path={(obj.images as string[])[0]} classes='card-img-top img-fluid' context={obj.title} />
+                      </PositionFC>
+                    ))
+                    }
+                  </div>
                 )
                 : < ImLoader />
             }

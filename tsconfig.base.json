@@ -22,6 +22,9 @@
       "@type": [
         "src/frontend/src/interfaces.ts",
       ],
+        "@svgs/*": [
+          "src/frontend/src/svgs/*"
+        ],
       "@img/*": [
         "src/frontend/src/img/*"
       ],

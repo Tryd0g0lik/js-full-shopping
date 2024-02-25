@@ -16,7 +16,7 @@ import AncorFC from '@site/Ancor';
 import ButtonFC from '@site/Forms/Button.tsx';
 
 /* Positions */
-import { PositionFC } from '../Positions/index.tsx';
+import { PositionFC } from '../../../site/Positions/index.tsx';
 
 import { positionsArr } from './db.ts';
 

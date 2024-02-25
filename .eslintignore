@@ -15,5 +15,5 @@ src/index.ts
 archive
 .cache
 **/backend
-
+**/svgs
 

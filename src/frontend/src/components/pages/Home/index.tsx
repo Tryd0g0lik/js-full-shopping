@@ -3,7 +3,7 @@ import { Child } from '../../../interfaces.ts';
 
 import { HeaderFC } from '@pages/Header/index.tsx';
 import { FooterFC } from '@pages/Footer/index.tsx';
-import { useMainFC } from './Main/index.tsx';
+import { UseMainFC } from './Main/index.tsx';
 
 export function HomeFC({ children }: Child): JSX.Element {
   return (
@@ -18,7 +18,7 @@ export function HomepageFC(): JSX.Element {
     <HomeFC>
       <Fragment>
         <HeaderFC />
-				<useMainFC />
+        <UseMainFC />
         <FooterFC />
       </Fragment>
     </HomeFC>

@@ -10,7 +10,7 @@ import LiFC from '@site/Li.tsx';
 import AncorFC from '@site/Ancor';
 
 /* Positions */
-import { PositionFC } from '@pages/Catalog/Positions/index.tsx';
+import { PositionFC } from '@site/Positions/index.tsx';
 import { positionsArr } from './db.ts';
 import ImageFC from '@site/Img.tsx';
 
