@@ -3,7 +3,7 @@
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { Pages} from '@Root';`
+ * `import { Pages} from '@type';`
  *
  * @returns ```txt
  * {
@@ -30,7 +30,7 @@ export enum Pages {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { PTitle } from '@Root';`
+ * `import { PTitle } from '@type';`
  *
   */
 export enum PTitle {
@@ -43,7 +43,7 @@ export enum PTitle {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * import { Child } from '@Root';
+ * import { Child } from '@type';
  */
 export interface Child {
   children?: JSX.Element
@@ -52,7 +52,7 @@ export interface Child {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { MultiProps } from '@Root'`;
+ * `import { MultiProps } from '@type'`;
  *
  * Extends the interface `Child`
  *
@@ -79,7 +79,7 @@ interface Category {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { Categories } from '@Root';`
+ * `import { Categories } from '@type';`
  *
  * @prop `id`: `string`.
  * @prop `title`:`string`.
@@ -93,7 +93,7 @@ export interface Categories {
  *
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { Position } from '@Root';`
+ * `import { Position } from '@type';`
  *
  * @prop `id?`: `number`
  * @prop `category?`: `number`
@@ -131,7 +131,7 @@ export interface Position extends Child {
 /**
  * `src\frontend\src\interfaces.ts`
  *
- * `import { PromiseArr } from '@Root';`
+ * `import { PromiseArr } from '@type';`
  *
  * @returns `{
  * id: number
@@ -152,7 +152,7 @@ export interface PromiseOne {
 /**
  * `src\frontend\src\interfaces.ts`
  *
- * `import { PromiseArr } from '@Root';`
+ * `import { PromiseArr } from '@type';`
  *
  * @returns `{promise: PromiseOne[]}`
  */
@@ -163,7 +163,7 @@ export interface PromiseArr {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * import { Td } from '@Root';
+ * import { Td } from '@type';
  *
  * @prop `children?: JSX.Element`
  * ```
@@ -207,7 +207,7 @@ export type Val = string | number;
 /**
  * `src\frontend\src\interfaces.ts`
  *
- * `import { Product } from '@Root';`
+ * `import { Product } from '@type';`
  *
  * ```
  * ind?: number

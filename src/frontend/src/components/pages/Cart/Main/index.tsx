@@ -1,18 +1,18 @@
 // src\frontend\src\components\pages\Cart\Main\index.tsx
 
 import React, { JSX, Fragment } from 'react';
-import Banner from '@Img/banner.jpg';
-import HeadFC from '@Attribute/Headers.tsx';
-import BannerFC from '@Attribute/Baners.tsx';
-import ImageFC from '@Attribute/Img.tsx';
+import Banner from '@img/banner.jpg';
+import HeadFC from '@site/Headers.tsx';
+import BannerFC from '@site/Baners.tsx';
+import ImageFC from '@site/Img.tsx';
 
 /* Teble */
-import TableFc from '@Attribute/table/index.tsx';
+import TableFc from '@site/table/index.tsx';
 /* Levels from a form */
-import FormFC from '@Attribute/Forms/index.tsx';
-import InputsFC from '@Attribute/Forms/Imputs.tsx';
-import LabelFC from '@Attribute/Forms/Lebel.tsx';
-import ButtonFC from '@Attribute/Forms/Button.tsx';
+import FormFC from '@site/Forms/index.tsx';
+import InputsFC from '@site/Forms/Imputs.tsx';
+import LabelFC from '@site/Forms/Lebel.tsx';
+import ButtonFC from '@site/Forms/Button.tsx';
 // import
 
 /**

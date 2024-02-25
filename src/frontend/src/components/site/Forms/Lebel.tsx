@@ -1,12 +1,12 @@
 // src\frontend\src\components\site\Forms\Lebel.tsx
 
-import { Forms } from '@Attribute/interfaces.ts';
+import { Forms } from '@site/interfaces.ts';
 import React, { JSX } from 'react';
 
 /**
  * `src\frontend\src\components\site\Forms\Lebel.tsx`
  *
- * `import LabelFC from '@Attribute/Forms/Lebel.tsx';`
+ * `import LabelFC from '@site/Forms/Lebel.tsx';`
  *
  * @param `classes?`: `string`
  * @param `htmlFor`:`string`

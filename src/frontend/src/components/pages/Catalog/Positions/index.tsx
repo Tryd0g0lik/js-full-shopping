@@ -1,6 +1,6 @@
 import React, { Children, JSX } from 'react';
-import { Position } from '@Root';
-import AncorFC from '@Attribute/Ancor.tsx';
+import { Position } from '@type';
+import AncorFC from '@site/Ancor.tsx';
 
 /**
  * file `src\frontend\src\components\pages\Catalog\Positions\index.tsx`

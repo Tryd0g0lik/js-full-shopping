@@ -1,12 +1,12 @@
 // src\frontend\src\components\site\Div.tsx
 
 import React, { JSX } from 'react';
-import { MultiProps } from '@Root';
+import { MultiProps } from '@type';
 
 /**
  * `src\frontend\src\components\site\Div.tsx`
  *
- * `import DivFC from '@Attribute/Div.tsx';`
+ * `import DivFC from '@site/Div.tsx';`
  *
  * This's `<div>|</div>`
  *

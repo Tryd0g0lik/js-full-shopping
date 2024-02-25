@@ -22,17 +22,20 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@Root": [
+      "@type": [
         "src/frontend/src/interfaces.ts",
       ],
-      "@Img/*": [
+      "@img/*": [
         "src/frontend/src/img/*"
       ],
-      "@Pages/*": [
+      "@pages/*": [
         "./src/frontend/src/components/pages/*"
       ],
-      "@Attribute/*": [
+      "@site/*": [
         "./src/frontend/src/components/site/*"
+      ],
+      "@service/*": [
+        "./src/frontend/src/services/*"
       ]
     }
   },

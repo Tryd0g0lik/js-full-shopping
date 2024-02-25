@@ -18,10 +18,11 @@ module.exports = {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
     modules: [path.resolve(__dirname, "./.browserslistrc"), "node_modules"],
     alias: {
-      '@Img': path.resolve(__dirname, 'src/img'),
-      '@Root': path.resolve(__dirname, 'src/interfaces.ts'),
-      '@Pages': path.resolve(__dirname, 'src/components/pages'),
-      '@Attribute': path.resolve(__dirname, 'src/components/site')
+			'@img': path.resolve(__dirname, 'src/img'),
+			'@type': path.resolve(__dirname, 'src/interfaces.ts'),
+			'@pages': path.resolve(__dirname, 'src/components/pages'),
+			'@site': path.resolve(__dirname, 'src/components/site'),
+			'@service': path.resolve(__dirname, 'src/services')
     }
   },
   module: {

@@ -1,10 +1,10 @@
 import React, { JSX, Fragment, useId } from 'react';
-import LiFC from '@Attribute/Li.tsx';
-import AncorFC from '@Attribute/Ancor.tsx';
-import { Pages } from '@Root';
-import HeadFC from '@Attribute/Headers.tsx';
-import { HeaderFC } from '@Pages/Header/index.tsx';
-import DivFC from '@Attribute/Div.tsx';
+import LiFC from '@site/Li.tsx';
+import AncorFC from '@site/Ancor.tsx';
+import { Pages } from '@type';
+import HeadFC from '@site/Headers.tsx';
+import { HeaderFC } from '@pages/Header/index.tsx';
+import DivFC from '@site/Div.tsx';
 
 const footerMenuArr = [
   {

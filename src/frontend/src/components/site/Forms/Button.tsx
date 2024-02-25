@@ -1,11 +1,11 @@
 // src\frontend\src\components\site\Forms\Button.tsx
 import React from 'react';
-import { Forms } from '@Attribute/interfaces.ts';
+import { Forms } from '@site/interfaces.ts';
 
 /**
  * `src\frontend\src\components\site\Forms\Button.tsx`
  *
- * `import ButtonFC from '@Attribute/Forms/Button.tsx';`
+ * `import ButtonFC from '@site/Forms/Button.tsx';`
  *
  * @param `classes`: `string`
  * @param `context`: `string`

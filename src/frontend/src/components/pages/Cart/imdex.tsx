@@ -1,10 +1,10 @@
 // src\frontend\src\components\pages\Cart\imdex.tsx
 
 import React, { JSX, Fragment } from 'react';
-import { Child } from '@Root';
+import { Child } from '@type';
 
-import { HeaderFC } from '@Pages/Header/index.tsx';
-import { FooterFC } from '@Pages/Footer/index.tsx';
+import { HeaderFC } from '@pages/Header/index.tsx';
+import { FooterFC } from '@pages/Footer/index.tsx';
 import { CMFC } from './Main/index.tsx';
 
 export function CartFC({ children }: Child): JSX.Element {

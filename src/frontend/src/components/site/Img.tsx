@@ -5,7 +5,7 @@ import { A } from './interfaces.ts';
 /**
  * file" `src\frontend\src\components\site\Img.tsx`
  *
- * `import ImageFC from '@Attribute/Img.tsx';`
+ * `import ImageFC from '@site/Img.tsx';`
  *
  * <html><img src="./..." className="img-fluid" alt="К весне готовы!" /></html>
  *

@@ -4,12 +4,12 @@ import React, { JSX, Fragment, useId } from 'react';
 import TrFC from './Tr/index.tsx';
 import ThFC from './Th/index.tsx';
 /* inteface */
-import { Heads } from '@Root';
+import { Heads } from '@type';
 
 /**
  * `src\frontend\src\components\site\table\index.tsx`
  *
- * `import TableFc from '@Attribute/table/index.tsx';`
+ * `import TableFc from '@site/table/index.tsx';`
  *
  * `<table class='...'>`
  *

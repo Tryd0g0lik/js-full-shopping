@@ -1,10 +1,10 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
 import React, { JSX } from 'react';
-import headerLogo from '@Img/header-logo.png';
-import LiFC from '@Attribute/Li.tsx';
-import AncorFC from '@Attribute/Ancor.tsx';
-import { Pages } from '@Root';
+import headerLogo from '@img/header-logo.png';
+import LiFC from '@site/Li.tsx';
+import AncorFC from '@site/Ancor.tsx';
+import { Pages } from '@type';
 const topMenuArr = [
   {
     id: 1,

@@ -1,8 +1,8 @@
 import React, { JSX, Fragment } from 'react';
 import { Child } from '../../../interfaces.ts';
 
-import { HeaderFC } from '@Pages/Header/index.tsx';
-import { FooterFC } from '@Pages/Footer/index.tsx';
+import { HeaderFC } from '@pages/Header/index.tsx';
+import { FooterFC } from '@pages/Footer/index.tsx';
 import { MainFC } from './Main/index.tsx';
 
 export function HomeFC({ children }: Child): JSX.Element {

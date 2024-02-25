@@ -1,11 +1,11 @@
 import React, { JSX, JSXElementConstructor, useId } from 'react';
-import { MultiProps } from '@Root';
+import { MultiProps } from '@type';
 import AncorFC from './Ancor.tsx';
 
 /**
  * file: `src\frontend\src\components\site\Li.tsx`
  *
- * `import LiFC from '@Attribute/Li.tsx';`
+ * `import LiFC from '@site/Li.tsx';`
  *
  * @param `classes`:`string`,
  * @param `children`: React.JSC.Element

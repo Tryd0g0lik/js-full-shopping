@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import { Pages } from '@Root';
+import { Pages } from '@type';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HomepageFC } from './Home/index.tsx';
 /* below is a code from loaded.html */
