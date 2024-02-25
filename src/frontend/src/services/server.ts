@@ -1,11 +1,12 @@
 // src\frontend\src\services\server.ts
-import { Str, Product, Val, Position, PromiseOne } from '@type';
-type PromisePosition = void | Position[];
-
+import { Str, Product, Val, Position, PromiseOne, ReadOnlyFunction } from '@type';
+import { ErrorInfo } from 'react';
 /**
  * `src\frontend\src\services\server.ts`
  *
- * `
+ * Based on function `fetc()`
+ *
+ * @param `url` it's an adress for request on the server.
  */
 export class SFetch {
   urls: string;
@@ -18,8 +19,11 @@ export class SFetch {
 
   index: number;
 
+  private readonly controller: AbortController;
+
   constructor(url: Str) {
     this.urls = url;
+    this.controller = new AbortController();
   }
 
   /**
@@ -32,7 +36,7 @@ export class SFetch {
    */
   set requestOneBefore(value: Product) {
     const keys: string = Array.from(Object.keys({ ...value }))[0];
-    const val: string | number = Array.from(Object.values({ ...value }))[0];
+    const val: string | number | boolean = Array.from(Object.values({ ...value }))[0];
 
     if (keys.includes('offset')) {
       this.offsets = { offset: val as number };
@@ -44,7 +48,7 @@ export class SFetch {
   }
 
   /**
-   *  Here an one parameter is before request for server
+   *  Here we getting an one parameter before request for the server
    *
    * @returns `{offset: number}` - Here is a dowloand more.
    * Or `{q: string}` - Here is a text for a surching row.
@@ -95,7 +99,7 @@ export class SFetch {
     * @prop `children?`: React.JSX.Elements
    * @returns type 'Promise<PromisePosition>'
    */
-  async requestOneParamAsync(): Promise<PromisePosition> {
+  async requestOneParamAsync(handler: (value: Position[] | undefined) => void): Promise<Position[] | void> {
     const value: { offset: number } | { q: string } | { 'top-sales': boolean } = this.requestOneBefore;
     const url = this.urls.slice(0);
     let pathName: Val = '';
@@ -110,16 +114,50 @@ export class SFetch {
       pathName = `items/?q=${val}`;
     }
 
-    const answer = await fetch(url + pathName);
-    if (answer.ok) {
-      const answerJson = await answer.json();
-      console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
-      this.offsets = undefined;
-      this.q_ = undefined;
-      this.topSales = false;
-    } else {
-      console.warn('[Ошибка HTTP]: ' + answer.status);
-      console.warn('[Ошибка HTTP]: ' + answer.statusText);
+    const signal = this.controller.signal;
+    try {
+      const answer = await fetch(url + pathName, { signal });
+
+      if (answer.ok) {
+        const answerJson = await this.parserResponseAsJson(answer);
+        console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
+
+        /* The useState hook for update state from a React */
+        if (handler !== undefined) {
+          handler(answerJson as Position[]);
+        }
+
+        this.offsets = undefined;
+        this.q_ = undefined;
+        this.topSales = false;
+      } else {
+        console.warn('[Ошибка HTTP]: ' + answer.status);
+        console.warn('[Ошибка HTTP]: ' + answer.statusText);
+      }
+    } catch (error: ErrorInfo | unknown | undefined) {
+      const err = error;
+      console.warn('The fetch request was aborted: ', err);
     }
+  }
+
+  /**
+   *
+   * @param `body` the point entry getting a response from `fetch()`.
+   * After, will do render a recived data. 'true' if getting datas in JSON format and otherwise an error getting.
+   * If an error recived then returns `body`
+   * @returns
+   */
+  async parserResponseAsJson(body: Response): Promise<unknown> {
+    try {
+      const jsonData = await body.json() as Array<Record<string, unknown>>;
+      return jsonData;
+    } catch (err) {
+      console.warn('render a response in to the JSON returned Error: ', err);
+      return body;
+    }
+  }
+
+  cansellFetch<ReadOnlyFunction>(): void {
+    this.controller.abort();
   }
 }

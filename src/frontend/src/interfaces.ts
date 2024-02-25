@@ -219,4 +219,9 @@ export interface Product {
   ind?: number
   offset?: number
   q?: string
+  'top-sales': boolean
+}
+
+export interface ReadOnlyFunction {
+  readonly: () => void
 }
