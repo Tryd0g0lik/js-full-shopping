@@ -10,9 +10,11 @@ type PromisePosition = void | Position[];
 export class SFetch {
   urls: string;
 
-	offsets: { offset: number } | undefined;
+  offsets: { offset: number } | undefined;
 
-	q_: { q: string } | undefined;
+  q_: { q: string } | undefined;
+
+  topSales: boolean;
 
   index: number;
 
@@ -23,8 +25,9 @@ export class SFetch {
   /**
    * Here an one parameter is before request for server
    *
-   * Here must send `{offset: number}` or `{q: string}` to the entry point.
-   * @param `value` is `{offset: number}` or `{q: string}`
+   * Here must send `{offset: number}` or `{q: string}` or `{'top-sales': true }`
+   * to the entry point.
+   * @param `value` is `{offset: number}` or `{q: string}`or `{'top-sales': true }`
    *
    */
   set requestOneBefore(value: Product) {
@@ -33,6 +36,8 @@ export class SFetch {
 
     if (keys.includes('offset')) {
       this.offsets = { offset: val as number };
+    } else if (keys.includes('top-sales')) {
+      this.topSales = true;
     } else {
       this.q_ = { q: val as string };
     }
@@ -41,13 +46,18 @@ export class SFetch {
   /**
    *  Here an one parameter is before request for server
    *
-   * @returns`{offset: number}` or `{q: string}`;
+   * @returns `{offset: number}` - Here is a dowloand more.
+   * Or `{q: string}` - Here is a text for a surching row.
+   * Or `{ 'top-sales': boolean }` - Here is a top of sales.
+   *
    */
-  get requestOneBefore(): { offset: number } | { q: string } {
+  get requestOneBefore(): { offset: number } | { q: string } | { 'top-sales': boolean } {
     if (this.offsets !== undefined) {
       return this.offsets;
+    } else if (this.topSales) {
+      return { 'top-sales': true };
     }
-		return this.q_ as { q: string };
+    return this.q_ as { q: string };
   }
 
   /**
@@ -58,9 +68,10 @@ export class SFetch {
    *
    * If a data/parameter is the set  `{ offset: number }` or `{ q: string }` .
    * Then If he has:
-   *  - a `offset` to return the path name `?offset=${val}`;
-   *  - a `q` to return the path anme `?q=${val}`.
-   *
+   *  - a `offset` to return the path name `?offset=${val}`. `http://localhost:7070/api/top-sales.` ;
+   *  - a `q` to return the path name `?q=${val}`. `http://localhost:7070/api/items?q=<text for search row>`
+   *  - a `top-sales` to return the path name `top-sales` `http://localhost:7070/api/top-sales.`
+   *  -
    * After creating the URL-addres server do requst from `fetch()`
    * ....
    *
@@ -84,28 +95,31 @@ export class SFetch {
     * @prop `children?`: React.JSX.Elements
    * @returns type 'Promise<PromisePosition>'
    */
-	async requestOneParamAsync(): Promise<PromisePosition> {
-    const value: { offset: number } | { q: string } = this.requestOneBefore;
+  async requestOneParamAsync(): Promise<PromisePosition> {
+    const value: { offset: number } | { q: string } | { 'top-sales': boolean } = this.requestOneBefore;
     const url = this.urls.slice(0);
     let pathName: Val = '';
     const key = Array.from(Object.keys(value))[0];
     const val = Array.from(Object.values(value))[0];
 
     if (key.includes('offset')) {
-      pathName = `?offset=${val}`;
+      pathName = `items/?offset=${val}`;
+    } if (key.includes('top-sales') && (val === true)) {
+      pathName = '/top-sales';
     } else {
-      pathName = `?q=${val}`;
+      pathName = `items/?q=${val}`;
     }
 
-		const answer = await fetch(url + pathName);
-		if (answer.ok) {
-			const answerJson = await answer.json();
-			console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
-			this.offsets = undefined;
-			this.q_ = undefined;
-		} else {
-			console.warn('[Ошибка HTTP]: ' + answer.status);
-			console.warn('[Ошибка HTTP]: ' + answer.statusText);
-		}
+    const answer = await fetch(url + pathName);
+    if (answer.ok) {
+      const answerJson = await answer.json();
+      console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
+      this.offsets = undefined;
+      this.q_ = undefined;
+      this.topSales = false;
+    } else {
+      console.warn('[Ошибка HTTP]: ' + answer.status);
+      console.warn('[Ошибка HTTP]: ' + answer.statusText);
+    }
   }
 }
