@@ -68,6 +68,17 @@ module.exports = {
         }
       }
     ],
+    "require-await": "off",
+    "@typescript-eslint/require-await": "error",
+    "@typescript-eslint/restrict-template-expressions": ["error", {
+      "allowAny": true,
+      "allowBoolean": true,
+      "allowNullish": true,
+      "allowNumber": true,
+      "allowRegExp": true,
+    },],
+    "@typescript-eslint/no-redundant-type-constituents": "off",
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": ["error", { // конечная запятая
       "arrays": "never",

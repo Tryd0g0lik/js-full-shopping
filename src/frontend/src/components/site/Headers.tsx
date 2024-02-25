@@ -4,7 +4,7 @@ import React, { JSX } from 'react';
 import { Head } from './interfaces.ts';
 
 /**
- * `import HeadFC from '@Attribute/Headers.tsx';`
+ * `import HeadFC from '@site/Headers.tsx';`
  *
  * Exemple: `<h2 className="text-center">Хиты продаж!</h2>`
  *

@@ -19,5 +19,8 @@
     "koa2-cors": "^2.0.6",
     "package.json": "^0.0.0",
     "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "koa-logger": "^3.2.1"
   }
 }

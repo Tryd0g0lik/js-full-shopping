@@ -1,12 +1,16 @@
 const http = require('http');
+const path = require('path');
 const fs = require('fs');
 const Koa = require('koa');
+const logger = require("koa-logger");
 const Router = require('koa-router');
 const cors = require('koa2-cors');
 const koaBody = require('koa-body');
+const categoriesFs = fs.readFileSync(path.resolve(__dirname, './data/categories.json'));
+const productsFs = fs.readFileSync(path.resolve(__dirname, './data/products.json'));
+const categories = JSON.parse(categoriesFs);
+const items = JSON.parse(productsFs);
 
-const categories = JSON.parse(fs.readFileSync('./data/categories.json'));
-const items = JSON.parse(fs.readFileSync('./data/products.json'));
 const topSaleIds = [66, 65, 73];
 const moreCount = 6;
 
@@ -42,7 +46,11 @@ const fortune = (ctx, body = null, status = 200) => {
 }
 
 const app = new Koa();
+app.use(logger());
 app.use(cors());
+const server = http.createServer(app.callback());
+const port = process.env.PORT || 7070; 
+
 app.use(koaBody({
     json: true
 }));
@@ -115,6 +123,9 @@ router.post('/api/order', async (ctx, next) => {
 app.use(router.routes())
 app.use(router.allowedMethods());
 
-const port = process.env.PORT || 7070;
-const server = http.createServer(app.callback());
-server.listen(port);
+
+
+server.listen(port, () => {
+  console.log(`[Server started on port]: ${port}`);
+});
+

@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import Banner from '@Img/banner.jpg';
+import Banner from '@img/banner.jpg';
 
 /**
  * `UMainFC` is a parth from `404.html` file

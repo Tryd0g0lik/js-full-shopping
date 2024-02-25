@@ -2,7 +2,7 @@
   "compilerOptions": {
     "jsx": "react",
     "target": "ES6",
-    "module": "ES2015",
+    "module": "ES2020",
     "rootDirs": [
       "./src/frontend"
     ],
@@ -19,17 +19,23 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@Root": [
+      "@type": [
         "src/frontend/src/interfaces.ts",
       ],
-      "@Img/*": [
+        "@svgs/*": [
+          "src/frontend/src/svgs/*"
+        ],
+      "@img/*": [
         "src/frontend/src/img/*"
       ],
-      "@Pages/*": [
+      "@pages/*": [
         "./src/frontend/src/components/pages/*"
       ],
-      "@Attribute/*": [
+      "@site/*": [
         "./src/frontend/src/components/site/*"
+      ],
+      "@service/*": [
+        "./src/frontend/src/services/*"
       ]
     }
   },

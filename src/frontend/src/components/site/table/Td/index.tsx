@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import { TableRow } from '@Root';
+import { TableRow } from '@type';
 
 /**
  * `src\frontend\src\components\site\table\Td\index.tsx`

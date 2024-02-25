@@ -1,22 +1,22 @@
 // src\frontend\src\components\pages\Catalog\Main\index.tsx
 
 import React, { Fragment } from 'react';
-import Banner from '@Img/banner.jpg';
-import HeadFC from '@Attribute/Headers.tsx';
-import BannerFC from '@Attribute/Baners.tsx';
-import ImageFC from '@Attribute/Img.tsx';
+import Banner from '@img/banner.jpg';
+import HeadFC from '@site/Headers.tsx';
+import BannerFC from '@site/Baners.tsx';
+import ImageFC from '@site/Img.tsx';
 
-import FormFC from '@Attribute/Forms/index.tsx';
-import InputsFC from '@Attribute/Forms/Imputs.tsx';
+import FormFC from '@site/Forms/index.tsx';
+import InputsFC from '@site/Forms/Imputs.tsx';
 
 /* Categories */
-import { Categories } from '@Root';
-import LiFC from '@Attribute/Li.tsx';
-import AncorFC from '@Attribute/Ancor';
-import ButtonFC from '@Attribute/Forms/Button.tsx';
+import { Categories } from '@type';
+import LiFC from '@site/Li.tsx';
+import AncorFC from '@site/Ancor';
+import ButtonFC from '@site/Forms/Button.tsx';
 
 /* Positions */
-import { PositionFC } from '../Positions/index.tsx';
+import { PositionFC } from '../../../site/Positions/index.tsx';
 
 import { positionsArr } from './db.ts';
 

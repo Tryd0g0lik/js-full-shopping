@@ -1,7 +1,32 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
 import React, { JSX } from 'react';
-import headerLogo from '@Img/header-logo.png';
+import headerLogo from '@img/header-logo.png';
+import LiFC from '@site/Li.tsx';
+import AncorFC from '@site/Ancor.tsx';
+import { Pages } from '@type';
+const topMenuArr = [
+  {
+    id: 1,
+    title: 'Главная',
+    path: Pages.Home
+  },
+  {
+    id: 2,
+    title: 'Каталог',
+    path: Pages.Catalog
+  },
+  {
+    id: 3,
+    title: 'О магазине',
+    path: Pages.About
+  },
+  {
+    id: 4,
+    title: 'Контакты',
+    path: Pages.Contacts
+  }
+];
 
 export function HeaderFC(): JSX.Element {
   return (
@@ -14,18 +39,17 @@ export function HeaderFC(): JSX.Element {
             </a>
             <div className="collapse navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                  <a className="nav-link" href="/">Главная</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/catalog">Каталог</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/about">О магазине</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/contacts">Контакты</a>
-                </li>
+                {/* active */}
+                {/* The top mennu of `<head>...</head>` */}
+                {
+                  Array.from(topMenuArr).map((obj) => (
+
+                    <LiFC key={obj.id} classes='nav-item'>
+                      <AncorFC classes='nav-link' path={obj.path} context={obj.title} />
+                    </LiFC>
+
+                  ))
+                }
               </ul>
               <div>
                 <div className="header-controls-pics">

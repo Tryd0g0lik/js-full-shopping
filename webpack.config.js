@@ -5,6 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const { merge } = require("webpack-merge");
 const webpackFront = require("./src/frontend/webpack.config.js");
+const Dotenv = require('dotenv-webpack');
 module.exports = merge(webpackFront, {
   entry: './src/index.ts',
   // devtool: 'evel-'
@@ -13,6 +14,7 @@ module.exports = merge(webpackFront, {
 
   module: {},
   plugins: [
+    new Dotenv(),
     new CopyPlugin({
       patterns: [
         { from: './public/manifest.json', to: './', },

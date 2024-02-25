@@ -1,10 +1,10 @@
 // src\frontend\src\components\pages\About\Main\index.tsx
 
 import React, { JSX, Fragment } from 'react';
-import BannerFC from '@Attribute/Baners.tsx';
-import Banner from '@Img/banner.jpg';
-import HeadFC from '@Attribute/Headers.tsx';
-import ImageFC from '@Attribute/Img.tsx';
+import BannerFC from '@site/Baners.tsx';
+import Banner from '@img/banner.jpg';
+import HeadFC from '@site/Headers.tsx';
+import ImageFC from '@site/Img.tsx';
 
 /**
  * `import { AMain } from './Main/index.tsx';`

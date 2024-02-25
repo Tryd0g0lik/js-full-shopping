@@ -1,21 +1,21 @@
 import React, { JSX } from 'react';
-import Banner from '@Img/banner.jpg';
-import SandalsMyer from '@Img/products/sandals_myer.jpg';
-import SandalsKeira from '@Img/products/sandals_keira.jpg';
-import SuperheroSneakers from '@Img/products/superhero_sneakers.jpg';
+import Banner from '@img/banner.jpg';
+import SandalsMyer from '@img/products/sandals_myer.jpg';
+import SandalsKeira from '@img/products/sandals_keira.jpg';
+import SuperheroSneakers from '@img/products/superhero_sneakers.jpg';
 
 /* Categories */
-import { Categories } from '@Root';
-import LiFC from '@Attribute/Li.tsx';
-import AncorFC from '@Attribute/Ancor';
+import { Categories } from '@type';
+import LiFC from '@site/Li.tsx';
+import AncorFC from '@site/Ancor';
 
 /* Positions */
-import { PositionFC } from '@Pages/Catalog/Positions/index.tsx';
+import { PositionFC } from '@site/Positions/index.tsx';
 import { positionsArr } from './db.ts';
-import ImageFC from '@Attribute/Img.tsx';
+import ImageFC from '@site/Img.tsx';
 
 /* Forms */
-import ButtonFC from '@Attribute/Forms/Button.tsx';
+import ButtonFC from '@site/Forms/Button.tsx';
 
 export function LMain({ categories }: Categories): JSX.Element {
   return (

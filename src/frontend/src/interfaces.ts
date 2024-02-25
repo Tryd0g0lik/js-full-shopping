@@ -3,7 +3,19 @@
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { Pages} from '@Root';`
+ * `import { Pages} from '@type';`
+ *
+ * @returns ```txt
+ * {
+ * 'Home' = '/',
+  'Loaded' = '/loaded',
+  'Contacts' = '/contacts',
+  'Catalog' = '/catalog',
+  'Cart' = '/cart',
+  'About' = '/about',
+  'Undefin' = '/404'
+ }
+  ```
  */
 export enum Pages {
   'Home' = '/',
@@ -18,7 +30,7 @@ export enum Pages {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { PTitle } from '@Root';`
+ * `import { PTitle } from '@type';`
  *
   */
 export enum PTitle {
@@ -31,7 +43,7 @@ export enum PTitle {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * import { Child } from '@Root';
+ * import { Child } from '@type';
  */
 export interface Child {
   children?: JSX.Element
@@ -40,11 +52,13 @@ export interface Child {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { MultiProps } from '@Root'`;
+ * `import { MultiProps } from '@type'`;
  *
  * Extends the interface `Child`
  *
  * @prop `classes?`: `string` It is single a class name or multiple. Also is possible and without him.
+ * @prop `handler?`: `() => void` Here is a handler for events.
+ * @prop `children?`: `() => React.JSX.Element` Is a child element JSX.
  */
 export interface MultiProps extends Child {
   classes?: string
@@ -65,7 +79,7 @@ interface Category {
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { Categories } from '@Root';`
+ * `import { Categories } from '@type';`
  *
  * @prop `id`: `string`.
  * @prop `title`:`string`.
@@ -79,7 +93,7 @@ export interface Categories {
  *
  * file: `src\frontend\src\interfaces.ts`
  *
- * `import { Position } from '@Root';`
+ * `import { Position } from '@type';`
  *
  * @prop `id?`: `number`
  * @prop `category?`: `number`
@@ -115,9 +129,41 @@ export interface Position extends Child {
 }
 
 /**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * `import { PromiseArr } from '@type';`
+ *
+ * @returns `{
+ * id: number
+ * category: number
+ * title: string
+ * price: number
+ * images: string[]
+ * }`
+ */
+export interface PromiseOne {
+  id: number
+  category: number
+  title: string
+  price: number
+  images: string[]
+}
+
+/**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * `import { PromiseArr } from '@type';`
+ *
+ * @returns `{promise: PromiseOne[]}`
+ */
+export interface PromiseArr {
+  promise: PromiseOne[]
+}
+
+/**
  * file: `src\frontend\src\interfaces.ts`
  *
- * import { Td } from '@Root';
+ * import { Td } from '@type';
  *
  * @prop `children?: JSX.Element`
  * ```
@@ -142,4 +188,40 @@ export interface TableRow extends MultiProps {
 
 export interface Heads {
   headers: string[][]
+}
+
+/**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * @returns `type Str = string;`
+ */
+export type Str = string;
+
+/**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * @returns `type Val = string | number`
+ */
+export type Val = string | number;
+
+/**
+ * `src\frontend\src\interfaces.ts`
+ *
+ * `import { Product } from '@type';`
+ *
+ * ```
+ * ind?: number
+ * offset?: number
+ * q?: string
+  ```
+ */
+export interface Product {
+  ind?: number
+  offset?: number
+  q?: string
+  'top-sales': boolean
+}
+
+export interface ReadOnlyFunction {
+  readonly: () => void
 }

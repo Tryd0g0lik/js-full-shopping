@@ -15,13 +15,15 @@ module.exports = {
 
   target: 'web',
   resolve: {
-    extensions: [".tsx", ".jsx", ".ts", ".js"],
-    modules: [path.resolve(__dirname, "./.browserslistrc"), "node_modules"],
+    extensions: [".tsx", ".jsx", ".ts", ".js", ".svg"],
+    modules: [path.resolve(__dirname, "./.browserslistrc"), "node_modules", 'src'],
     alias: {
-      '@Img': path.resolve(__dirname, 'src/img'),
-      '@Root': path.resolve(__dirname, 'src/interfaces.ts'),
-      '@Pages': path.resolve(__dirname, 'src/components/pages'),
-      '@Attribute': path.resolve(__dirname, 'src/components/site')
+      '@img': path.resolve(__dirname, 'src/img'),
+      '@svgs': path.resolve(__dirname, 'src/svgs'),
+			'@type': path.resolve(__dirname, 'src/interfaces.ts'),
+			'@pages': path.resolve(__dirname, 'src/components/pages'),
+			'@site': path.resolve(__dirname, 'src/components/site'),
+			'@service': path.resolve(__dirname, 'src/services')
     }
   },
   module: {
@@ -53,13 +55,17 @@ module.exports = {
 
       },
       {
-        test: /\.(png|jpe?g|svg)$/i,
+        test: /\.(png|jpe?g)$/i,
         type: 'asset/resource',
         generator: {
           filename: 'img/[name][ext]',
         }
         // loader: 'file-loader',
       },
+      {
+        test: /\.svg$/i,
+        use: ["@svgr/webpack", "@svgs/*"],
+      }
     ],
   },
   plugins: [
