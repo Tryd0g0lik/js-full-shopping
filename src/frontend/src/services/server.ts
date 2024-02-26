@@ -2,7 +2,7 @@
 import {
   Str, Request, Val, Position,
   PromiseOne, ReadOnlyFunction,
-  Categories, Category, HandlerCategoryVal, HandlerPositionVal
+  Categories, Category, HandlerPositionVal
 } from '@type';
 import { ErrorInfo } from 'react';
 /**
@@ -111,7 +111,7 @@ export class SFetch {
     * @prop `children?`: React.JSX.Elements
    * @returns type 'Promise<PromisePosition>'
    */
-  async requestOneParamAsync(handler: (value: HandlerPositionVal | HandlerCategoryVal) => void): Promise<HandlerPositionVal | HandlerCategoryVal | void> {
+  async requestOneParamAsync(handler: (value: HandlerPositionVal) => void): Promise<HandlerPositionVal | void> {
     const value: { offset: number } |
     { q: string } | { 'top-sales': boolean } |
     { categories: boolean } = this.requestOneBefore;
@@ -144,7 +144,6 @@ export class SFetch {
 
         /* The useState hook for update state from a React */
         if (handler !== undefined) {
-
           handler(answerJson as Position[]);
         }
 

@@ -37,7 +37,7 @@ import AncorFC from './Ancor.tsx';
     </ul >
   );
   ```
-  then
+ - then
   ```tsx
   import UseCategoriesFC from '@site/Categories.tsx';
   const [category, useCategory] = useState<HandlerPositionVal>();
@@ -53,7 +53,7 @@ import AncorFC from './Ancor.tsx';
       )
   }
 ```
-  or
+ - or
   ```html
   <ul class="catalog-categories nav justify-content-center">
     <li class="nav-item"><a class="nav-link" href="#">Все</a></li>
@@ -70,12 +70,12 @@ export default function UseCategoriesFC(categoriesArr: Position[]): JSX.Element 
   return (
     < ul className="catalog-categories nav justify-content-center" >
       <LiFC key={useId()} classes='nav-item'>
-        <AncorFC classes='nav-link' path='#' context='Все' />
+        <AncorFC classes='nav-link' dataCategory={1} path='#' context='Все' />
       </LiFC>
       {
         arr.map((obj) => (
           <LiFC key={useId()} classes='nav-item'>
-            <AncorFC classes='nav-link' path='#' context={obj.title} />
+            <AncorFC classes='nav-link' dataCategory={obj.id} path='#' context={obj.title} />
           </LiFC>
         ))
       }

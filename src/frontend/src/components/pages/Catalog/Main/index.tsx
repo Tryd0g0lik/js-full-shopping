@@ -1,6 +1,6 @@
 // src\frontend\src\components\pages\Catalog\Main\index.tsx
 
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useId, useState } from 'react';
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
 import BannerFC from '@site/Baners.tsx';
@@ -79,11 +79,9 @@ export function DMainFC(): JSX.Element {
                 {/* This is positions by a page 'Категории' */}
                 {
                   Array.from(positionsArr).map((obj) => (
-                    <>
-                      <PositionFC title={obj.title} price={obj.price}>
-                        <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
-                      </PositionFC>
-                    </>
+                    <PositionFC key={useId()} title={obj.title} price={obj.price}>
+                      <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
+                    </PositionFC>
                   ))
                 }
               </div>
