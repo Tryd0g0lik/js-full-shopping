@@ -1,4 +1,4 @@
-import React, { JSX, useId } from 'react';
+import React, { JSX, useId, useEffect } from 'react';
 import { Position } from '@type';
 import LiFC from './Li.tsx';
 import AncorFC from './Ancor.tsx';
@@ -6,7 +6,7 @@ import AncorFC from './Ancor.tsx';
 /**
  * `src\frontend\src\components\site\Categories.tsx`
  *
- * `import CategoriesFC from '@site/Categories.tsx';`
+ * `import UseCategoriesFC from '@site/Categories.tsx';`
  *
  * This categories is located under the catalog's search form
  *
@@ -39,14 +39,14 @@ import AncorFC from './Ancor.tsx';
   ```
   then
   ```tsx
-  import CategoriesFC from '@site/Categories.tsx';
+  import UseCategoriesFC from '@site/Categories.tsx';
   const [category, useCategory] = useState<HandlerPositionVal>();
   // ....
 
   {
     (category !== undefined)
       ? (
-        <CategoriesFC {...category} />
+        <UseCategoriesFC {...category} />
       )
       : (
         <></>
@@ -64,10 +64,9 @@ import AncorFC from './Ancor.tsx';
     </ul>
   ```
  */
-export default function CategoriesFC(categoriesArr: Position[]): JSX.Element {
+export default function UseCategoriesFC(categoriesArr: Position[]): JSX.Element {
   const arr = Object.values(categoriesArr);
 
-  // debugger
   return (
     < ul className="catalog-categories nav justify-content-center" >
       <LiFC key={useId()} classes='nav-item'>

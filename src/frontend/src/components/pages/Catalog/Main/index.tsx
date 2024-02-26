@@ -19,7 +19,7 @@ import { PositionFC } from '@site/Positions/index.tsx';
 import { positionsArr } from './db.ts';
 
 /* Categories */
-import CategoriesFC from '@site/Categories.tsx';
+import UseCategoriesFC from '@site/Categories.tsx';
 import { SFetch } from '@service/server.ts';
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -69,7 +69,7 @@ export function DMainFC(): JSX.Element {
               {
                 (category !== undefined)
                   ? (
-                    <CategoriesFC {...category} />
+                    <UseCategoriesFC {...category} />
                   )
                   : (
                     <></>

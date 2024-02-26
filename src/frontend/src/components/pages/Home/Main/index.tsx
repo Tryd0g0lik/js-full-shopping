@@ -8,7 +8,7 @@ import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
 import { HandlerPositionVal } from '@type';
-import CategoriesFC from '@site/Categories.tsx';
+import UseCategoriesFC from '@site/Categories.tsx';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -28,7 +28,7 @@ export function UseMainFC(): JSX.Element {
 
   useEffect(() => {
     const serverTopSales = new SFetch(url);
-  /* create a request to the server */
+    /* create a request to the server */
     serverTopSales.requestOneBefore = { 'top-sales': true };
     serverTopSales.requestOneParamAsync(useTopsales);
   }, [useTopsales]);
@@ -69,7 +69,7 @@ export function UseMainFC(): JSX.Element {
             {
               (category !== undefined)
                 ? (
-                  <CategoriesFC {...category} />
+                  <UseCategoriesFC {...category} />
                 )
                 : (
                   <></>
