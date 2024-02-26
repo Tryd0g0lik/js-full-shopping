@@ -1,16 +1,17 @@
 // src\frontend\src\components\pages\Home\Main\index.tsx
 
-import React, { JSX, Fragment, useState, useEffect, useId } from 'react';
+import React, { JSX, Fragment, useState, useEffect } from 'react';
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
 import ImageFC from '@site/Img.tsx';
 import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
-import { HandlerPositionVal } from '@type';
+import { HandlerPositionVal, FilterCategories } from '@type';
 import UseCategoriesFC from '@site/Categories.tsx';
 import DivFC from '@site/Div.tsx';
 import ButtonFC from '@site/Forms/Button.tsx';
+import LoaderMoreFC from '@site/Loadmore';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -27,7 +28,7 @@ export function UseMainFC(): JSX.Element {
   const [topsales, useTopsales] = useState<HandlerPositionVal>();
   const [category, useCategory] = useState<HandlerPositionVal>();
   const [positions, usePositions] = useState<HandlerPositionVal>();
-
+  const [filter, useFilter] = useState(1);
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server */
@@ -47,6 +48,27 @@ export function UseMainFC(): JSX.Element {
     serverPositions.requestOneParamAsync(usePositions);
   }, [usePositions]);
 
+  /* The filter is below for categories */
+  const handlerFilterCaegories = async function (event: MouseEvent): void {
+    event.preventDefault();
+    const target = (event.target as HTMLAnchorElement);
+
+    if (target.dataset.category !== undefined) {
+      useFilter(Number(target.dataset.category));
+    }
+  };
+  const handlerCaegoriesForUseEffect = (): void => {
+    const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item'));
+
+    for (let i = 0; i < navCategories.length; i++) {
+      (navCategories[i] as HTMLLIElement).addEventListener('click', handlerFilterCaegories);
+    }
+
+  }
+
+  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
+
+  console.warn(`Filter: ${filter}`)
   return (
     <main className="container">
       <div className="row">
@@ -95,25 +117,40 @@ export function UseMainFC(): JSX.Element {
                 (positions !== undefined)
                   ? (
                     Array.from(positions).map((obj) => (
-                      <PositionFC key={obj.id} title={obj.title} price={obj.price}>
-                        <Fragment>
-                          <ImageFC path={
-                            ((obj.images !== undefined) &&
-                              (obj.images.length > 0))
-                              ? obj.images[0]
-                              : '#'
-                          } classes='card-img-top img-fluid' context={obj.title} />
-                        </Fragment>
-                      </PositionFC>
-
+                      (filter === Number(obj.category))
+                        ? (
+                          <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
+                            <Fragment>
+                              <ImageFC path={
+                                ((obj.images !== undefined) &&
+                                  (obj.images.length > 0))
+                                  ? obj.images[0]
+                                  : '#'
+                              } classes='card-img-top img-fluid' context={obj.title} />
+                            </Fragment>
+                          </PositionFC>
+                        )
+                        : (filter === 1)
+                          ? (
+                            <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
+                              <Fragment>
+                                <ImageFC path={
+                                  ((obj.images !== undefined) &&
+                                    (obj.images.length > 0))
+                                    ? obj.images[0]
+                                    : '#'
+                                } classes='card-img-top img-fluid' context={obj.title} />
+                              </Fragment>
+                            </PositionFC>
+                          )
+                          : null
                     ))
                   )
                   : < ImLoader />
               }
             </div>
-            <DivFC classes='text-center'>
-              <ButtonFC classes='btn btn-outline-primary' context='Загрузить ещё' />
-            </DivFC>
+            {/* HEre is a button for will be loaded more the poitions */}
+            <LoaderMoreFC />
           </section>
         </div>
       </div>
