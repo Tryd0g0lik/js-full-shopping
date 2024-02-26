@@ -7,11 +7,11 @@ import ImageFC from '@site/Img.tsx';
 import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
-import { HandlerPositionVal, FilterCategories } from '@type';
+import { HandlerPositionVal, FilterCategories, Position } from '@type';
 import UseCategoriesFC from '@site/Categories.tsx';
 import DivFC from '@site/Div.tsx';
 import ButtonFC from '@site/Forms/Button.tsx';
-import LoaderMoreFC from '@site/Loadmore';
+; import LoaderMoreFC from '@site/Loadmore';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -31,24 +31,52 @@ export function UseMainFC(): JSX.Element {
   const [filter, useFilter] = useState(1);
   useEffect(() => {
     const serverTopSales = new SFetch(url);
-    /* create a request to the server */
+    /* create a request to the server | '/top-sales' */
     serverTopSales.requestOneBefore = { 'top-sales': true };
     serverTopSales.requestOneParamAsync(useTopsales);
   }, [useTopsales]);
+
   useEffect(() => {
     const serverCategory = new SFetch(url);
-    /* create a request to the server */
+    /* create a request to the server | '/categories' */
     serverCategory.requestOneBefore = { categories: true };
     serverCategory.requestOneParamAsync(useCategory);
   }, [useCategory]);
+
+  /* There is below a request to server and
+  * here the is listener for listening a button name 'Загрузить ещё'
+  */
+
   useEffect(() => {
     const serverPositions = new SFetch(url);
-    /* create a request to the server */
-    serverPositions.requestOneBefore = { offset: 3 };
+    /* create a request to the server | '/items/?offset=6' */
+    serverPositions.requestOneBefore = { offset: 6 };
     serverPositions.requestOneParamAsync(usePositions);
+    /* ------------ */
+    // oldOffset = (positions as Position[]);
+    const hablerLoaderMore = async (event: MouseEvent) => {
+      event.preventDefault();
+      oldOffset += 6;
+      serverPositions.requestOneBefore = { offset: oldOffset };
+      serverPositions.requestOneParamAsync(usePositions);
+      // usePositions(oldOffset.push(positions))
+      // (positions as Position[]).push(oldOffset) ;
+    }
+
+    const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
+    if (buttontextCenter !== undefined) {
+      (buttontextCenter as HTMLElement).addEventListener('click', hablerLoaderMore);
+    }
+    return () => {
+      /* object will be removed */
+      const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
+      if (buttontextCenter !== undefined) {
+        (buttontextCenter as HTMLElement).removeEventListener('click', hablerLoaderMore);
+      }
+    }
   }, [usePositions]);
 
-  /* The filter is below for categories */
+  /* There is below a filter categories.*/
   const handlerFilterCaegories = async function (event: MouseEvent): void {
     event.preventDefault();
     const target = (event.target as HTMLAnchorElement);
@@ -57,18 +85,25 @@ export function UseMainFC(): JSX.Element {
       useFilter(Number(target.dataset.category));
     }
   };
-  const handlerCaegoriesForUseEffect = (): void => {
+  const handlerCaegoriesForUseEffect = () => {
     const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item'));
 
     for (let i = 0; i < navCategories.length; i++) {
       (navCategories[i] as HTMLLIElement).addEventListener('click', handlerFilterCaegories);
     }
 
-  }
+    return () => {
+      /* object will be removed */
+      const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item'));
 
+      for (let i = 0; i < navCategories.length; i++) {
+        (navCategories[i] as HTMLLIElement).removeEventListener('click', handlerFilterCaegories);
+      }
+    }
+  }
   useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
 
-  console.warn(`Filter: ${filter}`)
+
   return (
     <main className="container">
       <div className="row">
@@ -101,7 +136,7 @@ export function UseMainFC(): JSX.Element {
           </section>
           <section className="catalog">
             <HeadFC number={2} classes='text-center' title='Каталог' />
-            {
+            {/* Category menu*/
               (category !== undefined)
                 ? (
                   <UseCategoriesFC {...category} />
@@ -118,7 +153,7 @@ export function UseMainFC(): JSX.Element {
                   ? (
                     Array.from(positions).map((obj) => (
                       (filter === Number(obj.category))
-                        ? (
+                        ? (  /*Here is category after  filtering  */
                           <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                             <Fragment>
                               <ImageFC path={

@@ -112,6 +112,7 @@ export class SFetch {
    * @returns type 'Promise<PromisePosition>'
    */
   async requestOneParamAsync(handler: (value: HandlerPositionVal) => void): Promise<HandlerPositionVal | void> {
+    let oldOffset: Position[] = [];
     const value: { offset: number } |
     { q: string } | { 'top-sales': boolean } |
     { categories: boolean } = this.requestOneBefore;
@@ -143,8 +144,13 @@ export class SFetch {
         console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
 
         /* The useState hook for update state from a React */
-        if (handler !== undefined) {
-          handler(answerJson as Position[]);
+        if ((handler !== undefined) && (answerJson)) {
+
+          handler((oldOffset.length === 0)
+            ? answerJson as Position[]
+            : oldOffset
+          );
+
         }
 
         this.offsets = undefined;

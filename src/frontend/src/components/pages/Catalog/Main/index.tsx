@@ -21,6 +21,7 @@ import { positionsArr } from './db.ts';
 /* Categories */
 import UseCategoriesFC from '@site/Categories.tsx';
 import { SFetch } from '@service/server.ts';
+import LoaderMoreFC from '@site/Loadmore.tsx';
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -79,15 +80,13 @@ export function DMainFC(): JSX.Element {
                 {/* This is positions by a page 'Категории' */}
                 {
                   Array.from(positionsArr).map((obj) => (
-                    <PositionFC key={useId()} title={obj.title} price={obj.price}>
+                    <PositionFC key={useId()} category={obj.category} title={obj.title} price={obj.price}>
                       <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
                     </PositionFC>
                   ))
                 }
               </div>
-              <div className="text-center">
-                <ButtonFC classes="btn btn-outline-primary" context="Загрузить ещё" />
-              </div>
+              <LoaderMoreFC />
             </section>
           </div>
         </div>

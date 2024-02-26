@@ -40,6 +40,14 @@ export enum PTitle {
   '/contacts' = 'Контакты'
 }
 
+export enum FilterCategories {
+  'Все' = 1,
+  'Мужская обувь' = 12,
+  'Женская обувь' = 13,
+  'Обувь унисекс' = 14,
+  'Детская обувь' = 15
+}
+
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
