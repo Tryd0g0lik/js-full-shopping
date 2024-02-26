@@ -1,5 +1,9 @@
 // src\frontend\src\services\server.ts
-import { Str, Product, Val, Position, PromiseOne, ReadOnlyFunction } from '@type';
+import {
+  Str, Request, Val, Position,
+  PromiseOne, ReadOnlyFunction,
+  Categories, Category, HandlerCategoryVal, HandlerPositionVal
+} from '@type';
 import { ErrorInfo } from 'react';
 /**
  * `src\frontend\src\services\server.ts`
@@ -36,7 +40,7 @@ export class SFetch {
    * @param `value` is `{offset: number}` or `{q: string}`or `{'top-sales': true }` or `{'categories': true }`
    *
    */
-  set requestOneBefore(value: Product) {
+  set requestOneBefore(value: Request) {
     const keys: string = Array.from(Object.keys({ ...value }))[0];
     const val: string | number | boolean = Array.from(Object.values({ ...value }))[0];
 
@@ -107,22 +111,27 @@ export class SFetch {
     * @prop `children?`: React.JSX.Elements
    * @returns type 'Promise<PromisePosition>'
    */
-  async requestOneParamAsync(handler: (value: Position[] | undefined) => void): Promise<Position[] | void> {
-    const value: { offset: number } | { q: string } | { 'top-sales': boolean } |
+  async requestOneParamAsync(handler: (value: HandlerPositionVal | HandlerCategoryVal) => void): Promise<HandlerPositionVal | HandlerCategoryVal | void> {
+    const value: { offset: number } |
+    { q: string } | { 'top-sales': boolean } |
     { categories: boolean } = this.requestOneBefore;
+
     const url = this.urls.slice(0);
     let pathName: Val = '';
+    /* receive the key name */
     const key = Array.from(Object.keys(value))[0];
+    /* received data from values */
     const val = Array.from(Object.values(value))[0];
 
+    /* */
     if (key.includes('offset')) {
-      pathName = `items/?offset=${val}`;
+      pathName = `/items/?offset=${val}`;
     } else if (key.includes('top-sales') && (val === true)) {
       pathName = '/top-sales';
     } else if (key.includes('categories') && (val === true)) {
       pathName = '/categories';
     } else {
-      pathName = `items/?q=${val}`;
+      pathName = `/items/?q=${val}`;
     }
 
     const signal = this.controller.signal;
@@ -135,6 +144,7 @@ export class SFetch {
 
         /* The useState hook for update state from a React */
         if (handler !== undefined) {
+
           handler(answerJson as Position[]);
         }
 

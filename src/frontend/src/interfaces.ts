@@ -71,7 +71,7 @@ export interface MultiProps extends Child {
  * @prop `id`: `string`.
  * @prop `title`:`string`.
  */
-interface Category {
+export interface Category {
   id: number
   title: string
 }
@@ -204,10 +204,11 @@ export type Str = string;
  */
 export type Val = string | number;
 
+export type HandlerPositionVal = Position[] | undefined;
 /**
  * `src\frontend\src\interfaces.ts`
  *
- * `import { Product } from '@type';`
+ * `import { Request } from '@type';`
  *
  * ```
  * ind?: number
@@ -215,11 +216,12 @@ export type Val = string | number;
  * q?: string
   ```
  */
-export interface Product {
+export interface Request {
   ind?: number
   offset?: number
   q?: string
-  'top-sales': boolean
+  'top-sales'?: boolean
+  categories?: boolean
 }
 
 export interface ReadOnlyFunction {

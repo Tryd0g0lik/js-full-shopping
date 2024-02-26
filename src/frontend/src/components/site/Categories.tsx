@@ -1,25 +1,30 @@
 import React, { JSX, useId } from 'react';
-import { Categories } from '@type';
+import { Position } from '@type';
 import LiFC from './Li.tsx';
 import AncorFC from './Ancor.tsx';
 
 /**
  * `src\frontend\src\components\site\Categories.tsx`
  *
+ * `import CategoriesFC from '@site/Categories.tsx';`
  *
  * This categories is located under the catalog's search form
  *
- * @param `categories`: `Categories`.
- * `Categories` it's `Catery[]` types on the point entry.
+ * @param `Position[]`.
+ * `Categories` it's `Position[]` types on the point entry.
  *  ```ts
- * interface Category {
+ * interface Position {
  * `id: number
  * title: string
+ * ...
  * }`
   ```
  * @returns ```tsx
   (
     < ul className="catalog-categories nav justify-content-center" >
+     <LiFC key={String(obj.id)} classes='nav-item'>
+        <AncorFC classes='nav-link' path='#' context="Все" />
+      </LiFC>
       {
         Array.from(categories).map((obj) => (
           <>
@@ -32,9 +37,26 @@ import AncorFC from './Ancor.tsx';
     </ul >
   );
   ```
+  then
+  ```tsx
+  import CategoriesFC from '@site/Categories.tsx';
+  const [category, useCategory] = useState<HandlerPositionVal>();
+  // ....
+
+  {
+    (category !== undefined)
+      ? (
+        <CategoriesFC {...category} />
+      )
+      : (
+        <></>
+      )
+  }
+```
   or
   ```html
   <ul class="catalog-categories nav justify-content-center">
+    <li class="nav-item"><a class="nav-link" href="#">Все</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Мужская обувь</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Женская обувь</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Обувь унисекс</a></li>
@@ -42,17 +64,20 @@ import AncorFC from './Ancor.tsx';
     </ul>
   ```
  */
-export default function CategoriesFC({ categories }: Categories): JSX.Element {
+export default function CategoriesFC(categoriesArr: Position[]): JSX.Element {
+  const arr = Object.values(categoriesArr);
+
+  // debugger
   return (
     < ul className="catalog-categories nav justify-content-center" >
-      <AncorFC classes='nav-link' path='#' context='Все' />
+      <LiFC key={useId()} classes='nav-item'>
+        <AncorFC classes='nav-link' path='#' context='Все' />
+      </LiFC>
       {
-        Array.from(categories).map((obj) => (
-          <>
-            <LiFC key={useId() + String(obj.id)} classes='nav-item'>
-              <AncorFC classes='nav-link' path='#' context={obj.title} />
-            </LiFC>
-          </>
+        arr.map((obj) => (
+          <LiFC key={useId()} classes='nav-item'>
+            <AncorFC classes='nav-link' path='#' context={obj.title} />
+          </LiFC>
         ))
       }
     </ul >

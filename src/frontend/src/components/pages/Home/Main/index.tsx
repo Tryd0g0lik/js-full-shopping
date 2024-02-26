@@ -7,28 +7,37 @@ import ImageFC from '@site/Img.tsx';
 import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
-import { Position } from '@type';
+import { HandlerPositionVal } from '@type';
+import CategoriesFC from '@site/Categories.tsx';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 
 /* The top-sales from a server request */
-const serverTopSales = new SFetch(url);
+
 // const server
 /**
  * `import { UseMainFC } from './Main/index.tsx';`
  */
 export function UseMainFC(): JSX.Element {
   /* This datas  is a state for the top-sales */
-  const [topsales, useTopsales] = useState<undefined | Position[]>();
-  const [catalo, useCatalog] = useState<undefined | Position[]>();
+  const [topsales, useTopsales] = useState<HandlerPositionVal>();
+  const [category, useCategory] = useState<HandlerPositionVal>();
+  const [catalog, useCatalog] = useState<HandlerPositionVal>();
 
   useEffect(() => {
+    const serverTopSales = new SFetch(url);
   /* create a request to the server */
     serverTopSales.requestOneBefore = { 'top-sales': true };
     serverTopSales.requestOneParamAsync(useTopsales);
   }, [useTopsales]);
+  useEffect(() => {
+    const serverCategory = new SFetch(url);
+    /* create a request to the server */
+    serverCategory.requestOneBefore = { categories: true };
+    serverCategory.requestOneParamAsync(useCategory);
+  }, [useCategory]);
 
   return (
     <main className="container">
@@ -57,6 +66,15 @@ export function UseMainFC(): JSX.Element {
           </section>
           <section className="catalog">
             <HeadFC number={2} classes='text-center' title='Каталог' />
+            {
+              (category !== undefined)
+                ? (
+                  <CategoriesFC {...category} />
+                )
+                : (
+                  <></>
+                )
+            }
             <ImLoader />
           </section>
         </div>

@@ -1,6 +1,6 @@
 // src\frontend\src\components\pages\Catalog\Main\index.tsx
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
 import BannerFC from '@site/Baners.tsx';
@@ -8,17 +8,22 @@ import ImageFC from '@site/Img.tsx';
 
 import FormFC from '@site/Forms/index.tsx';
 import InputsFC from '@site/Forms/Imputs.tsx';
-
-/* Categories */
-import { Categories } from '@type';
-import LiFC from '@site/Li.tsx';
-import AncorFC from '@site/Ancor';
 import ButtonFC from '@site/Forms/Button.tsx';
 
+/* Categories / Position */
+import { HandlerPositionVal } from '@type';
+
 /* Positions */
-import { PositionFC } from '../../../site/Positions/index.tsx';
+import { PositionFC } from '@site/Positions/index.tsx';
 
 import { positionsArr } from './db.ts';
+
+/* Categories */
+import CategoriesFC from '@site/Categories.tsx';
+import { SFetch } from '@service/server.ts';
+const REACT_APP_URL = process.env.REACT_APP_URL as string;
+const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
+const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 
 /**
  * src\frontend\src\components\pages\Catalog\Main\index.tsx
@@ -32,8 +37,16 @@ import { positionsArr } from './db.ts';
  * `C` - `components`
  * @returns html
  */
-export function DMainFC({ categories }: Categories): JSX.Element {
-  const arr = positionsArr;
+// export function DMainFC({ categories }: Categories): JSX.Element {
+export function DMainFC(): JSX.Element {
+  // const arr = { ...categories };
+  const [category, useCategory] = useState<HandlerPositionVal>();
+  useEffect(() => {
+    const serverCategory = new SFetch(url);
+    /* create a request to the server */
+    serverCategory.requestOneBefore = { categories: true };
+    serverCategory.requestOneParamAsync(useCategory);
+  }, [useCategory]);
   return (
     <>
       <main className="container">
@@ -53,21 +66,19 @@ export function DMainFC({ categories }: Categories): JSX.Element {
                 <InputsFC classes="form-control" placeholder="Поиск" />
               </FormFC>
               {/* This categories is located under the catalog's search form */}
-              <ul className="catalog-categories nav justify-content-center">
-                {
-                  categories.map((obj) => (
-                    <>
-                      <LiFC key={String(obj.id)} classes='nav-item'>
-                        <AncorFC classes='nav-link' path='#' context={obj.title} />
-                      </LiFC>
-                    </>
-                  ))
-                }
-              </ul>
+              {
+                (category !== undefined)
+                  ? (
+                    <CategoriesFC {...category} />
+                  )
+                  : (
+                    <></>
+                  )
+              }
               <div className="row">
                 {/* This is positions by a page 'Категории' */}
                 {
-                  Array.from(arr).map((obj) => (
+                  Array.from(positionsArr).map((obj) => (
                     <>
                       <PositionFC title={obj.title} price={obj.price}>
                         <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
