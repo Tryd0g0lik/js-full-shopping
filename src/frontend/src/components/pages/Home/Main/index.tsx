@@ -12,18 +12,23 @@ import { Position } from '@type';
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
-const server = new SFetch(url);
+
+/* The top-sales from a server request */
+const serverTopSales = new SFetch(url);
+// const server
 /**
  * `import { UseMainFC } from './Main/index.tsx';`
  */
 export function UseMainFC(): JSX.Element {
-  const [positions, usePositions] = useState<undefined | Position[]>();
+  /* This datas  is a state for the top-sales */
+  const [topsales, useTopsales] = useState<undefined | Position[]>();
+  const [catalo, useCatalog] = useState<undefined | Position[]>();
+
   useEffect(() => {
   /* create a request to the server */
-
-    server.requestOneBefore = { 'top-sales': true };
-    server.requestOneParamAsync(usePositions);
-  }, [usePositions]);
+    serverTopSales.requestOneBefore = { 'top-sales': true };
+    serverTopSales.requestOneParamAsync(useTopsales);
+  }, [useTopsales]);
 
   return (
     <main className="container">
@@ -36,10 +41,10 @@ export function UseMainFC(): JSX.Element {
           <section className="top-sales">
             <HeadFC number={2} classes='text-center' title='Хиты продаж!' />
             {
-              (positions !== undefined)
+              (topsales !== undefined)
                 ? (
                   <div className="row">
-                    {Array.from(positions).map((obj) => (
+                    {Array.from(topsales).map((obj) => (
                       <PositionFC key={obj.id} title={obj.title} price={obj.price} >
                         <ImageFC path={(obj.images as string[])[0]} classes='card-img-top img-fluid' context={obj.title} />
                       </PositionFC>
