@@ -3,7 +3,11 @@ import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppFC } from './App.tsx';
 import './css/style.css';
-const root = document.querySelector('body');
+
+/* REDUX */
+import store from '@reduxs/store.ts';
+
+
 // debugger;
 if ((root !== null) && (root !== undefined)) {
   createRoot(root as HTMLElement).render(
