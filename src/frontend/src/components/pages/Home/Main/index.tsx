@@ -13,6 +13,8 @@ import DivFC from '@site/Div.tsx';
 import ButtonFC from '@site/Forms/Button.tsx';
 import LoaderMoreFC from '@site/Loadmore';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -28,7 +30,7 @@ export function UseMainFC(): JSX.Element {
   const [topsales, useTopsales] = useState<HandlerPositionVal>();
   const [category, useCategory] = useState<HandlerPositionVal>();
   const [positions, usePositions] = useState<HandlerPositionVal>();
-  const [filter, useFilter] = useState(1);
+  const [filterCategories, useFilter] = useState(1);
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
@@ -43,7 +45,7 @@ export function UseMainFC(): JSX.Element {
     serverCategory.requestOneParamAsync(useCategory);
   }, [useCategory]);
 
-  /* There is below a request to server and
+  /* There is below a request to server | '/items/?offset=6' and
   * here the is listener for listening a button name 'Загрузить ещё'
   */
 
@@ -75,7 +77,7 @@ export function UseMainFC(): JSX.Element {
     };
   }, [usePositions]);
 
-  /* There is below a filter categories. */
+  /* There is below a filter categories. | '/categories'  */
   const handlerFilterCaegories = (event: MouseEvent): void => {
     event.preventDefault();
     const target = (event.target as HTMLAnchorElement);
@@ -110,7 +112,8 @@ export function UseMainFC(): JSX.Element {
           </Fragment>
           <section className="top-sales">
             <HeadFC number={2} classes='text-center' title='Хиты продаж!' />
-            {
+            { /* This's a "Top-sales". | '/top-sales'
+            It's based at varieble: "topsales: Position[]|undefined" */
               (topsales !== undefined)
                 ? (
                   <div className="row">
@@ -132,7 +135,8 @@ export function UseMainFC(): JSX.Element {
           </section>
           <section className="catalog">
             <HeadFC number={2} classes='text-center' title='Каталог' />
-            {/* Category menu */
+            {/* Category menu. It is based at variavle: "category". | '/items/?offset=6'
+             It's type Array ("Position[]|undefined") */
               (category !== undefined)
                 ? (
                   <UseCategoriesFC {...category} />
@@ -143,12 +147,12 @@ export function UseMainFC(): JSX.Element {
             }
 
             <div className="row">
-              {/* This is simply positions */}
+              {/* This is simply positions. It is based  at variables: 'filter:number' */}
               {
                 (positions !== undefined)
                   ? (
                     Array.from(positions).map((obj) => (
-                      (filter === Number(obj.category))
+                      (filterCategories === Number(obj.category))
                         ? (/* Here is category after  filtering */
                           <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                             <Fragment>
@@ -161,7 +165,7 @@ export function UseMainFC(): JSX.Element {
                             </Fragment>
                           </PositionFC>
                         )
-                        : (filter === 1)
+                        : (filterCategories === 1)
                           ? (
                             <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                               <Fragment>
@@ -180,7 +184,7 @@ export function UseMainFC(): JSX.Element {
                   : < ImLoader />
               }
             </div>
-            {/* HEre is a button for will be loaded more the poitions */}
+            {/* Here is a button for will be loaded more the poitions */}
             <LoaderMoreFC />
           </section>
         </div>
