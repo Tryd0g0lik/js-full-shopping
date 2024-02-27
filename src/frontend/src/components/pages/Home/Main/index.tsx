@@ -53,14 +53,11 @@ export function UseMainFC(): JSX.Element {
     serverPositions.requestOneBefore = { offset: 6 };
     serverPositions.requestOneParamAsync(usePositions);
     /* ------------ */
-    // oldOffset = (positions as Position[]);
     const hablerLoaderMore = (event: MouseEvent): void => {
       event.preventDefault();
       oldOffset += 6;
       serverPositions.requestOneBefore = { offset: oldOffset };
       serverPositions.requestOneParamAsync(usePositions);
-      // usePositions(oldOffset.push(positions))
-      // (positions as Position[]).push(oldOffset) ;
     };
 
     const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
@@ -96,8 +93,6 @@ export function UseMainFC(): JSX.Element {
 
     return () => {
       /* object will be removed */
-      // const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item'));
-
       for (let i = 0; i < navCategories.length; i++) {
         (navCategories[i] as HTMLLIElement).removeEventListener('click', handlerFilterCaegories);
       }

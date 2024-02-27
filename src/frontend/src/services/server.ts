@@ -1,4 +1,5 @@
 // src\frontend\src\services\server.ts
+import { PositionFC } from '@site/Positions';
 import {
   Str, Request, Val, Position,
   PromiseOne, ReadOnlyFunction,
@@ -15,7 +16,7 @@ import { ErrorInfo } from 'react';
 export class SFetch {
   urls: string;
 
-  offsets: { offset: number } | undefined;
+  offsetsNumber: { offset: number } | undefined;
 
   q_: { q: string } | undefined;
 
@@ -45,7 +46,7 @@ export class SFetch {
     const val: string | number | boolean = Array.from(Object.values({ ...value }))[0];
 
     if (keys.includes('offset')) {
-      this.offsets = { offset: val as number };
+      this.offsetsNumber = { offset: val as number };
     } else if (keys.includes('top-sales')) {
       this.topSales = true;
     } else if (keys.includes('categories')) {
@@ -66,14 +67,30 @@ export class SFetch {
    */
   get requestOneBefore(): { offset: number } | { q: string } | { 'top-sales': boolean } |
   { categories: boolean } {
-    if (this.offsets !== undefined) {
-      return this.offsets;
+    if (this.offsetsNumber !== undefined) {
+      return this.offsetsNumber;
     } else if (this.topSales !== undefined) {
       return { 'top-sales': true };
     } else if (this.categories !== undefined) {
       return { categories: true };
     }
     return this.q_ as { q: string };
+  }
+
+  /**
+ *
+ * @param `body` the point entry getting a response from `fetch()`.
+ * After, will do render a recived data. 'true' if getting datas in JSON format and otherwise an error getting.
+ * If an error recived then returns `body`
+ * @returns
+ */
+  async parserResponseAsJson(body: Response): Promise<unknown> {
+    try {
+      const jsonData = await body.json() as Array<Record<string, unknown>>;
+      return jsonData;
+    } catch (err) {
+      console.warn('render a response in to the JSON returned Error: ', err);
+    }
   }
 
   /**
@@ -112,7 +129,6 @@ export class SFetch {
    * @returns type 'Promise<PromisePosition>'
    */
   async requestOneParamAsync(handler: (value: HandlerPositionVal) => void): Promise<HandlerPositionVal | void> {
-    let oldOffset: Position[] = [];
     const value: { offset: number } |
     { q: string } | { 'top-sales': boolean } |
     { categories: boolean } = this.requestOneBefore;
@@ -143,17 +159,18 @@ export class SFetch {
         const answerJson = await this.parserResponseAsJson(answer);
         console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
 
-        /* The useState hook for update state from a React */
-        if ((handler !== undefined) && (answerJson)) {
-
-          handler((oldOffset.length === 0)
-            ? answerJson as Position[]
-            : oldOffset
-          );
-
+        /* Below: The useState hook for update state from a React */
+        let responce: unknown | Position[] = '';
+        if ((answerJson !== null) && (answerJson !== undefined)) {
+          responce = answerJson;
+          if (key.includes('offset')) {
+            responce = Array.from(Object.values({ ...answerJson }));
+            // handler(oldOffset as Position[]);
+          }
+          handler(responce as Position[]);
         }
 
-        this.offsets = undefined;
+        this.offsetsNumber = undefined;
         this.q_ = undefined;
         this.topSales = undefined;
         this.categories = undefined;
@@ -164,23 +181,6 @@ export class SFetch {
     } catch (error: ErrorInfo | unknown | undefined) {
       const err = error;
       console.warn('The fetch request was aborted: ', err);
-    }
-  }
-
-  /**
-   *
-   * @param `body` the point entry getting a response from `fetch()`.
-   * After, will do render a recived data. 'true' if getting datas in JSON format and otherwise an error getting.
-   * If an error recived then returns `body`
-   * @returns
-   */
-  async parserResponseAsJson(body: Response): Promise<unknown> {
-    try {
-      const jsonData = await body.json() as Array<Record<string, unknown>>;
-      return jsonData;
-    } catch (err) {
-      console.warn('render a response in to the JSON returned Error: ', err);
-      return body;
     }
   }
 
