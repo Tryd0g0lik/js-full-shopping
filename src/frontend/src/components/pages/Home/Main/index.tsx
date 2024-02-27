@@ -13,7 +13,9 @@ import DivFC from '@site/Div.tsx';
 import ButtonFC from '@site/Forms/Button.tsx';
 import LoaderMoreFC from '@site/Loadmore';
 
+/* REDUX */
 import { useSelector, useDispatch } from 'react-redux';
+import { increment } from '@reduxs/counterSlice.ts';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -26,6 +28,12 @@ let oldOffset: number = 0;
  * `import { UseMainFC } from './Main/index.tsx';`
  */
 export function UseMainFC(): JSX.Element {
+  /* REDUX tools */
+  const counter = useSelector((state) => {
+    return state.category.velue
+  });
+  const dispatch = useDispatch();
+
   /* This datas  is a state for the top-sales */
   const [topsales, useTopsales] = useState<HandlerPositionVal>();
   const [category, useCategory] = useState<HandlerPositionVal>();
@@ -83,7 +91,8 @@ export function UseMainFC(): JSX.Element {
     const target = (event.target as HTMLAnchorElement);
 
     if (target.dataset.category !== undefined) {
-      useFilter(Number(target.dataset.category));
+      // useFilter(Number(target.dataset.category));
+      dispatch(increment());
     }
   };
   const handlerCaegoriesForUseEffect = (): () => void => {
@@ -152,7 +161,8 @@ export function UseMainFC(): JSX.Element {
                 (positions !== undefined)
                   ? (
                     Array.from(positions).map((obj) => (
-                      (filterCategories === Number(obj.category))
+                      /* filterCategories */
+                      (count === Number(obj.category)) 
                         ? (/* Here is category after  filtering */
                           <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                             <Fragment>
