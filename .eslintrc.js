@@ -56,6 +56,7 @@ module.exports = {
     "@typescript-eslint/consistent-type-imports": "off", // ключевое слово при импорте
     "@typescript-eslint/no-unnecessary-condition": "off", // if else for, while, &&, || and ?:
     "no-unused-vars": "off",
+    "@typescript-eslint/await-thenable": "off",
     "@typescript-eslint/no-unused-vars": "off", // Запретить использование неиспользуемых переменных
     // "no-extraneous-dependencies": "off", // 
     "@typescript-eslint/no-unsafe-assignment": "off", // Запретить присваивание значений с типом any переменным и свойствам.

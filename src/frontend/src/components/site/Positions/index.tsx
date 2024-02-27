@@ -25,19 +25,35 @@ import AncorFC from '@site/Ancor.tsx';
     </div>
   ```
  */
-export function PositionFC({ title, price = 0, children }: Position): JSX.Element {
-  return (
-    <div className="col-4">
-      <div className="card catalog-item-card">
-        <div className='catalog-card-previw'>
-          {children}
-        </div>
-        <div className="card-body">
-          <p className="card-text">{title}</p>
-          <p className="card-text">{price} руб.</p>
-          <AncorFC path='/products/1.html' classes='btn btn-outline-primary' context='Заказать' />
+export function PositionFC({ title, category = undefined, price = 0, children }: Position): JSX.Element {
+  const result = (category !== undefined)
+    ? (
+      <div className="col-4" data-category={category}>
+        <div className="card catalog-item-card">
+          <div className='catalog-card-previw'>
+            {children}
+          </div>
+          <div className="card-body">
+            <p className="card-text">{title}</p>
+            <p className="card-text">{price} руб.</p>
+            <AncorFC path='/products/1.html' classes='btn btn-outline-primary' context='Заказать' />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    )
+    : (
+      <div className="col-4">
+        <div className="card catalog-item-card">
+          <div className='catalog-card-previw'>
+            {children}
+          </div>
+          <div className="card-body">
+            <p className="card-text">{title}</p>
+            <p className="card-text">{price} руб.</p>
+            <AncorFC path='/products/1.html' classes='btn btn-outline-primary' context='Заказать' />
+          </div>
+        </div>
+      </div>
+    );
+  return result;
 }

@@ -25,7 +25,8 @@ export interface ID {
  */
 export interface A extends Classes {
   path: string
-  context?: string
+  context?: string | undefined
+  dataCategory?: string | number | undefined
 }
 
 /**

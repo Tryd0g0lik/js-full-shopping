@@ -16,6 +16,8 @@ import ImageFC from '@site/Img.tsx';
 
 /* Forms */
 import ButtonFC from '@site/Forms/Button.tsx';
+import DivFC from '@site/Div.tsx';
+import LoaderMoreFC from '@site/Loadmore.tsx';
 
 export function LMain({ categories }: Categories): JSX.Element {
   return (
@@ -78,6 +80,7 @@ export function LMain({ categories }: Categories): JSX.Element {
                 ))
               }
             </ul>
+
             <div className="row">
               {/* This is positions by a page 'Категории' */}
               {
@@ -90,9 +93,7 @@ export function LMain({ categories }: Categories): JSX.Element {
                 ))
               }
             </div>
-            <div className="text-center">
-              <button className="btn btn-outline-primary">Загрузить ещё</button>
-            </div>
+            <LoaderMoreFC />
           </section>
         </div>
       </div>
