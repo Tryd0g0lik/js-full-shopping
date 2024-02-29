@@ -1,3 +1,4 @@
+// src\frontend\src\reduxs\actions.ts
 export enum ActionTypes {
   SET_CATEGORY_VALUE = 'SET_CATEGORY_VALUE',
   RESET_CATEGORY_VALUE = 'RESET_CATEGORY_VALUE',
