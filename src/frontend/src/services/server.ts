@@ -1,14 +1,10 @@
 // src\frontend\src\services\server.ts
-<<<<<<< HEAD
-import { Str, Product, Val, Position, PromiseOne, ReadOnlyFunction } from '@type';
-=======
 import { PositionFC } from '@site/Positions';
 import {
   Str, Request, Val, Position,
   PromiseOne, ReadOnlyFunction,
   Categories, Category, HandlerPositionVal
 } from '@type';
->>>>>>> 2
 import { ErrorInfo } from 'react';
 /**
  * `src\frontend\src\services\server.ts`
@@ -24,9 +20,11 @@ export class SFetch {
 
   q_: { q: string } | undefined;
 
-  topSales: boolean;
+  topSales: boolean | undefined;
 
   index: number;
+
+  categories: boolean | undefined;
 
   private readonly controller: AbortController;
 
@@ -38,12 +36,12 @@ export class SFetch {
   /**
    * Here an one parameter is before request for server
    *
-   * Here must send `{offset: number}` or `{q: string}` or `{'top-sales': true }`
-   * to the entry point.
-   * @param `value` is `{offset: number}` or `{q: string}`or `{'top-sales': true }`
+   * Here must send `{offset: number}` or `{q: string}` or `{'top-sales': boolean }`
+   * or `{'categories': true }` to the entry point.
+   * @param `value` is `{offset: number}` or `{q: string}`or `{'top-sales': true }` or `{'categories': true }`
    *
    */
-  set requestOneBefore(value: Product) {
+  set requestOneBefore(value: Request) {
     const keys: string = Array.from(Object.keys({ ...value }))[0];
     const val: string | number | boolean = Array.from(Object.values({ ...value }))[0];
 
@@ -51,6 +49,8 @@ export class SFetch {
       this.offsetsNumber = { offset: val as number };
     } else if (keys.includes('top-sales')) {
       this.topSales = true;
+    } else if (keys.includes('categories')) {
+      this.categories = true;
     } else {
       this.q_ = { q: val as string };
     }
@@ -62,21 +62,17 @@ export class SFetch {
    * @returns `{offset: number}` - Here is a dowloand more.
    * Or `{q: string}` - Here is a text for a surching row.
    * Or `{ 'top-sales': boolean }` - Here is a top of sales.
+   * Or `{'top-sales': boolean }` - Here is an array categories
    *
    */
-<<<<<<< HEAD
-  get requestOneBefore(): { offset: number } | { q: string } | { 'top-sales': boolean } {
-    if (this.offsets !== undefined) {
-      return this.offsets;
-    } else if (this.topSales) {
-=======
   get requestOneBefore(): { offset: number } | { q: string } | { 'top-sales': boolean } |
   { categories: boolean } {
     if (this.offsetsNumber !== undefined) {
       return this.offsetsNumber;
     } else if (this.topSales !== undefined) {
->>>>>>> 2
       return { 'top-sales': true };
+    } else if (this.categories !== undefined) {
+      return { categories: true };
     }
     return this.q_ as { q: string };
   }
@@ -107,8 +103,8 @@ export class SFetch {
    * Then If he has:
    *  - a `offset` to return the path name `?offset=${val}`. `http://localhost:7070/api/top-sales.` ;
    *  - a `q` to return the path name `?q=${val}`. `http://localhost:7070/api/items?q=<text for search row>`
-   *  - a `top-sales` to return the path name `top-sales` `http://localhost:7070/api/top-sales.`
-   *  -
+   *  - a `top-sales` to return the path name `top-sales` `http://localhost:7070/api/top-sales`.
+   *  - a `categories` to return the path name `categories``http://localhost:7070/api/categories`.
    * After creating the URL-addres server do requst from `fetch()`
    * ....
    *
@@ -132,27 +128,27 @@ export class SFetch {
     * @prop `children?`: React.JSX.Elements
    * @returns type 'Promise<PromisePosition>'
    */
-<<<<<<< HEAD
-  async requestOneParamAsync(handler: (value: Position[] | undefined) => void): Promise<Position[] | void> {
-    const value: { offset: number } | { q: string } | { 'top-sales': boolean } = this.requestOneBefore;
-=======
   async requestOneParamAsync(handler: (value: HandlerPositionVal) => void): Promise<HandlerPositionVal | void> {
     const value: { offset: number } |
     { q: string } | { 'top-sales': boolean } |
     { categories: boolean } = this.requestOneBefore;
 
->>>>>>> 2
     const url = this.urls.slice(0);
     let pathName: Val = '';
+    /* receive the key name */
     const key = Array.from(Object.keys(value))[0];
+    /* received data from values */
     const val = Array.from(Object.values(value))[0];
 
+    /* */
     if (key.includes('offset')) {
-      pathName = `items/?offset=${val}`;
-    } if (key.includes('top-sales') && (val === true)) {
+      pathName = `/items/?offset=${val}`;
+    } else if (key.includes('top-sales') && (val === true)) {
       pathName = '/top-sales';
+    } else if (key.includes('categories') && (val === true)) {
+      pathName = '/categories';
     } else {
-      pathName = `items/?q=${val}`;
+      pathName = `/items/?q=${val}`;
     }
 
     const signal = this.controller.signal;
@@ -163,11 +159,6 @@ export class SFetch {
         const answerJson = await this.parserResponseAsJson(answer);
         console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
 
-<<<<<<< HEAD
-        /* The useState hook for update state from a React */
-        if (handler !== undefined) {
-          handler(answerJson as Position[]);
-=======
         /* Below: The useState hook for update state from a React */
         let responce: unknown | Position[] = '';
         if ((answerJson !== null) && (answerJson !== undefined)) {
@@ -177,12 +168,12 @@ export class SFetch {
             // handler(oldOffset as Position[]);
           }
           handler(responce as Position[]);
->>>>>>> 2
         }
 
         this.offsetsNumber = undefined;
         this.q_ = undefined;
-        this.topSales = false;
+        this.topSales = undefined;
+        this.categories = undefined;
       } else {
         console.warn('[Ошибка HTTP]: ' + answer.status);
         console.warn('[Ошибка HTTP]: ' + answer.statusText);
