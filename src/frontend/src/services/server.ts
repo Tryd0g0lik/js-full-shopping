@@ -1,5 +1,14 @@
 // src\frontend\src\services\server.ts
+<<<<<<< HEAD
 import { Str, Product, Val, Position, PromiseOne, ReadOnlyFunction } from '@type';
+=======
+import { PositionFC } from '@site/Positions';
+import {
+  Str, Request, Val, Position,
+  PromiseOne, ReadOnlyFunction,
+  Categories, Category, HandlerPositionVal
+} from '@type';
+>>>>>>> 2
 import { ErrorInfo } from 'react';
 /**
  * `src\frontend\src\services\server.ts`
@@ -11,7 +20,7 @@ import { ErrorInfo } from 'react';
 export class SFetch {
   urls: string;
 
-  offsets: { offset: number } | undefined;
+  offsetsNumber: { offset: number } | undefined;
 
   q_: { q: string } | undefined;
 
@@ -39,7 +48,7 @@ export class SFetch {
     const val: string | number | boolean = Array.from(Object.values({ ...value }))[0];
 
     if (keys.includes('offset')) {
-      this.offsets = { offset: val as number };
+      this.offsetsNumber = { offset: val as number };
     } else if (keys.includes('top-sales')) {
       this.topSales = true;
     } else {
@@ -55,13 +64,37 @@ export class SFetch {
    * Or `{ 'top-sales': boolean }` - Here is a top of sales.
    *
    */
+<<<<<<< HEAD
   get requestOneBefore(): { offset: number } | { q: string } | { 'top-sales': boolean } {
     if (this.offsets !== undefined) {
       return this.offsets;
     } else if (this.topSales) {
+=======
+  get requestOneBefore(): { offset: number } | { q: string } | { 'top-sales': boolean } |
+  { categories: boolean } {
+    if (this.offsetsNumber !== undefined) {
+      return this.offsetsNumber;
+    } else if (this.topSales !== undefined) {
+>>>>>>> 2
       return { 'top-sales': true };
     }
     return this.q_ as { q: string };
+  }
+
+  /**
+ *
+ * @param `body` the point entry getting a response from `fetch()`.
+ * After, will do render a recived data. 'true' if getting datas in JSON format and otherwise an error getting.
+ * If an error recived then returns `body`
+ * @returns
+ */
+  async parserResponseAsJson(body: Response): Promise<unknown> {
+    try {
+      const jsonData = await body.json() as Array<Record<string, unknown>>;
+      return jsonData;
+    } catch (err) {
+      console.warn('render a response in to the JSON returned Error: ', err);
+    }
   }
 
   /**
@@ -99,8 +132,16 @@ export class SFetch {
     * @prop `children?`: React.JSX.Elements
    * @returns type 'Promise<PromisePosition>'
    */
+<<<<<<< HEAD
   async requestOneParamAsync(handler: (value: Position[] | undefined) => void): Promise<Position[] | void> {
     const value: { offset: number } | { q: string } | { 'top-sales': boolean } = this.requestOneBefore;
+=======
+  async requestOneParamAsync(handler: (value: HandlerPositionVal) => void): Promise<HandlerPositionVal | void> {
+    const value: { offset: number } |
+    { q: string } | { 'top-sales': boolean } |
+    { categories: boolean } = this.requestOneBefore;
+
+>>>>>>> 2
     const url = this.urls.slice(0);
     let pathName: Val = '';
     const key = Array.from(Object.keys(value))[0];
@@ -122,12 +163,24 @@ export class SFetch {
         const answerJson = await this.parserResponseAsJson(answer);
         console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
 
+<<<<<<< HEAD
         /* The useState hook for update state from a React */
         if (handler !== undefined) {
           handler(answerJson as Position[]);
+=======
+        /* Below: The useState hook for update state from a React */
+        let responce: unknown | Position[] = '';
+        if ((answerJson !== null) && (answerJson !== undefined)) {
+          responce = answerJson;
+          if (key.includes('offset')) {
+            responce = Array.from(Object.values({ ...answerJson }));
+            // handler(oldOffset as Position[]);
+          }
+          handler(responce as Position[]);
+>>>>>>> 2
         }
 
-        this.offsets = undefined;
+        this.offsetsNumber = undefined;
         this.q_ = undefined;
         this.topSales = false;
       } else {
@@ -137,23 +190,6 @@ export class SFetch {
     } catch (error: ErrorInfo | unknown | undefined) {
       const err = error;
       console.warn('The fetch request was aborted: ', err);
-    }
-  }
-
-  /**
-   *
-   * @param `body` the point entry getting a response from `fetch()`.
-   * After, will do render a recived data. 'true' if getting datas in JSON format and otherwise an error getting.
-   * If an error recived then returns `body`
-   * @returns
-   */
-  async parserResponseAsJson(body: Response): Promise<unknown> {
-    try {
-      const jsonData = await body.json() as Array<Record<string, unknown>>;
-      return jsonData;
-    } catch (err) {
-      console.warn('render a response in to the JSON returned Error: ', err);
-      return body;
     }
   }
 

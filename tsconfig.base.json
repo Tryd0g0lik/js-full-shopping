@@ -6,6 +6,7 @@
     "rootDirs": [
       "./src/frontend"
     ],
+    
     "allowJs": false,
     "sourceMap": true,
     "outDir": "./dist",
@@ -22,11 +23,11 @@
       "@type": [
         "src/frontend/src/interfaces.ts",
       ],
-        "@svgs/*": [
-          "src/frontend/src/svgs/*"
-        ],
       "@img/*": [
-        "src/frontend/src/img/*"
+        "src/frontend/src/img/*",
+      ],
+      "@svgs/*": [
+        "src/frontend/src/svgs/*",
       ],
       "@pages/*": [
         "./src/frontend/src/components/pages/*"
@@ -36,6 +37,9 @@
       ],
       "@service/*": [
         "./src/frontend/src/services/*"
+      ],
+      "@rstores": [
+        "./src/frontend/src/reduxs/stores.js",
       ]
     }
   },

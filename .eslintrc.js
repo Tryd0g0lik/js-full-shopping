@@ -52,6 +52,9 @@ module.exports = {
         "tsx": "always"
       }
     ],
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/no-explicit-any": ["error", { fixToUnknown: false, ignoreRestArgs: true }],
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/consistent-type-imports": "off", // ключевое слово при импорте
     "@typescript-eslint/no-unnecessary-condition": "off", // if else for, while, &&, || and ?:
@@ -69,6 +72,10 @@ module.exports = {
         }
       }
     ],
+    "default-param-last": "off",
+    "@typescript-eslint/default-param-last": "error",
+
+
     "require-await": "off",
     "@typescript-eslint/require-await": "error",
     "@typescript-eslint/restrict-template-expressions": ["error", {
