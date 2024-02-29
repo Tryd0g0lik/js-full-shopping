@@ -12,6 +12,8 @@
     "sourceMap": true,
     "outDir": "./dist",
   
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -39,6 +41,9 @@
       ],
       "@service/*": [
         "./src/frontend/src/services/*"
+      ],
+      "@reduxs/*": [
+        "./src/frontend/src/reduxs/*",
       ]
     }
   },

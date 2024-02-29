@@ -5,17 +5,21 @@ import { AppFC } from './App.tsx';
 import './css/style.css';
 
 /* REDUX */
-import store from '@reduxs/store.ts';
+import { Provider } from 'react-redux';
+import configStore from '@reduxs/store.ts';
 
+const root = document.getElementsByTagName('body')[0];
 
 // debugger;
 if ((root !== null) && (root !== undefined)) {
   createRoot(root as HTMLElement).render(
-    <StrictMode>
-      {/* <BrowserRouter> */}
-      <AppFC />
-      {/* </BrowserRouter > */}
-    </StrictMode>
+    <Provider store={configStore()}>
+      <StrictMode>
+        {/* <BrowserRouter> */}
+        <AppFC />
+        {/* </BrowserRouter > */}
+      </StrictMode>
+    </Provider>
   );
 }
 console.log('Good lack work');

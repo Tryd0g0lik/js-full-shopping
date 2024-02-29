@@ -14,8 +14,12 @@ import ButtonFC from '@site/Forms/Button.tsx';
 import LoaderMoreFC from '@site/Loadmore';
 
 /* REDUX */
-import { useSelector, useDispatch } from 'react-redux';
-import { increment } from '@reduxs/counterSlice.ts';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { ActionTypes, Actions } from '@reduxs/actions.ts';
+import counterReducer from '@reduxs/reducers.ts';
+
+
+// import { increment } from '@reduxs/counterSlice.js';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -28,17 +32,20 @@ let oldOffset: number = 0;
  * `import { UseMainFC } from './Main/index.tsx';`
  */
 export function UseMainFC(): JSX.Element {
-  /* REDUX tools */
-  const counter = useSelector((state) => {
-    return state.category.velue
-  });
-  const dispatch = useDispatch();
+  // /* REDUX tools */
+  // const counter = useSelector((state) => {
+  //   return state.category.velue;
+  // });
+  // const dispatch = useDispatch();
 
   /* This datas  is a state for the top-sales */
   const [topsales, useTopsales] = useState<HandlerPositionVal>();
   const [category, useCategory] = useState<HandlerPositionVal>();
   const [positions, usePositions] = useState<HandlerPositionVal>();
   const [filterCategories, useFilter] = useState(1);
+  const reduxCategory = useSelector((state: Actions) => {
+    return (state as Actions).userCategory;
+  })
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
@@ -91,8 +98,8 @@ export function UseMainFC(): JSX.Element {
     const target = (event.target as HTMLAnchorElement);
 
     if (target.dataset.category !== undefined) {
-      // useFilter(Number(target.dataset.category));
-      dispatch(increment());
+      useFilter(Number(target.dataset.category));
+      // dispatch(increment());
     }
   };
   const handlerCaegoriesForUseEffect = (): () => void => {
@@ -112,6 +119,7 @@ export function UseMainFC(): JSX.Element {
   useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
 
   return (
+
     <main className="container">
       <div className="row">
         <div className="col">
@@ -162,7 +170,7 @@ export function UseMainFC(): JSX.Element {
                   ? (
                     Array.from(positions).map((obj) => (
                       /* filterCategories */
-                      (count === Number(obj.category)) 
+                      (filterCategories === Number(obj.category))
                         ? (/* Here is category after  filtering */
                           <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                             <Fragment>
@@ -202,3 +210,58 @@ export function UseMainFC(): JSX.Element {
     </main>
   );
 }
+
+/* The global state including  in this props */
+
+const mapStateToProps = (state: {
+  categories: {
+    userCategory: any
+    userValue: any
+  }
+}): typeof stateToProps => {
+  /* All is will be returning from this function it's will be send to props.
+  * If we need to get the larg a state, we need insert:
+  * return {
+  *  state // That we will be got all the  big state.
+  * }
+  *
+  * Below the 'stateToProps'. It's tell us, what us only need little a corected spice.
+  * 'categories' it's property/name from the `src\frontend\src\reduxs\store.ts` and the lows code 
+  * ```ts
+  * combineReducers({
+      reducer: {
+        categories: counterReducer
+      }
+    })
+    ```
+  * And this's `categories`
+  */
+  const stateToProps = {
+
+    userCtegory: state.categories.userCategory,
+    userCategoryValue: state.categories.userValue
+  };
+  return stateToProps;
+};
+
+/* the special dispatch function including into this props */
+const mapDispatchToProps = (dispatch) => {
+  /*
+  * return {
+      dispatch
+  }
+  */
+  return {
+    userCategory: (state: any) => {
+      dispatch(counterReducer(state.action.name, state.action.payload));
+    }
+  };
+};
+
+/* will be include */
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(
+  /* the onecom ponent included */
+  UseMainFC
+);
