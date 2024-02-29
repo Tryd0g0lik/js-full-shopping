@@ -43,9 +43,9 @@ export function UseMainFC(): JSX.Element {
   const [category, useCategory] = useState<HandlerPositionVal>();
   const [positions, usePositions] = useState<HandlerPositionVal>();
   const [filterCategories, useFilter] = useState(1);
-  const reduxCategory = useSelector((state: Actions) => {
-    return (state as Actions).userCategory;
-  })
+  // const reduxCategory = useSelector((state: Actions) => {
+  //   return (state as Actions).userCategory;
+  // })
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
