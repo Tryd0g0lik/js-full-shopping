@@ -20,7 +20,7 @@ const composeWithDevTools =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const composedEnhancers = composeWithDevTools(middlewareEnhancer);
-
+// debugger
 const legacyCreateStire = createStore(
   combineReducers({
     categories: counterReducer({ ...categoryAllStateAction })
@@ -29,7 +29,7 @@ const legacyCreateStire = createStore(
     composedEnhancers
   )
 );
-
+// debugger
 // const configStore = (): typeof legacyCreateStire => {
 //   return legacyCreateStire;
 // };

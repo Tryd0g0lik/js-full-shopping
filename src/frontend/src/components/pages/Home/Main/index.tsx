@@ -245,10 +245,10 @@ const mapStateToProps = (state: {
 };
 
 // /* the special dispatch function including into this props */
-// const dispatchToProps = (dispatch) => (userNumberCategory: number) => {
-/*
-* return {
-  dispatch
+const dispatchToProps = (dispatch) => (userNumberCategory: number) => {
+
+//  return {
+//   dispatch
 // debugger;
 // return {
 //   setCategoryNymber: (state: any) => {
