@@ -11,7 +11,8 @@ import { Actions, ActionTypes, defaultStateAction, ChangeCategoryAction } from '
  * */
 const counterReducer = (action: Actions, state: typeof defaultStateAction = defaultStateAction): typeof defaultStateAction => {
   // will be change a state or default value returns
-  switch (action.type) {
+  // debugger
+  switch (action.name) {
     case ActionTypes.SET_CATEGORY_VALUE: {
       const newState = {
         ...state,

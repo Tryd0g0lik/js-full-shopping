@@ -14,9 +14,9 @@ import ButtonFC from '@site/Forms/Button.tsx';
 import LoaderMoreFC from '@site/Loadmore';
 
 /* REDUX */
-// import { useSelector, useDispatch, connect } from 'react-redux';
-// import { ActionTypes, Actions } from '@reduxs/actions.ts';
-// import counterReducer from '@reduxs/reducers.ts';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import counterReducer from '@reduxs/reducers.ts';
+import changeCategory from '@reduxs/changeCategoryDispatch.ts';
 
 // import { increment } from '@reduxs/counterSlice.js';
 
@@ -98,6 +98,7 @@ export function UseMainFC(): JSX.Element {
 
     if (target.dataset.category !== undefined) {
       useFilter(Number(target.dataset.category));
+      mapDispatchToProps(filterCategories);
       // dispatch(increment());
     }
   };
@@ -210,57 +211,63 @@ export function UseMainFC(): JSX.Element {
   );
 }
 
+
 /* The global state including  in this props */
 
-// const mapStateToProps = (state: {
-//   categories: {
-//     userCategory: any
-//     userValue: any
-//   }
-// }): typeof stateToProps => {
-//   /* All is will be returning from this function it's will be send to props.
-//   * If we need to get the larg a state, we need insert:
-//   * return {
-//   *  state // That we will be got all the  big state.
-//   * }
-//   *
-//   * Below the 'stateToProps'. It's tell us, what us only need little a corected spice.
-//   * 'categories' it's property/name from the `src\frontend\src\reduxs\store.ts` and the lows code 
-//   * ```ts
-//   * combineReducers({
-//       reducer: {
-//         categories: counterReducer
-//       }
-//     })
-//     ```
-//   * And this's `categories`
-//   */
-//   const stateToProps = {
-
-//     userCtegory: state.categories.userCategory,
-//     userCategoryValue: state.categories.userValue
-//   };
-//   return stateToProps;
-// };
+const mapStateToProps = (state: {
+  categories: {
+    userCategory: any
+    userValue: any
+  }
+}): typeof stateToProps => {
+  /* All is will be returning from this function it's will be send to props.
+  * If we need to get the larg a state, we need insert:
+  * return {
+  *  state // That we will be got all the  big state.
+  * }
+  *
+  * Below the 'stateToProps'. It's tell us, what us only need little a corected spice.
+  * 'categories' it's property/name from the `src\frontend\src\reduxs\store.ts` and the lows code
+  * ```ts
+  * combineReducers({
+      reducer: {
+        categories: counterReducer
+      }
+    })
+    ```
+  * And this's `categories`
+  */
+  const stateToProps = {
+    name: state.categories.userCategory,
+    payload: state.categories.userValue
+  };
+  return stateToProps;
+};
 
 // /* the special dispatch function including into this props */
-// const mapDispatchToProps = (dispatch) => {
-//   /*
-//   * return {
-//       dispatch
+// const dispatchToProps = (dispatch) => (userNumberCategory: number) => {
+/*
+* return {
+  dispatch
+// debugger;
+// return {
+//   setCategoryNymber: (state: any) => {
+//     dispatch(counterReducer(state.action.name, state.action.payload));
 //   }
-//   */
-//   return {
-//     userCategory: (state: any) => {
-//       dispatch(counterReducer(state.action.name, state.action.payload));
-//     }
-//   };
-// };
+  // };
+  const changedUserCategory = changeCategory(userNumberCategory);
+  dispatch(changedUserCategory);
+  return changedUserCategory;
+};
 
-// /* will be include */
-// export default connect(
-//   mapStateToProps, mapDispatchToProps
-// )(
-//   /* the onecom ponent included */
-//   UseMainFC
-// );
+const mapDispatchToProps = (dispatch) => {
+  return dispatchToProps(dispatch);
+};
+
+/* will be include */
+export default connect(
+  mapStateToProps
+)(
+  /* the onecom ponent included */
+  UseMainFC
+);

@@ -98,7 +98,8 @@ module.exports = {
     }],
     "import/no-extraneous-dependencies": "off", // импорт внешних модулей
     "@typescript-eslint/no-unsafe-argument": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off"
+    "@typescript-eslint/no-unsafe-member-access": "off",
+
   },
   "ignorePatterns": [
     "./*.config.js",

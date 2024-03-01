@@ -13,7 +13,7 @@ const root = document.getElementsByTagName('body')[0];
 // debugger;
 if ((root !== null) && (root !== undefined)) {
   createRoot(root as HTMLElement).render(
-    <Provider store={configStore()}>
+    <Provider store={configStore}>
       <StrictMode>
         {/* <BrowserRouter> */}
         <AppFC />

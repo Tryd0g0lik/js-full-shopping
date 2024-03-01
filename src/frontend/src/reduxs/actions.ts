@@ -13,31 +13,31 @@ interface Basicnum {
   payload: number
 }
 export interface ChangeCategoryAction extends Basicnum {
-  type: ActionTypes.SET_CATEGORY_VALUE
+  name: ActionTypes.SET_CATEGORY_VALUE
 }
 
 export interface CategoryAllAction extends Basicnum {
-  type: ActionTypes.ALL_CATEGORY_VALUE
+  name: ActionTypes.ALL_CATEGORY_VALUE
 }
 
 export interface CategoryMenAction extends Basicnum {
-  type: ActionTypes.MEN_CATEGORY_VALUE
+  name: ActionTypes.MEN_CATEGORY_VALUE
 }
 
 export interface CategoryWomanAction extends Basicnum {
-  type: ActionTypes.WOMAN_CATEGORY_VALUE
+  name: ActionTypes.WOMAN_CATEGORY_VALUE
 }
 
 export interface CateryUnisexAction extends Basicnum {
-  type: ActionTypes.UNISEX_CATECORY_VALUE
+  name: ActionTypes.UNISEX_CATECORY_VALUE
 }
 
 export interface CategoryChildAction extends Basicnum {
-  type: ActionTypes.CHILD_CATEGORY_VALUE
+  name: ActionTypes.CHILD_CATEGORY_VALUE
 }
 
 export interface ResetStateAction {
-  type: ActionTypes.RESET_CATEGORY_VALUE
+  name: ActionTypes.RESET_CATEGORY_VALUE
 }
 
 /* --------------- */

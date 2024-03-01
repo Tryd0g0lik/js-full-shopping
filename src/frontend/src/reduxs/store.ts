@@ -6,8 +6,10 @@
 import { compose, legacy_createStore as createStore, applyMiddleware, combineReducers } from 'redux';
 import { thunk } from 'redux-thunk';
 import counterReducer from './reducers.ts';
+import { categoryAllStateAction, ActionTypes } from './actions.ts';
+
 // import { applyMiddleware } from '@reduxjs/toolkit';
-// const REACT_APP_REDUX_DEVTOOLS = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+// const composeWithDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
@@ -21,16 +23,16 @@ const composedEnhancers = composeWithDevTools(middlewareEnhancer);
 
 const legacyCreateStire = createStore(
   combineReducers({
-    categories: counterReducer
+    categories: counterReducer({ ...categoryAllStateAction })
   }),
   compose(
     composedEnhancers
   )
 );
 
-const configStore = (): typeof legacyCreateStire => {
-  return legacyCreateStire;
-};
+// const configStore = (): typeof legacyCreateStire => {
+//   return legacyCreateStire;
+// };
 // const configStore = (): void => { };
 export default legacyCreateStire;
 
