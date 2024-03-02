@@ -17,13 +17,49 @@ import LoaderMoreFC from '@site/Loadmore';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import counterReducer from '@reduxs/reducers.ts';
 import changeCategory from '@reduxs/changeCategoryDispatch.ts';
-
+import { Actions } from '@reduxs/actions.ts';
+import RootState from '@reduxs/store.ts';
+const [filterCategories, useFilter] = useState(1);
 // import { increment } from '@reduxs/counterSlice.js';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 let oldOffset: number = 0;
+
+const mapStateToProps = (state): Actions => {
+	/* All is will be returning from this function it's will be send to props.
+	* If we need to get the larg a state, we need insert:
+	* return {
+	*  state // That we will be got all the  big state.
+	* }
+	*
+	* Below the 'stateToProps'. It's tell us, what us only need little a corected spice.
+	* 'categories' it's property/name from the `src\frontend\src\reduxs\store.ts` and the lows code
+	* ```ts
+	* combineReducers({
+			reducer: {
+				categories: counterReducer
+			}
+		})
+		```
+	* And this's `categories`
+	*/
+
+	const stateToProps = {
+		name: state.categories.name,
+		payload: state.categories.payload
+	};
+	return stateToProps;
+};
+
+// /* the special dispatch function including into this props */
+const mapDispatchToProps = (dispatch: typeof counterReducer): Actions => {
+	const changedUserCategory: Actions = changeCategory(filterCategories);
+	dispatch({ ...changedUserCategory }); // userNumberCategory
+	// dispatch();
+	return { ...changedUserCategory };
+};
 /* The top-sales from a server request */
 
 // const server
@@ -41,7 +77,10 @@ export function UseMainFC(): JSX.Element {
   const [topsales, useTopsales] = useState<HandlerPositionVal>();
   const [category, useCategory] = useState<HandlerPositionVal>();
   const [positions, usePositions] = useState<HandlerPositionVal>();
-  const [filterCategories, useFilter] = useState(1);
+
+
+	// const filterCategories = useSelector((state: RootState) => state.filterCategories);
+
   // const reduxCategory = useSelector((state: Actions) => {
   //   return (state as Actions).userCategory;
   // })
@@ -98,8 +137,17 @@ export function UseMainFC(): JSX.Element {
 
     if (target.dataset.category !== undefined) {
       useFilter(Number(target.dataset.category));
-      mapDispatchToProps(filterCategories);
-      // dispatch(increment());
+			/* ------------------- */
+			const action = {
+				name: changeCategory(filterCategories),
+				payload: filterCategories
+			};
+
+			const userCategore = changeCategory(Number(target.dataset.category));
+			// dispatch({
+			//   name: userCategore.name,
+			//   payload: userCategore.payload
+			// });
     }
   };
   const handlerCaegoriesForUseEffect = (): () => void => {
@@ -116,8 +164,7 @@ export function UseMainFC(): JSX.Element {
       }
     };
   };
-  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
-
+	useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
   return (
 
     <main className="container">
@@ -211,62 +258,12 @@ export function UseMainFC(): JSX.Element {
   );
 }
 
-
 /* The global state including  in this props */
-
-const mapStateToProps = (state: {
-  categories: {
-    userCategory: any
-    userValue: any
-  }
-}): typeof stateToProps => {
-  /* All is will be returning from this function it's will be send to props.
-  * If we need to get the larg a state, we need insert:
-  * return {
-  *  state // That we will be got all the  big state.
-  * }
-  *
-  * Below the 'stateToProps'. It's tell us, what us only need little a corected spice.
-  * 'categories' it's property/name from the `src\frontend\src\reduxs\store.ts` and the lows code
-  * ```ts
-  * combineReducers({
-      reducer: {
-        categories: counterReducer
-      }
-    })
-    ```
-  * And this's `categories`
-  */
-  const stateToProps = {
-    name: state.categories.userCategory,
-    payload: state.categories.userValue
-  };
-  return stateToProps;
-};
-
-// /* the special dispatch function including into this props */
-const dispatchToProps = (dispatch) => (userNumberCategory: number) => {
-
-//  return {
-//   dispatch
-// debugger;
-// return {
-//   setCategoryNymber: (state: any) => {
-//     dispatch(counterReducer(state.action.name, state.action.payload));
-//   }
-  // };
-  const changedUserCategory = changeCategory(userNumberCategory);
-  dispatch(changedUserCategory);
-  return changedUserCategory;
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return dispatchToProps(dispatch);
-};
 
 /* will be include */
 export default connect(
-  mapStateToProps
+	mapStateToProps,
+	mapDispatchToProps
 )(
   /* the onecom ponent included */
   UseMainFC
