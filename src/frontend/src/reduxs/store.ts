@@ -4,6 +4,7 @@
 // https://redux.js.org/tutorials/quick-start#add-slice-reducers-to-the-store
 
 import { compose, legacy_createStore as createStore, applyMiddleware, Action, combineReducers, Store } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { thunk } from 'redux-thunk';
 import counterReducer from './reducers.ts';
 import { categoryAllStateAction, CategoryTypes, Actions, CategoryNumber, RootState } from './actions.ts';
@@ -12,41 +13,47 @@ import { categoryAllStateAction, CategoryTypes, Actions, CategoryNumber, RootSta
 // const composeWithDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-// const middlewareEnhancer = applyMiddleware(thunk);
-
-// const composeWithDevTools =
-//   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-// const composedEnhancers = composeWithDevTools(middlewareEnhancer);
-// debugger
-// const action = counterReducer({ ...categoryAllStateAction });
 console.warn(`Expected the reducer (counterReducer) to be a function. Type: ${typeof counterReducer}`);
-
-if (typeof counterReducer !== 'function') {
-  throw new Error(`The reducer is a function. Type: ${typeof counterReducer}`);
-}
 
 /* Adjust the type based on your actual state structure */
 let configStore: RootState | undefined;
+
+/* eslint-disable no-underscore-dangle */
+// eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/strict-boolean-expressions
+// const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+// eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/strict-boolean-expressions
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+/* eslint-enable */
+// debugger
+// const categoryUser = {
+//   ...counterReducer
+// };
+console.log('[rootReducer]. test: ', 1);
+const rootReducer = combineReducers({
+  reducer: { categories: counterReducer }
+});
+// console.warn('[rootReducer]. Type: ', typeof r\ootReducer);
+// debugger
+
+console.log('[rootReducer]. test: ', 2);
+const store = createStore(
+  rootReducer,
+  composeEnhancers
+);
+console.log('[rootReducer]. test: ', 2.1);
+// const store = configureStore({
+//   rootReducer
+// });
+export type RootStateCategory = ReturnType<typeof store.getState>;
+console.log('[rootReducer]. test: ', 3, store.getState());
+// console.log(store);
 try {
-  if (!(typeof counterReducer as string).includes('function')) {
-    throw new Error('The reducer is not a function!');
-  }
-  /* eslint-disable no-underscore-dangle */
-  // eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/strict-boolean-expressions
-  const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
-  /* eslint-enable */
-  console.log(`[typeof reducer 0]: ${typeof counterReducer}`);
-  const rootReducer = combineReducers({
-    categories: { ...counterReducer }
-  });
-  console.warn('[rootReducer]. Type: ', typeof rootReducer);
-  configStore = createStore(rootReducer, composeEnhancers) as RootState;
+  // store.dispatch({ categories: { ...categoryAllStateAction } });
+  console.log(store.getState());
   console.warn('[configStore]. Type: --------');
 } catch (er) {
-  console.log(`[typeof reducer]: ${typeof counterReducer}`);
   console.warn(`[store.ts]: Error: ${er?.message}`);
 }
-export default configStore as RootState;
+export default store; // configStore as RootState;

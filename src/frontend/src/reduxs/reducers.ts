@@ -1,6 +1,6 @@
 // src\frontend\src\reduxs\reducers.ts
 
-import { Actions, ActionTypes, defaultStateAction, ChangeCategoryAction } from './actions.ts';
+import { Actions, CategoryTypes, ChangeCategoryAction, RootState, categoryAllStateAction } from './actions.ts';
 
 /**
  * `src\frontend\src\reduxs\reducers.ts`
@@ -9,64 +9,64 @@ import { Actions, ActionTypes, defaultStateAction, ChangeCategoryAction } from '
  * or
  * https://redux.js.org/tutorials/quick-start#create-a-redux-state-slice
  * */
-const counterReducer = (action: Actions, state: typeof defaultStateAction = defaultStateAction): typeof defaultStateAction => {
+const counterReducer = (action: Actions, state: Actions = categoryAllStateAction): RootState => {
   // will be change a state or default value returns
   // debugger
+
+  // try {
   switch (action.name) {
-    case ActionTypes.SET_CATEGORY_VALUE: {
-      const newState = {
-        ...state,
-        /* changs the 'category' at 'action.payload' */
-        userCategory: state.payload = action.payload as ChangeCategoryAction['payload']
-      };
+      // case CategoryTypes.ALL_CATEGORY_VALUE: {
+      case (state.name as CategoryTypes.ALL_CATEGORY_VALUE): {
+        const allState = {
+          ...state,
+          categories: state = action // .payload = action.payload
+        };
+        return allState;
+      }
 
-      return newState;
-    }
+      // case CategoryTypes.CHILD_CATEGORY_VALUE: {
+      case (state.name as CategoryTypes.CHILD_CATEGORY_VALUE): {
+        const childState = {
+          ...state,
+          categories: state = action // .payload = action.payload
+        };
+        return childState;
+      }
 
-    case ActionTypes.ALL_CATEGORY_VALUE: {
-      const allState = {
-        ...state,
-        userCategory: state.payload = action.payload
-      };
-      return allState;
-    }
+      // case CategoryTypes.MEN_CATEGORY_VALUE: {
+      case (state.name as CategoryTypes.MEN_CATEGORY_VALUE): {
+        const menState = {
+          ...state,
+          categories: state = action // .payload = action.payload
+        };
+        return menState;
+      }
 
-    case ActionTypes.CHILD_CATEGORY_VALUE: {
-      const childState = {
-        ...state,
-        userCategory: state.payload = action.payload
-      };
-      return childState;
-    }
+      case (state.name as CategoryTypes.WOMAN_CATEGORY_VALUE): {
+        const womanState = {
+          ...state,
+          categories: state = action // .payload = action.payload
+        };
+        return womanState;
+      }
 
-    case ActionTypes.MEN_CATEGORY_VALUE: {
-      const menState = {
-        ...state,
-        userCategory: state.payload = action.payload
-      };
-      return menState;
-    }
+      case (state.name as CategoryTypes.UNISEX_CATECORY_VALUE): {
+        const unisexState = {
+          ...state,
+          categories: state = action // .payload = action.payload
+        };
+        return unisexState;
+      }
 
-    case ActionTypes.WOMAN_CATEGORY_VALUE: {
-      const womanState = {
-        ...state,
-        userCategory: state.payload = action.payload
-      };
-      return womanState;
+      default: {
+        state = action;
+        return { categories: state };
+      }
     }
-
-    case ActionTypes.UNISEX_CATECORY_VALUE: {
-      const unisexState = {
-        ...state,
-        userCategory: state.payload = action.payload
-      };
-      return unisexState;
-    }
-
-    default: {
-      return state;
-    }
-  }
+  // } catch (er) {
+  //   console.warn('[reducers.ts]: Error', err?.message);
+  // }
+  return { categories: state };
 };
 
 export default counterReducer;

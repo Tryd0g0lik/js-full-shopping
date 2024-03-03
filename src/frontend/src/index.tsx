@@ -8,11 +8,11 @@ import './css/style.css';
 import { Provider } from 'react-redux';
 import configStore from '@reduxs/store.ts';
 
-const root = document.getElementsByTagName('body')[0];
+const root = document.getElementById('root');
 
 // debugger;
 if ((root !== null) && (root !== undefined)) {
-  createRoot(root as HTMLElement).render(
+  createRoot(root).render(
     <Provider store={configStore}>
       <StrictMode>
         {/* <BrowserRouter> */}

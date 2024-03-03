@@ -14,12 +14,16 @@ import ButtonFC from '@site/Forms/Button.tsx';
 import LoaderMoreFC from '@site/Loadmore';
 
 /* REDUX */
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { useSelector, useDispatch, connect, useStore } from 'react-redux';
+import type { Dispatch } from 'redux';
 import counterReducer from '@reduxs/reducers.ts';
 import changeCategory from '@reduxs/changeCategoryDispatch.ts';
-import { Actions } from '@reduxs/actions.ts';
-import RootState from '@reduxs/store.ts';
-const [filterCategories, useFilter] = useState(1);
+import { Actions, CategoryAllAction, CategoryNumber, CategoryTypes, RootState, categoryAllStateAction } from '@reduxs/actions.ts';
+import { UnknownAction } from '@reduxjs/toolkit';
+// const dispatch = useDispatch();
+// const store = useStore();
+
+
 // import { increment } from '@reduxs/counterSlice.js';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
@@ -27,39 +31,61 @@ const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 let oldOffset: number = 0;
 
-const mapStateToProps = (state): Actions => {
-	/* All is will be returning from this function it's will be send to props.
-	* If we need to get the larg a state, we need insert:
-	* return {
-	*  state // That we will be got all the  big state.
-	* }
-	*
-	* Below the 'stateToProps'. It's tell us, what us only need little a corected spice.
-	* 'categories' it's property/name from the `src\frontend\src\reduxs\store.ts` and the lows code
-	* ```ts
-	* combineReducers({
-			reducer: {
-				categories: counterReducer
-			}
+const mapStateToProps = (state: RootState): RootState => {
+/* All is will be returning from this function it's will be send to props.
+ * If we need to get the larg a state, we need insert:
+ * return {
+ *  state // That we will be got all the  big state.
+ * }
+ *
+ * Below the 'stateToProps'. It's tell us, what us only need little a corected spice.
+ * 'categories' it's property/name from the `src\frontend\src\reduxs\store.ts` and the lows code
+ * ```ts
+ * combineReducers({
+			 reducer: {
+					categories: counterReducer
+			 }
 		})
 		```
-	* And this's `categories`
-	*/
+ * And this's `categories`
+ */
 
-	const stateToProps = {
-		name: state.categories.name,
-		payload: state.categories.payload
-	};
-	return stateToProps;
+  const stateToProps = {
+    name: state.categories.name,
+    payload: state.categories.payload
+  };
+  return { categories: { ...stateToProps } };
 };
-
+//  =
+const changeUserCategory = (state: RootState) => (initialstate: RootState | undefined = undefined) => {
+  initialstate = (initialstate !== undefined)
+    ? initialstate
+    : (
+      { categories: { ...categoryAllStateAction } }
+    );
+  const result = {
+    categories: {
+      name: initialstate.categories.name = state.categories.name,
+      payload: initialstate.categories.payload = state.categories.payload
+    }
+  };
+  return result;
+};
 // /* the special dispatch function including into this props */
-const mapDispatchToProps = (dispatch: typeof counterReducer): Actions => {
-	const changedUserCategory: Actions = changeCategory(filterCategories);
-	dispatch({ ...changedUserCategory }); // userNumberCategory
-	// dispatch();
-	return { ...changedUserCategory };
+const mapDispatchToProps = (dispatch: Dispatch): (state: RootState) => RootState['categories'] => {
+  return (state: RootState): RootState['categories'] => {
+    const stateCategories = changeUserCategory(state)();
+    const newState: RootState = {
+      categories: {
+        name: stateCategories.categories.name,
+        payload: stateCategories.categories.payload
+      }
+    };
+    const result = dispatch(mapStateToProps(newState));
+    return result.categories;
+  };
 };
+
 /* The top-sales from a server request */
 
 // const server
@@ -74,12 +100,14 @@ export function UseMainFC(): JSX.Element {
   // const dispatch = useDispatch();
 
   /* This datas  is a state for the top-sales */
+  const [filterCategories, useFilter] = useState(1);
   const [topsales, useTopsales] = useState<HandlerPositionVal>();
   const [category, useCategory] = useState<HandlerPositionVal>();
   const [positions, usePositions] = useState<HandlerPositionVal>();
-
-
-	// const filterCategories = useSelector((state: RootState) => state.filterCategories);
+  // useSelector, useDispatch
+  const dispatch = useDispatch();
+  const store = useStore();
+  // const filterCategories = useSelector((state: RootState) => state.filterCategories);
 
   // const reduxCategory = useSelector((state: Actions) => {
   //   return (state as Actions).userCategory;
@@ -113,6 +141,17 @@ export function UseMainFC(): JSX.Element {
       oldOffset += 6;
       serverPositions.requestOneBefore = { offset: oldOffset };
       serverPositions.requestOneParamAsync(usePositions);
+
+      const categoryNumber = filterCategories ?? CategoryNumber.ALL_CATEGORY_VALUE;
+
+      const categoryUser = changeCategory(categoryNumber);
+      const actionCategories = {
+        categories: {
+          ...categoryUser
+        }
+      };
+
+      // mapStateToProps({ ...actionCategories });
     };
 
     const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
@@ -137,17 +176,17 @@ export function UseMainFC(): JSX.Element {
 
     if (target.dataset.category !== undefined) {
       useFilter(Number(target.dataset.category));
-			/* ------------------- */
-			const action = {
-				name: changeCategory(filterCategories),
-				payload: filterCategories
-			};
+      /* ------------------- */
+      const action = {
+        name: changeCategory(filterCategories),
+        payload: filterCategories
+      };
 
-			const userCategore = changeCategory(Number(target.dataset.category));
-			// dispatch({
-			//   name: userCategore.name,
-			//   payload: userCategore.payload
-			// });
+      const userCategore = changeCategory(Number(target.dataset.category));
+      // dispatch({
+      //   name: userCategore.name,
+      //   payload: userCategore.payload
+      // });
     }
   };
   const handlerCaegoriesForUseEffect = (): () => void => {
@@ -164,7 +203,7 @@ export function UseMainFC(): JSX.Element {
       }
     };
   };
-	useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
+  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
   return (
 
     <main className="container">
@@ -261,10 +300,7 @@ export function UseMainFC(): JSX.Element {
 /* The global state including  in this props */
 
 /* will be include */
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(
+export default connect()(
   /* the onecom ponent included */
   UseMainFC
 );

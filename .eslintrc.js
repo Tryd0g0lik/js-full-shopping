@@ -52,6 +52,11 @@ module.exports = {
         "tsx": "always"
       }
     ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error", {
+      ignoreTypeValueShadow: true,
+      ignoreFunctionTypeParameterNameValueShadow: true
+    }],
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-explicit-any": ["error", { fixToUnknown: false, ignoreRestArgs: true }],
