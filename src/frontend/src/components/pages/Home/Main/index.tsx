@@ -16,7 +16,8 @@ import LoaderMoreFC from '@site/Loadmore';
 /* REDUX */
 import { useSelector, useDispatch, connect, useStore } from 'react-redux';
 import type { Dispatch } from 'redux';
-import counterReducer from '@reduxs/reducers.ts';
+import store, { RootDispatch, RooteStore, RootStateCategory } from '@reduxs/store.ts';
+
 import changeCategory from '@reduxs/changeCategoryDispatch.ts';
 import { Actions, CategoryAllAction, CategoryNumber, CategoryTypes, RootState, categoryAllStateAction } from '@reduxs/actions.ts';
 import { UnknownAction } from '@reduxjs/toolkit';
@@ -72,17 +73,26 @@ const changeUserCategory = (state: RootState) => (initialstate: RootState | unde
   return result;
 };
 // /* the special dispatch function including into this props */
-const mapDispatchToProps = (dispatch: Dispatch): (state: RootState) => RootState['categories'] => {
-  return (state: RootState): RootState['categories'] => {
-    const stateCategories = changeUserCategory(state)();
+// const mapDispatchToProps = (dispatch: RootDispatch): (state: RootState) => RootState['categories'] => {
+const mapDispatchToProps = () => { // : (state: RootState) => RootState['categories'] 
+  const TEsT = store.getState();
+  let initialstate = undefined;
+  debugger
+  return (state: RootState) => {
+    const stateCategories = changeUserCategory(state)(initialstate); // = { categories: { ...categoryAllStateAction } }
     const newState: RootState = {
       categories: {
         name: stateCategories.categories.name,
         payload: stateCategories.categories.payload
       }
     };
-    const result = dispatch(mapStateToProps(newState));
-    return result.categories;
+
+    const resultStateToProps = mapStateToProps(newState);
+    const result = store.dispatch({
+      ...resultStateToProps,
+      type: ''
+    });
+    return result;
   };
 };
 
@@ -300,7 +310,10 @@ export function UseMainFC(): JSX.Element {
 /* The global state including  in this props */
 
 /* will be include */
-export default connect()(
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   /* the onecom ponent included */
   UseMainFC
 );

@@ -12,8 +12,11 @@ import { Actions, CategoryTypes, ChangeCategoryAction, RootState, categoryAllSta
 const counterReducer = (action: Actions, state: Actions = categoryAllStateAction): RootState => {
   // will be change a state or default value returns
   // debugger
-
+  action = (action === undefined)
+    ? categoryAllStateAction
+    : action;
   // try {
+  // debugger
   switch (action.name) {
       // case CategoryTypes.ALL_CATEGORY_VALUE: {
       case (state.name as CategoryTypes.ALL_CATEGORY_VALUE): {
@@ -66,7 +69,7 @@ const counterReducer = (action: Actions, state: Actions = categoryAllStateAction
   // } catch (er) {
   //   console.warn('[reducers.ts]: Error', err?.message);
   // }
-  return { categories: state };
+  // return { categories: state };
 };
 
 export default counterReducer;
