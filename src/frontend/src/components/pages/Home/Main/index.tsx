@@ -7,45 +7,60 @@ import ImageFC from '@site/Img.tsx';
 import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
-import { HandlerPositionVal, FilterCategories, Position } from '@type';
+import { HandlerPositionVal } from '@type';
 import UseCategoriesFC from '@site/Categories.tsx';
-import DivFC from '@site/Div.tsx';
-import ButtonFC from '@site/Forms/Button.tsx';
 import LoaderMoreFC from '@site/Loadmore';
 
 /* REDUX */
-import { useSelector, useDispatch, connect } from 'react-redux';
-import { ActionTypes, Actions } from '@reduxs/actions.ts';
-import counterReducer from '@reduxs/reducers.ts';
+import { connect } from 'react-redux';
+import store, { RootDispatch, RooteStore } from '@reduxs/store.ts';
 
-
-// import { increment } from '@reduxs/counterSlice.js';
+import changeCategory from '@reduxs/changeCategoryDispatch.ts';
+import { RootState } from '@reduxs/actions.ts';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 let oldOffset: number = 0;
+
+/* получаем данные из редукс  */
+const getUserCategory = (num) => {
+  const stateUserCategory = store.getState()
+    .counterReducer.categories;
+  const category: number = stateUserCategory.payload;
+  num = category;
+};
+
+const setUserCategory = (dispatch: RootDispatch) => (categoryNumber: number) => {
+  try {
+    const state = changeCategory(categoryNumber);
+    const categories: RootState['categories'] = {
+      name: state.name,
+      payload: state.payload
+    };
+
+    const action = { // !! не трогать
+      type: 'CATEGORY',
+      ...categories
+    };
+
+    dispatch(action);
+  } catch (er) {
+    console.error('[Home/Main] mapStateToProps: ', err.message);
+  }
+};
 /* The top-sales from a server request */
 
-// const server
 /**
  * `import { UseMainFC } from './Main/index.tsx';`
  */
 export function UseMainFC(): JSX.Element {
   // /* REDUX tools */
-  // const counter = useSelector((state) => {
-  //   return state.category.velue;
-  // });
-  // const dispatch = useDispatch();
-
   /* This datas  is a state for the top-sales */
+  const [filterCategories, useFilter] = useState(1);
   const [topsales, useTopsales] = useState<HandlerPositionVal>();
   const [category, useCategory] = useState<HandlerPositionVal>();
   const [positions, usePositions] = useState<HandlerPositionVal>();
-  const [filterCategories, useFilter] = useState(1);
-  // const reduxCategory = useSelector((state: Actions) => {
-  //   return (state as Actions).userCategory;
-  // })
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
@@ -83,7 +98,6 @@ export function UseMainFC(): JSX.Element {
     }
     return (): void => {
       /* object will be removed */
-      // const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
       if ((buttontextCenter !== undefined) && (buttontextCenter !== null)) {
         (buttontextCenter as HTMLElement).removeEventListener('click', hablerLoaderMore);
       }
@@ -93,31 +107,33 @@ export function UseMainFC(): JSX.Element {
   }, [usePositions]);
 
   /* There is below a filter categories. | '/categories'  */
-  const handlerFilterCaegories = (event: MouseEvent): void => {
+  const handlerFilterCategories = (event: MouseEvent) => {
     event.preventDefault();
     const target = (event.target as HTMLAnchorElement);
 
-    if (target.dataset.category !== undefined) {
-      useFilter(Number(target.dataset.category));
-      // dispatch(increment());
-    }
+    const categoryUSerNumber = Number(target.dataset.category);
+    useFilter(categoryUSerNumber);
+    /* отправляем данные в redux */
+    setUserCategory(store.dispatch)(categoryUSerNumber);
   };
+
   const handlerCaegoriesForUseEffect = (): () => void => {
     const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item'));
 
     for (let i = 0; i < navCategories.length; i++) {
-      (navCategories[i] as HTMLLIElement).addEventListener('click', handlerFilterCaegories);
+      (navCategories[i] as HTMLLIElement).addEventListener('click', handlerFilterCategories);
     }
 
     return () => {
       /* object will be removed */
       for (let i = 0; i < navCategories.length; i++) {
-        (navCategories[i] as HTMLLIElement).removeEventListener('click', handlerFilterCaegories);
+        (navCategories[i] as HTMLLIElement).removeEventListener('click', handlerFilterCategories);
       }
     };
   };
-  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
+  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCategories]);
 
+  console.warn('[newCategoryTest]: ', filterCategories);
   return (
 
     <main className="container">
@@ -162,14 +178,16 @@ export function UseMainFC(): JSX.Element {
                   < ImLoader />
                 )
             }
-
+            { /* -------------- */}
             <div className="row">
               {/* This is simply positions. It is based  at variables: 'filter:number' */}
               {
+
                 (positions !== undefined)
                   ? (
                     Array.from(positions).map((obj) => (
                       /* filterCategories */
+
                       (filterCategories === Number(obj.category))
                         ? (/* Here is category after  filtering */
                           <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
@@ -183,7 +201,7 @@ export function UseMainFC(): JSX.Element {
                             </Fragment>
                           </PositionFC>
                         )
-                        : (filterCategories === 1)
+                        : (filterCategories === 1) // 
                           ? (
                             <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                               <Fragment>
@@ -212,56 +230,10 @@ export function UseMainFC(): JSX.Element {
 }
 
 /* The global state including  in this props */
-
-const mapStateToProps = (state: {
-  categories: {
-    userCategory: any
-    userValue: any
-  }
-}): typeof stateToProps => {
-  /* All is will be returning from this function it's will be send to props.
-  * If we need to get the larg a state, we need insert:
-  * return {
-  *  state // That we will be got all the  big state.
-  * }
-  *
-  * Below the 'stateToProps'. It's tell us, what us only need little a corected spice.
-  * 'categories' it's property/name from the `src\frontend\src\reduxs\store.ts` and the lows code 
-  * ```ts
-  * combineReducers({
-      reducer: {
-        categories: counterReducer
-      }
-    })
-    ```
-  * And this's `categories`
-  */
-  const stateToProps = {
-
-    userCtegory: state.categories.userCategory,
-    userCategoryValue: state.categories.userValue
-  };
-  return stateToProps;
-};
-
-/* the special dispatch function including into this props */
-const mapDispatchToProps = (dispatch) => {
-  /*
-  * return {
-      dispatch
-  }
-  */
-  return {
-    userCategory: (state: any) => {
-      dispatch(counterReducer(state.action.name, state.action.payload));
-    }
-  };
-};
-
+// const subscriber = store.subscribe(getUserCategory(filterCategories));
 /* will be include */
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(
-  /* the onecom ponent included */
-  UseMainFC
-);
+
+// export default connect()(
+//   /* the onecom ponent included */
+//   UseMainFC
+// );
