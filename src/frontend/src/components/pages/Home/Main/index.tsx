@@ -81,7 +81,8 @@ export function UseMainFC(): JSX.Element {
 
   useEffect(() => {
     const serverPositions = new SFetch(url);
-    /* create a request to the server | '/items/?offset=6' */
+    /* Here is positions of Catalog.
+    Create a request to the server | '/items/?offset=6' */
     serverPositions.requestOneBefore = { offset: 6 };
     serverPositions.requestOneParamAsync(usePositions);
     /* ------------ */
