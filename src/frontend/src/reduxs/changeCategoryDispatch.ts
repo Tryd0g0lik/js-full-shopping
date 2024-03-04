@@ -1,3 +1,4 @@
+// src\frontend\src\reduxs\changeCategoryDispatch.ts
 import {
   Actions,
   categoryAllStateAction,
