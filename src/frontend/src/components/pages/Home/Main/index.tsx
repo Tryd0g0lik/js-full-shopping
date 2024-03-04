@@ -20,13 +20,19 @@ import store, { RootDispatch, RooteStore, RootStateCategory } from '@reduxs/stor
 
 import changeCategory from '@reduxs/changeCategoryDispatch.ts';
 import { Actions, CategoryAllAction, CategoryNumber, CategoryTypes, RootState, categoryAllStateAction } from '@reduxs/actions.ts';
-import { UnknownAction } from '@reduxjs/toolkit';
+import { Store, UnknownAction } from '@reduxjs/toolkit';
+import counterReducer from '@reduxs/reducers';
+// let initialstate: RootState | undefined = undefined;
 // const dispatch = useDispatch();
 // const store = useStore();
 
-
 // import { increment } from '@reduxs/counterSlice.js';
-
+console.log('[Home/Main]: test 1');
+const unsubscribe = store.subscribe(() => {
+  console.log('State after dispatch: ', store.getState());
+}
+);
+console.log('[Home/Main]: test 2');
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -55,44 +61,57 @@ const mapStateToProps = (state: RootState): RootState => {
     name: state.categories.name,
     payload: state.categories.payload
   };
+  console.log('[Home/Main] mapStateToProps: test 3');
   return { categories: { ...stateToProps } };
 };
 //  =
 const changeUserCategory = (state: RootState) => (initialstate: RootState | undefined = undefined) => {
-  initialstate = (initialstate !== undefined)
-    ? initialstate
-    : (
-      { categories: { ...categoryAllStateAction } }
-    );
-  const result = {
-    categories: {
-      name: initialstate.categories.name = state.categories.name,
-      payload: initialstate.categories.payload = state.categories.payload
-    }
-  };
-  return result;
+  console.log('[Home/Main] changeUserCategory: test 4');
+  try {
+    initialstate = (initialstate !== undefined)
+      ? initialstate
+      : (
+        { ...categoryAllStateAction }
+      );
+    console.log('[Home/Main] changeUserCategory: test 4');
+    const result = {
+      categories: {
+        name: initialstate.categories.name = state.categories.name,
+        payload: initialstate.categories.payload = state.categories.payload
+      }
+    };
+    return result;
+  } catch (er) {
+    console.error('[Home/Main] mapStateToProps: ', err.message);
+  }
 };
 // /* the special dispatch function including into this props */
 // const mapDispatchToProps = (dispatch: RootDispatch): (state: RootState) => RootState['categories'] => {
-const mapDispatchToProps = () => { // : (state: RootState) => RootState['categories'] 
+const mapDispatchToProps = (initialstate) => { // : (state: RootState) => RootState['categories']
   const TEsT = store.getState();
-  let initialstate = undefined;
-  debugger
-  return (state: RootState) => {
-    const stateCategories = changeUserCategory(state)(initialstate); // = { categories: { ...categoryAllStateAction } }
-    const newState: RootState = {
-      categories: {
-        name: stateCategories.categories.name,
-        payload: stateCategories.categories.payload
-      }
-    };
 
-    const resultStateToProps = mapStateToProps(newState);
-    const result = store.dispatch({
-      ...resultStateToProps,
-      type: ''
-    });
-    return result;
+  debugger;
+  console.log('[Home/Main] mapDispatchToProps: test 5');
+  return (state: RootState) => {
+    try {
+      if ((state !== undefined) && (Boolean(store.getState()))) {
+        console.log('[Home/Main] mapDispatchToProps: test 6');
+        const stateCategories = changeUserCategory(state)(initialstate); // = { categories: { ...categoryAllStateAction } }
+        console.log('[Home/Main] mapDispatchToProps: test 7');
+        const newState: RootState = {
+          categories: {
+            name: stateCategories.categories.name,
+            payload: stateCategories.categories.payload
+          }
+        };
+        console.log('[Home/Main] mapDispatchToProps: test 8');
+        const resultStateToProps = mapStateToProps(newState);
+        console.log('[Home/Main] mapDispatchToProps: test 9');
+        store.dispatch({ resultStateToProps });
+      }
+    } catch (er) {
+      console.error('[Home/Main] mapDispatchToProps: ', err.message);
+    }
   };
 };
 
@@ -160,7 +179,7 @@ export function UseMainFC(): JSX.Element {
           ...categoryUser
         }
       };
-
+      // store.getState
       // mapStateToProps({ ...actionCategories });
     };
 
@@ -180,7 +199,7 @@ export function UseMainFC(): JSX.Element {
   }, [usePositions]);
 
   /* There is below a filter categories. | '/categories'  */
-  const handlerFilterCaegories = (event: MouseEvent): void => {
+  const handlerFilterCategories = (event: MouseEvent): void => {
     event.preventDefault();
     const target = (event.target as HTMLAnchorElement);
 
@@ -191,8 +210,24 @@ export function UseMainFC(): JSX.Element {
         name: changeCategory(filterCategories),
         payload: filterCategories
       };
-
+      console.log('[Home/Main] handlerFilterCategories: test 10');
       const userCategore = changeCategory(Number(target.dataset.category));
+      console.log('[Home/Main] handlerFilterCategories: test 11');
+      // const unsubscribe = store.subscribe(() =>
+      //   console.log('State after dispatch: ', store.getState())
+      // );
+      const result = { ...userCategore };
+      console.log('[Home/Main] handlerFilterCategories: test 12');
+      // debugger
+      const typeName = action.name.name;
+      store.dispatch({
+        type: String(typeName),
+        ...result
+      });
+
+      // mapDispatchToProps()
+      console.log('[Home/Main] handlerFilterCategories: test 13');
+      // unsubscribe();
       // dispatch({
       //   name: userCategore.name,
       //   payload: userCategore.payload
@@ -203,17 +238,21 @@ export function UseMainFC(): JSX.Element {
     const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item'));
 
     for (let i = 0; i < navCategories.length; i++) {
-      (navCategories[i] as HTMLLIElement).addEventListener('click', handlerFilterCaegories);
+      (navCategories[i] as HTMLLIElement).addEventListener('click', handlerFilterCategories);
     }
 
     return () => {
       /* object will be removed */
       for (let i = 0; i < navCategories.length; i++) {
-        (navCategories[i] as HTMLLIElement).removeEventListener('click', handlerFilterCaegories);
+        (navCategories[i] as HTMLLIElement).removeEventListener('click', handlerFilterCategories);
       }
     };
   };
-  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCaegories]);
+  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCategories]);
+  // debugger;
+  // const storeGetState = (store.getState()).counterReducer.categories;
+  // console.log('[Home/Main] handlerFilterCategories: Name 14', storeGetState.name);
+  // console.log('[Home/Main] handlerFilterCategories: Name 14', storeGetState.payload);
   return (
 
     <main className="container">
@@ -310,6 +349,7 @@ export function UseMainFC(): JSX.Element {
 /* The global state including  in this props */
 
 /* will be include */
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

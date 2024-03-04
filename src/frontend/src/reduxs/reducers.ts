@@ -18,54 +18,54 @@ const counterReducer = (action: Actions, state: Actions = categoryAllStateAction
   // try {
   // debugger
   switch (action.name) {
-      // case CategoryTypes.ALL_CATEGORY_VALUE: {
-      case (state.name as CategoryTypes.ALL_CATEGORY_VALUE): {
-        const allState = {
-          ...state,
-          categories: state = action // .payload = action.payload
-        };
-        return allState;
-      }
-
-      // case CategoryTypes.CHILD_CATEGORY_VALUE: {
-      case (state.name as CategoryTypes.CHILD_CATEGORY_VALUE): {
-        const childState = {
-          ...state,
-          categories: state = action // .payload = action.payload
-        };
-        return childState;
-      }
-
-      // case CategoryTypes.MEN_CATEGORY_VALUE: {
-      case (state.name as CategoryTypes.MEN_CATEGORY_VALUE): {
-        const menState = {
-          ...state,
-          categories: state = action // .payload = action.payload
-        };
-        return menState;
-      }
-
-      case (state.name as CategoryTypes.WOMAN_CATEGORY_VALUE): {
-        const womanState = {
-          ...state,
-          categories: state = action // .payload = action.payload
-        };
-        return womanState;
-      }
-
-      case (state.name as CategoryTypes.UNISEX_CATECORY_VALUE): {
-        const unisexState = {
-          ...state,
-          categories: state = action // .payload = action.payload
-        };
-        return unisexState;
-      }
-
-      default: {
-        state = action;
-        return { categories: state };
-      }
+    // case CategoryTypes.ALL_CATEGORY_VALUE: {
+    case (state.name as CategoryTypes.ALL_CATEGORY_VALUE): {
+      const allState = {
+        ...state,
+        categories: state = action // .payload = action.payload
+      };
+      return allState;
     }
+
+    // case CategoryTypes.CHILD_CATEGORY_VALUE: {
+    case (state.name as CategoryTypes.CHILD_CATEGORY_VALUE): {
+      const childState = {
+        ...state,
+        categories: state = action // .payload = action.payload
+      };
+      return childState;
+    }
+
+    // case CategoryTypes.MEN_CATEGORY_VALUE: {
+    case (state.name as CategoryTypes.MEN_CATEGORY_VALUE): {
+      const menState = {
+        ...state,
+        categories: state = action // .payload = action.payload
+      };
+      return menState;
+    }
+
+    case (state.name as CategoryTypes.WOMAN_CATEGORY_VALUE): {
+      const womanState = {
+        ...state,
+        categories: state = action // .payload = action.payload
+      };
+      return womanState;
+    }
+
+    case (state.name as CategoryTypes.UNISEX_CATECORY_VALUE): {
+      const unisexState = {
+        ...state,
+        categories: state = action // .payload = action.payload
+      };
+      return unisexState;
+    }
+
+    default: {
+      state = action;
+      return { categories: state };
+    }
+  }
   // } catch (er) {
   //   console.warn('[reducers.ts]: Error', err?.message);
   // }

@@ -3,35 +3,46 @@
 // https://redux.js.org/tutorials/quick-start#create-a-redux-store
 // https://redux.js.org/tutorials/quick-start#add-slice-reducers-to-the-store
 
-import { compose, legacy_createStore as createStore, applyMiddleware, Action, combineReducers, Store } from 'redux';
+import { legacy_createStore as createStore, combineReducers, Store } from 'redux';
 import counterReducer from './reducers.ts';
 /* eslint-disable no-underscore-dangle */
 // eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/strict-boolean-expressions
-// const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
-// eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/strict-boolean-expressions
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-
 /* eslint-enable */
-console.log('[rootReducer]. test: ', 1);
 const rootReducer = combineReducers({
   counterReducer
 });
 
-console.log('[rootReducer]. test: ', 2);
 const store = createStore(
   rootReducer,
   composeEnhancers
 );
-console.log('[rootReducer]. test: ', 2.1);
+
 export type RooteStore = typeof store;
 export type RootStateCategory = ReturnType<typeof store.getState>;
 export type RootDispatch = ReturnType<typeof store.dispatch>;
 
-console.log('[rootReducer]. test: ', 3, store.getState());
-try {
-  console.log(store.getState());
-  console.warn('[configStore]. Type: --------');
-} catch (er) {
-  console.warn(`[store.ts]: Error: ${er?.message}`);
-}
 export default store; // configStore as RootState;
+/**
+ * Redux Store
+ * https://redux.js.org/api/store
+ * https://redux.js.org/api/store#store-methods
+ * https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store
+ * Сохраняет текущее состояние приложения внутри
+ * Позволяет получить доступ к текущему состоянию через `store.getState()`;
+ * Позволяет обновлять состояние с помощью `store.dispatch(action)`;
+ * Регистрирует обратные вызовы прослушивателя через `store.subscribe(listener)`;
+ * Обрабатывает отмену регистрации слушателей с помощью unsubscribe функции, возвращаемой `store.subscribe(listener)`.
+ * ```ts
+ * let preloadedState
+const persistedTodosString = localStorage.getItem('todos')
+
+if (persistedTodosString) {
+  preloadedState = {
+    todos: JSON.parse(persistedTodosString)
+  }
+}
+ * const store = createStore(rootReducer, preloadedState)
+ * ```
+ *  - `preloadedState` значение в качестве второго аргумента. Вы могли бы использовать это для добавления начальных данных при создании хранилища.
+ */
