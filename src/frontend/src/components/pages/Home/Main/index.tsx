@@ -45,21 +45,10 @@ const setUserCategory = (dispatch: RootDispatch) => (categoryNumber: number) => 
     };
 
     dispatch(action);
-
   } catch (er) {
     console.error('[Home/Main] mapStateToProps: ', err.message);
   }
 };
-
-// const mapDispatchToProps = (dispatch: RootDispatch) => {
-//   dispatch = (dispatch === undefined)
-//     ? store.dispatch
-//     : dispatch;
-//   // ,
-//   // changeCategory: changeUserCategory(dispatch)
-//   return setUserCategory(dispatch);
-// };
-
 /* The top-sales from a server request */
 
 /**
@@ -122,7 +111,6 @@ export function UseMainFC(): JSX.Element {
     event.preventDefault();
     const target = (event.target as HTMLAnchorElement);
 
-    // if (target.dataset.category !== undefined) {
     const categoryUSerNumber = Number(target.dataset.category);
     useFilter(categoryUSerNumber);
     /* отправляем данные в redux */

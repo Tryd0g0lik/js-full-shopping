@@ -37,9 +37,6 @@ interface Basicnum {
   CategoryNumber.UNISEX_CATECORY_VALUE |
   CategoryNumber.WOMAN_CATEGORY_VALUE
 }
-// export interface ChangeCategoryAction extends Basicnum {
-//   name: CategoryTypes.SET_CATEGORY_VALUE
-// }
 
 export interface CategoryAllAction extends Basicnum {
   name: CategoryTypes.ALL_CATEGORY_VALUE
@@ -61,17 +58,9 @@ export interface CategoryChildAction extends Basicnum {
   name: CategoryTypes.CHILD_CATEGORY_VALUE
 }
 
-// export interface ResetStateAction {
-//   name: CategoryTypes.RESET_CATEGORY_VALUE
-// }
-
 /* --------------- */
 // https://redux-toolkit.js.org/api/createAction
 
-// export const defaultStateAction = {
-//   name: CategoryTypes.SET_CATEGORY_VALUE,
-//   payload: 0
-// };
 
 export const categoryAllStateAction: CategoryAllAction = {
   name: CategoryTypes.ALL_CATEGORY_VALUE,
