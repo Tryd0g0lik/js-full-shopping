@@ -9,7 +9,7 @@ import { Actions, CategoryTypes, ChangeCategoryAction, RootState, categoryAllSta
  * or
  * https://redux.js.org/tutorials/quick-start#create-a-redux-state-slice
  * */
-const counterReducer = (action: Actions, state: Actions = categoryAllStateAction): RootState => {
+const counterReducer = (action, state: Actions = categoryAllStateAction): RootState => {
   // will be change a state or default value returns
   // debugger
   action = (action === undefined)
@@ -17,52 +17,52 @@ const counterReducer = (action: Actions, state: Actions = categoryAllStateAction
     : action;
   // try {
   // debugger
-  switch (action.name) {
+  switch (action.type) {
     // case CategoryTypes.ALL_CATEGORY_VALUE: {
-    case (state.name as CategoryTypes.ALL_CATEGORY_VALUE): {
+    case ('CATEGORY'): {
       const allState = {
-        ...state,
-        categories: state = action // .payload = action.payload
+        // ...state,
+        ...action // .payload = action.payload
       };
       return allState;
     }
 
-    // case CategoryTypes.CHILD_CATEGORY_VALUE: {
-    case (state.name as CategoryTypes.CHILD_CATEGORY_VALUE): {
-      const childState = {
-        ...state,
-        categories: state = action // .payload = action.payload
-      };
-      return childState;
-    }
+    // // case CategoryTypes.CHILD_CATEGORY_VALUE: {
+    // case (state.name as CategoryTypes.CHILD_CATEGORY_VALUE): {
+    //   const childState = {
+    //     ...state,
+    //     categories: state = action // .payload = action.payload
+    //   };
+    //   return childState;
+    // }
 
-    // case CategoryTypes.MEN_CATEGORY_VALUE: {
-    case (state.name as CategoryTypes.MEN_CATEGORY_VALUE): {
-      const menState = {
-        ...state,
-        categories: state = action // .payload = action.payload
-      };
-      return menState;
-    }
+    // // case CategoryTypes.MEN_CATEGORY_VALUE: {
+    // case (state.name as CategoryTypes.MEN_CATEGORY_VALUE): {
+    //   const menState = {
+    //     ...state,
+    //     categories: state = action // .payload = action.payload
+    //   };
+    //   return menState;
+    // }
 
-    case (state.name as CategoryTypes.WOMAN_CATEGORY_VALUE): {
-      const womanState = {
-        ...state,
-        categories: state = action // .payload = action.payload
-      };
-      return womanState;
-    }
+    // case (state.name as CategoryTypes.WOMAN_CATEGORY_VALUE): {
+    //   const womanState = {
+    //     ...state,
+    //     categories: state = action // .payload = action.payload
+    //   };
+    //   return womanState;
+    // }
 
-    case (state.name as CategoryTypes.UNISEX_CATECORY_VALUE): {
-      const unisexState = {
-        ...state,
-        categories: state = action // .payload = action.payload
-      };
-      return unisexState;
-    }
+    // case (state.name as CategoryTypes.UNISEX_CATECORY_VALUE): {
+    //   const unisexState = {
+    //     ...state,
+    //     categories: state = action // .payload = action.payload
+    //   };
+    //   return unisexState;
+    // }
 
     default: {
-      state = action;
+      // state = action;
       return { categories: state };
     }
   }
