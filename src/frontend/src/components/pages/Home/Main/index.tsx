@@ -26,7 +26,7 @@ let oldOffset: number = 0;
 /* получаем данные из редукс  */
 const getUserCategory = (num) => {
   const stateUserCategory = store.getState()
-    .counterReducer.categories;
+    .counterReducer.total;
   const category: number = stateUserCategory.payload;
   num = category;
 };
@@ -34,7 +34,7 @@ const getUserCategory = (num) => {
 const setUserCategory = (dispatch: RootDispatch) => (categoryNumber: number) => {
   try {
     const state = changeCategory(categoryNumber);
-    const categories: RootState['categories'] = {
+    const categories: RootState['total'] = {
       name: state.name,
       payload: state.payload
     };

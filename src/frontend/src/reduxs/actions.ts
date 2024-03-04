@@ -15,7 +15,7 @@ export enum CategoryNumber {
 }
 
 export interface RootState {
-  categories: {
+  total: {
     name: CategoryTypes.ALL_CATEGORY_VALUE |
     CategoryTypes.CHILD_CATEGORY_VALUE |
     CategoryTypes.MEN_CATEGORY_VALUE |

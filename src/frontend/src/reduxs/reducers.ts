@@ -22,9 +22,16 @@ const counterReducer = (action, state: Actions = categoryAllStateAction): RootSt
       };
       return allState;
     }
+    case ('CATALOG'): {
+      const allSate = {
+        ...action,
+        positionsList: state.positions
+      };
+      return allSate;
+    }
 
     default: {
-      return { categories: state };
+      return { total: state }; // categories
     }
   }
 };
