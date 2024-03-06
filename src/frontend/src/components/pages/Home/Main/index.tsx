@@ -1,5 +1,4 @@
 // src\frontend\src\components\pages\Home\Main\index.tsx
-
 import React, { JSX, Fragment, useState, useEffect } from 'react';
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
@@ -7,7 +6,7 @@ import ImageFC from '@site/Img.tsx';
 import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
-import { HandlerPositionVal } from '@type';
+import { HandlerPositionVal, Position } from '@type';
 import UseCategoriesFC from '@site/Categories.tsx';
 import LoaderMoreFC from '@site/Loadmore';
 
@@ -16,7 +15,7 @@ import { connect } from 'react-redux';
 import store, { RootDispatch, RooteStore } from '@reduxs/store.ts';
 
 import changeCategory from '@reduxs/changeCategoryDispatch.ts';
-import { RootState } from '@reduxs/actions.ts';
+import { Categories, CategoryNumber, CategoryTypes, PositionsCatalog, RootState } from '@reduxs/interfaces.ts';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -24,33 +23,57 @@ const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 let oldOffset: number = 0;
 
 /* получаем данные из редукс  */
-const getUserCategory = (num) => {
-  const stateUserCategory = store.getState()
-    .counterReducer.total;
-  const category: number = stateUserCategory.payload;
-  num = category;
-};
+// const getUserCategory = (): number => { // Проверить
+//   const stateUserCategory = store.getState()
+//     .counterReducer;
+//   const category: number = stateUserCategory.payload;
+//   // num = category;
+//   return category;
+// };
 
-const setUserCategory = (dispatch: RootDispatch) => (categoryNumber: number) => {
+const setUserCategory = (dispatch: RootDispatch, int: number = 1) => {
   try {
-    const state = changeCategory(categoryNumber);
-    const categories: RootState['total'] = {
+    const state = changeCategory(int);
+    console.log('[state]: ', state);
+    const categories: Categories = {
+      type: 'CATEGORY',
       name: state.name,
       payload: state.payload
     };
+    console.log('[setUserCategory] categories: ', categories.name, categories.payload, categories);
 
-    const action = { // !! не трогать
-      type: 'CATEGORY',
+    const action = {
       ...categories
     };
-
     dispatch(action);
   } catch (er) {
-    console.error('[Home/Main] mapStateToProps: ', err.message);
+    console.error('[Home/Main] mapStateToProps: ', er);
   }
 };
-/* The top-sales from a server request */
 
+// const setUserPositionOfCatalog = (props: Position[], userstate: (props: Position[]) => void): void => {
+//   try {
+//     const action: PositionsCatalog = {
+//       type: 'CATALOG',
+//       positions: [...props]
+//     };
+//     store.dispatch(action);
+//     const getState = store.getState();
+//     // debugger;
+//     userstate(getState);
+//   } catch (er) {
+//     console.error('[setUserPositionOfCatalog] Err: ', er.message);
+//   }
+// };
+
+/* comman function for getting the store.dispatch and */
+// const mapGetDispatch = (store) => {
+//   return {
+//     positionOfCatalog: setUserPositionOfCatalog(store)
+//   };
+// };
+
+/* The top-sales from a server request */
 /**
  * `import { UseMainFC } from './Main/index.tsx';`
  */
@@ -85,12 +108,27 @@ export function UseMainFC(): JSX.Element {
     Create a request to the server | '/items/?offset=6' */
     serverPositions.requestOneBefore = { offset: 6 };
     serverPositions.requestOneParamAsync(usePositions);
-    /* ------------ */
+    // setUserPositionOfCatalog(positions as Position[], usePositions);
+    /* Now will be recived the positions array by opload */
+    if (positions !== undefined) {
+      const moreUserPositions = Array.from(positions);
+    // mapGetDispatch(store).positionOfCatalog(moreUserPositions)(usePositions);
+      setUserPositionOfCatalog(moreUserPositions, usePositions);
+    }
+    /* ---------addPositionsForCatalog--- */
     const hablerLoaderMore = (event: MouseEvent): void => {
       event.preventDefault();
       oldOffset += 6;
       serverPositions.requestOneBefore = { offset: oldOffset };
       serverPositions.requestOneParamAsync(usePositions);
+      console.log('TEST');
+      // debugger
+      if (positions !== undefined) {
+        console.log('TEST2');
+        const moreUserPositions = Array.from(positions);
+        // mapGetDispatch(store).positionOfCatalog(moreUserPositions)(usePositions);
+        setUserPositionOfCatalog(moreUserPositions, usePositions);
+      }
     };
 
     const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
@@ -108,14 +146,21 @@ export function UseMainFC(): JSX.Element {
   }, [usePositions]);
 
   /* There is below a filter categories. | '/categories'  */
+
   const handlerFilterCategories = (event: MouseEvent) => {
     event.preventDefault();
     const target = (event.target as HTMLAnchorElement);
 
     const categoryUSerNumber = Number(target.dataset.category);
+
     useFilter(categoryUSerNumber);
+
+    setUserCategory(store.dispatch, filterCategories);
     /* отправляем данные в redux */
-    setUserCategory(store.dispatch)(categoryUSerNumber);
+
+    // const copyPositions = positions?.slice();
+    // console.log('[copyPositions]: ', copyPositions);
+    // usePositions(copyPositions);
   };
 
   const handlerCaegoriesForUseEffect = (): () => void => {
@@ -133,8 +178,8 @@ export function UseMainFC(): JSX.Element {
     };
   };
   useEffect(handlerCaegoriesForUseEffect, [handlerFilterCategories]);
+  setUserCategory(store.dispatch, filterCategories);
 
-  console.warn('[newCategoryTest]: ', filterCategories);
   return (
 
     <main className="container">
@@ -202,7 +247,7 @@ export function UseMainFC(): JSX.Element {
                             </Fragment>
                           </PositionFC>
                         )
-                        : (filterCategories === 1) // 
+                        : (filterCategories === 1) //
                           ? (
                             <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                               <Fragment>

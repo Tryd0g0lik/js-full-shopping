@@ -166,8 +166,10 @@ export class SFetch {
           if (key.includes('offset')) {
             responce = Array.from(Object.values({ ...answerJson }));
             // handler(oldOffset as Position[]);
+            handler(responce as Position[]);
+            handler(responce as Position[]);
           }
-          handler(responce as Position[]);
+
         }
 
         this.offsetsNumber = undefined;
@@ -178,7 +180,7 @@ export class SFetch {
         console.warn('[Ошибка HTTP]: ' + answer.status);
         console.warn('[Ошибка HTTP]: ' + answer.statusText);
       }
-    } catch (error: ErrorInfo | unknown | undefined) {
+    } catch (error) {
       const err = error;
       console.warn('The fetch request was aborted: ', err);
     }

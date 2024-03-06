@@ -1,3 +1,5 @@
+import { Position } from "@type"
+
 export enum CategoryTypes {
   ALL_CATEGORY_VALUE = 'ALL_CATEGORY_VALUE',
   MEN_CATEGORY_VALUE = 'MEN_CATEGORY_VALUE',
@@ -14,7 +16,8 @@ export enum CategoryNumber {
 }
 
 export interface RootState {
-  total: {
+  categories: {
+    type: string
     name: CategoryTypes.ALL_CATEGORY_VALUE |
     CategoryTypes.CHILD_CATEGORY_VALUE |
     CategoryTypes.MEN_CATEGORY_VALUE |
@@ -27,7 +30,19 @@ export interface RootState {
     CategoryNumber.WOMAN_CATEGORY_VALUE
   }
 }
-
+export interface Categories {
+  type: string
+  name: CategoryTypes.ALL_CATEGORY_VALUE |
+  CategoryTypes.CHILD_CATEGORY_VALUE |
+  CategoryTypes.MEN_CATEGORY_VALUE |
+  CategoryTypes.UNISEX_CATECORY_VALUE |
+  CategoryTypes.WOMAN_CATEGORY_VALUE
+  payload: CategoryNumber.ALL_CATEGORY_VALUE |
+  CategoryNumber.CHILD_CATEGORY_VALUE |
+  CategoryNumber.MEN_CATEGORY_VALUE |
+  CategoryNumber.UNISEX_CATECORY_VALUE |
+  CategoryNumber.WOMAN_CATEGORY_VALUE
+}
 // const FILTER_CATEGORY = 'FILTER_CATEGORY';
 interface Basicnum {
   payload: CategoryNumber.ALL_CATEGORY_VALUE |
@@ -36,7 +51,7 @@ interface Basicnum {
   CategoryNumber.UNISEX_CATECORY_VALUE |
   CategoryNumber.WOMAN_CATEGORY_VALUE
 }
-
+/* ------------Categories---------------- */
 export interface CategoryAllAction extends Basicnum {
   name: CategoryTypes.ALL_CATEGORY_VALUE
 }
@@ -56,3 +71,13 @@ export interface CateryUnisexAction extends Basicnum {
 export interface CategoryChildAction extends Basicnum {
   name: CategoryTypes.CHILD_CATEGORY_VALUE
 }
+/* ------------positions Catalog---------------- */
+
+export interface PositionsCatalog {
+  type?: string
+  positions: Position[]
+}
+
+export type Actions = CategoryAllAction
+  | CategoryChildAction | CategoryMenAction
+  | CategoryWomanAction | CateryUnisexAction;

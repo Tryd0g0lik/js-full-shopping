@@ -3,14 +3,16 @@
 // https://redux.js.org/tutorials/quick-start#create-a-redux-store
 // https://redux.js.org/tutorials/quick-start#add-slice-reducers-to-the-store
 
-import { legacy_createStore as createStore, combineReducers, Store } from 'redux';
+import { legacy_createStore as createStore, combineReducers } from 'redux';
 import counterReducer from './reducers.ts';
+import catalogReducer from './catalog/reducers.ts';
 /* eslint-disable no-underscore-dangle */
 // eslint-disable-next-line @typescript-eslint/prefer-optional-chain, @typescript-eslint/strict-boolean-expressions
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 /* eslint-enable */
 const rootReducer = combineReducers({
-  counterReducer
+  counterReducer,
+  catalogReducer
 });
 
 const store = createStore(

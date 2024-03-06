@@ -1,6 +1,5 @@
 // src\frontend\src\reduxs\changeCategoryDispatch.ts
 import {
-  Actions,
   categoryAllStateAction,
   categoryChildStateAction,
   categoryMenStateAction,
@@ -8,7 +7,7 @@ import {
   categoryUnisexStateAction
 
 } from '@reduxs/actions.ts';
-
+import { Actions } from './interfaces.ts';
 // const serCategory - (userNumberAction) => () => {
 
 // }
