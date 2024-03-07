@@ -79,16 +79,7 @@ export function UseMainFC(): JSX.Element {
     const target = (event.target as HTMLAnchorElement);
 
     const categoryUSerNumber = Number(target.dataset.category);
-    console.log(`[handlerFilterCategories][categoryUSerNumber]: ${categoryUSerNumber}`);
-    // useFilter(categoryUSerNumber);
-
-    // setCategory(categoryUSerNumber);
     setUserCategory(categoryUSerNumber);
-    /* отправляем данные в redux */
-
-    // const copyPositions = positions?.slice();
-    // console.log('[copyPositions]: ', copyPositions);
-    // usePositions(copyPositions);
   };
 
   const handlerCaegoriesForUseEffect = (): () => void => {
@@ -106,14 +97,8 @@ export function UseMainFC(): JSX.Element {
     };
   };
   useEffect(handlerCaegoriesForUseEffect, [handlerFilterCategories]);
-  // debugger
-  // if (positions !== undefined) {
-  // val = positions || [];
-  // setPositionPositionCatalog(val);
-  // }
 
   return (
-
     <main className="container">
       <div className="row">
         <div className="col">
@@ -157,7 +142,6 @@ export function UseMainFC(): JSX.Element {
                 )
             }
             { /* -------------- */}
-            {/* *************** */}
             <CatalogFC />
             {/* Here is a button for will be loaded more the poitions */}
             <LoaderMoreFC />
