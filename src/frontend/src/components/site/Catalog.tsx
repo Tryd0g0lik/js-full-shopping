@@ -11,14 +11,12 @@ const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 let getTotalStore = storeGetstate();
-// let stateCategory: number = getTotalStore.category.playload;
-// let stateOldCategory: number = 1;
-
-type US = ReturnType<typeof useState>;
+let stateCategory: number | boolean | Position[] = getTotalStore.category.playload;
+let stateOldCategory: number = 1;
+let stateOldCatalog: number = 0;
 
 let oldOffset: number = 0;
 const reduxSetUserCatalog = (props: Position[]): void => {
-  // console.log(`[reduxSetUserCatalog] props Type: ${typeof props} Value: ${props}`);
   try {
     const action: PositionsCatalog = {
       type: 'CATALOG',
@@ -30,11 +28,20 @@ const reduxSetUserCatalog = (props: Position[]): void => {
     console.error('[reduxSetUserCatalog] Err: ', (er as Record<any, any>).message);
   }
 };
+const serverPositions = new SFetch(url);
+/* ---------addPositionsForCatalog--- */
+
 
 export function CatalogFC(): JSX.Element {
   const [filterCategories, useFilter] = useState<number>(1);
   const [positions, usePositions] = useState<HandlerPositionVal>();
-  const serverPositions = new SFetch(url);
+
+  const hablerLoaderMore = (event: MouseEvent): void => {
+    event.preventDefault();
+    oldOffset += 6;
+    serverPositions.requestOneBefore = { offset: oldOffset };
+    serverPositions.requestOneParamAsync(usePositions);
+  };
 
   useEffect(() => {
     useFilter(getTotalStore.category.payload);
@@ -45,11 +52,21 @@ export function CatalogFC(): JSX.Element {
      */
     const categorySetInaterval = setInterval(() => {
       getTotalStore = storeGetstate();
+      /* --------Category-------- */
       stateCategory = getTotalStore.category.payload;
-      if (stateOldCategory < stateCategory || stateOldCategory > stateCategory) {
-        stateOldCategory = stateCategory;
+      if (stateOldCategory < (stateCategory as number) || stateOldCategory > (stateCategory as number)) {
+        stateOldCategory = stateCategory as number;
         const copyCategoryArr = [stateCategory].slice();
-        useFilter(copyCategoryArr[0]);
+        useFilter(copyCategoryArr[0] as number);
+      }
+      /* --------Catalog-------- */
+
+      if (((getTotalStore.catalog.positions).length < stateOldCatalog) ||
+        ((getTotalStore.catalog.positions).length > stateOldCatalog)) {
+        console.log(`#1 [CatalogFC][hablerLoaderMore][categorySetInaterval]  positions Length:  ${(positions as Position[])?.length},`);
+        // reduxSetUserCatalog(getTotalStore.catalog.positions);
+        usePositions(getTotalStore.catalog.positions);
+        stateOldCatalog = getTotalStore.catalog.positions.length;
       }
     }, 500);
 
@@ -57,29 +74,14 @@ export function CatalogFC(): JSX.Element {
     Create a request to the server | '/items/?offset=6' */
     serverPositions.requestOneBefore = { offset: 6 };
     serverPositions.requestOneParamAsync(usePositions);
-    /* ---------addPositionsForCatalog--- */
 
-    const hablerLoaderMore = (event: MouseEvent): void => {
-      event.preventDefault();
-      oldOffset += 6;
-      console.log('[hablerLoaderMore] (Array.isArray(positions) 1:', Array.isArray(positions), 'positions Value: ', positions);
-      serverPositions.requestOneBefore = { offset: oldOffset };
-      serverPositions.requestOneParamAsync(usePositions);
-      const moreUserPositions = positions ?? [];
-
-      if ((Array.isArray(moreUserPositions))) {
-        console.log('[hablerLoaderMore] (Array it is moreUserPositions:', Array.isArray(moreUserPositions), 'Value: ', moreUserPositions);
-        reduxSetUserCatalog(moreUserPositions);
-      }
-      // }
-    };
 
     const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
     if (buttontextCenter !== undefined) {
       (buttontextCenter as HTMLElement).addEventListener('click', hablerLoaderMore);
     }
     return (): void => {
-      // clearInterval(categorySetInaterval);
+      clearInterval(categorySetInaterval);
       /* object will be removed */
       if ((buttontextCenter !== undefined) && (buttontextCenter !== null)) {
         (buttontextCenter as HTMLElement).removeEventListener('click', hablerLoaderMore);
@@ -87,11 +89,14 @@ export function CatalogFC(): JSX.Element {
     };
   }, [usePositions]);
 
-  if (positions !== undefined) {
+  // if (positions !== undefined) {
+  //   reduxSetUserCatalog(positions);
+  // }
+  console.log('#1 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions);
+  if (Array.isArray(positions)) {
+    console.log('#2 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions);
     reduxSetUserCatalog(positions);
   }
-
-  // console.log('[hablerLoaderMore] (Array.isArray(positions) 2:', Array.isArray(positions), 'positions Value: ', positions);
   return (
     <div className="row">
       {/* This is simply positions. It is based  at variables: 'filter:number' */}

@@ -23,11 +23,9 @@ function counterReducer(state: Categories = {
   name: categoryAllStateAction.name,
   payload: categoryAllStateAction.payload
 }, action: Categories): Categories {
-  if ((action !== undefined) && (action.type === 'CATEGORY')) {
+  if ((action.type !== undefined) && ((action.type as string).includes('CATEGORY'))) {
     state.name = action.name;
     state.payload = action.payload;
-  }
-  if ((action.type !== undefined) && ((action.type as string).includes('CATEGORY'))) {
     return {
       type: 'CATEGORY',
       name: state.name,

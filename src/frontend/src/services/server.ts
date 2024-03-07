@@ -167,6 +167,7 @@ export class SFetch {
             responce = Array.from(Object.values({ ...answerJson }));
             // handler(oldOffset as Position[]);
             // handler(responce as Position[]);
+            // console.log(`[server.ts/SFetch][/offset 6+] Recived: ${Array.isArray(responce)} first Value: ${(responce as Position[]).length}`);
             handler(responce as Position[]);
             return;
           }
