@@ -11,8 +11,8 @@ const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 let getTotalStore = storeGetstate();
-let stateCategory: number = getTotalStore.category.playload;
-let stateOldCategory: number = 1;
+// let stateCategory: number = getTotalStore.category.playload;
+// let stateOldCategory: number = 1;
 
 type US = ReturnType<typeof useState>;
 
@@ -79,7 +79,7 @@ export function CatalogFC(): JSX.Element {
       (buttontextCenter as HTMLElement).addEventListener('click', hablerLoaderMore);
     }
     return (): void => {
-      clearInterval(categorySetInaterval);
+      // clearInterval(categorySetInaterval);
       /* object will be removed */
       if ((buttontextCenter !== undefined) && (buttontextCenter !== null)) {
         (buttontextCenter as HTMLElement).removeEventListener('click', hablerLoaderMore);
