@@ -1,4 +1,4 @@
-import { Position } from "@type"
+import { Position } from '@type';
 
 export enum CategoryTypes {
   ALL_CATEGORY_VALUE = 'ALL_CATEGORY_VALUE',
@@ -15,9 +15,10 @@ export enum CategoryNumber {
   CHILD_CATEGORY_VALUE = 15
 }
 
+export type CATEGORY = 'CATEGORY';
 export interface RootState {
   categories: {
-    type: string
+    type: CATEGORY
     name: CategoryTypes.ALL_CATEGORY_VALUE |
     CategoryTypes.CHILD_CATEGORY_VALUE |
     CategoryTypes.MEN_CATEGORY_VALUE |
@@ -31,7 +32,7 @@ export interface RootState {
   }
 }
 export interface Categories {
-  type: string
+  type: CATEGORY
   name: CategoryTypes.ALL_CATEGORY_VALUE |
   CategoryTypes.CHILD_CATEGORY_VALUE |
   CategoryTypes.MEN_CATEGORY_VALUE |
@@ -73,11 +74,12 @@ export interface CategoryChildAction extends Basicnum {
 }
 /* ------------positions Catalog---------------- */
 
+export type CATALOG = 'CATALOG';
+// export type CATEGORY = 'CATEGORY';
+
 export interface PositionsCatalog {
-  type?: string
+  type: CATALOG
   positions: Position[]
 }
 
-export type Actions = CategoryAllAction
-  | CategoryChildAction | CategoryMenAction
-  | CategoryWomanAction | CateryUnisexAction;
+export type Actions = CategoryAllAction | CategoryChildAction | CategoryMenAction | CategoryWomanAction | CateryUnisexAction;

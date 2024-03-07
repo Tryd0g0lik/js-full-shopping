@@ -12,7 +12,6 @@
     "allowJs": false,
     "sourceMap": true,
     "outDir": "./dist",
-  "strictNullChecks": true,
     "noImplicitReturns": true,
     "noUnusedLocals": false,
     "allowSyntheticDefaultImports": true,

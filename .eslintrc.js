@@ -78,9 +78,7 @@ module.exports = {
       }
     ],
     "default-param-last": "off",
-    "@typescript-eslint/default-param-last": ["error", { // tsconfig.json strictNullChecks: true
-      ignoreTernaryTests: true
-    }],
+    "@typescript-eslint/default-param-last": "off",
     "@typescript-eslint/strict-boolean-expressions": "error",
     "@typescript-eslint/prefer-nullish-coalescing": "error",
     "require-await": "off",

@@ -7,6 +7,7 @@
 **/components/pages/**/Main/db.ts
 /.pnp
 .pnp.js
+.vscode
 # testing
 /coverage
 # __tests__/__component-test__/screen/*.png
