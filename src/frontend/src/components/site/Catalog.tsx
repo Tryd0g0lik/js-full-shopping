@@ -89,9 +89,6 @@ export function CatalogFC(): JSX.Element {
     };
   }, [usePositions]);
 
-  // if (positions !== undefined) {
-  //   reduxSetUserCatalog(positions);
-  // }
   console.log('#1 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions);
   if (Array.isArray(positions)) {
     console.log('#2 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions);
@@ -102,7 +99,6 @@ export function CatalogFC(): JSX.Element {
       <div className="row">
         {/* This is simply positions. It is based  at variables: 'filter:number' */}
         {
-
           (positions !== undefined)
             ? (
               Array.from(positions).map((obj) => (

@@ -1,3 +1,5 @@
+/* src\frontend\src\reduxs\interfaces.ts */
+
 import { Position } from '@type';
 
 export enum CategoryTypes {

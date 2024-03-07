@@ -172,19 +172,6 @@ export interface PromiseArr {
  * file: `src\frontend\src\interfaces.ts`
  *
  * import { Td } from '@type';
- *
- * @prop `children?: JSX.Element`
- * ```
- * function COmponent(): JSX.Element {
- *  return(
- *    <>
- *    <Fragment>
- *      { children }
- *    </Fragment>
- *    </>
- *  );
- * }
- *
  * ```
  * @prop `context: `string`  It is context for display on the page `<html><tr><th>Your contex</th></tr></html>`.
  * @prop `cspan` : `string` It's property css 'collspan'.

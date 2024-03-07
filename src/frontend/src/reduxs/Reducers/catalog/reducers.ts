@@ -1,4 +1,7 @@
-import { Position } from '@type';
+/**
+ * `src\frontend\src\reduxs\Reducers\catalog\reducers.ts`
+ *
+ *  */
 import { PositionsCatalog } from '@reduxs/interfaces.ts';
 const map = new Map();
 map.clear();
