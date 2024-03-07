@@ -6,6 +6,7 @@ import { PositionsCatalog } from '@reduxs/interfaces.ts';
 import store, { RootDispatch, storeDispatch, storeGetstate } from '@reduxs/store.ts';
 import { HandlerPositionVal, Position } from '@type';
 import { SFetch } from '@service/server.ts';
+import LoaderMoreFC from './Loadmore.tsx';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -15,7 +16,7 @@ let stateCategory: number | boolean | Position[] = getTotalStore.category.playlo
 let stateOldCategory: number = 1;
 let stateOldCatalog: number = 0;
 
-let oldOffset: number = 0;
+let oldOffset: number = 6;
 const reduxSetUserCatalog = (props: Position[]): void => {
   try {
     const action: PositionsCatalog = {
@@ -34,7 +35,7 @@ const serverPositions = new SFetch(url);
 
 export function CatalogFC(): JSX.Element {
   const [filterCategories, useFilter] = useState<number>(1);
-  const [positions, usePositions] = useState<HandlerPositionVal>();
+  const [positions, usePositions] = useState<HandlerPositionVal>([]);
 
   const hablerLoaderMore = (event: MouseEvent): void => {
     event.preventDefault();
@@ -63,8 +64,7 @@ export function CatalogFC(): JSX.Element {
 
       if (((getTotalStore.catalog.positions).length < stateOldCatalog) ||
         ((getTotalStore.catalog.positions).length > stateOldCatalog)) {
-        console.log(`#1 [CatalogFC][hablerLoaderMore][categorySetInaterval]  positions Length:  ${(positions as Position[])?.length},`);
-        // reduxSetUserCatalog(getTotalStore.catalog.positions);
+        console.log(`#1 [CatalogFC][hablerLoaderMore][categorySetInaterval]  More position for catalog:  ${(getTotalStore.catalog.positions).length},`);
         usePositions(getTotalStore.catalog.positions);
         stateOldCatalog = getTotalStore.catalog.positions.length;
       }
@@ -98,30 +98,18 @@ export function CatalogFC(): JSX.Element {
     reduxSetUserCatalog(positions);
   }
   return (
-    <div className="row">
-      {/* This is simply positions. It is based  at variables: 'filter:number' */}
-      {
+    <>
+      <div className="row">
+        {/* This is simply positions. It is based  at variables: 'filter:number' */}
+        {
 
-        (positions !== undefined)
-          ? (
-            Array.from(positions).map((obj) => (
+          (positions !== undefined)
+            ? (
+              Array.from(positions).map((obj) => (
               /* filterCategories */
 
-              (filterCategories === Number(obj.category))
-                ? (/* Here is category after  filtering */
-                  <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
-                    <Fragment>
-                      <ImageFC path={
-                        ((obj.images !== undefined) &&
-                          (obj.images.length > 0))
-                          ? obj.images[0]
-                          : '#'
-                      } classes='card-img-top img-fluid' context={obj.title} />
-                    </Fragment>
-                  </PositionFC>
-                )
-                : (filterCategories === 1) //
-                  ? (
+                (filterCategories === Number(obj.category))
+                  ? (/* Here is category after  filtering */
                     <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                       <Fragment>
                         <ImageFC path={
@@ -133,11 +121,27 @@ export function CatalogFC(): JSX.Element {
                       </Fragment>
                     </PositionFC>
                   )
-                  : null
-            ))
-          )
-          : < ImLoader />
-      }
-    </div>
+                  : (filterCategories === 1) //
+                    ? (
+                      <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
+                        <Fragment>
+                          <ImageFC path={
+                            ((obj.images !== undefined) &&
+                              (obj.images.length > 0))
+                              ? obj.images[0]
+                              : '#'
+                          } classes='card-img-top img-fluid' context={obj.title} />
+                        </Fragment>
+                      </PositionFC>
+                    )
+                    : null
+              ))
+            )
+            : < ImLoader />
+        }
+      </div>
+      {/* Here is a button for will be loaded more the poitions */}
+      <LoaderMoreFC />
+    </>
   );
 }

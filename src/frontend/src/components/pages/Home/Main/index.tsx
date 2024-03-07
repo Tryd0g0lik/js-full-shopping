@@ -143,8 +143,6 @@ export function UseMainFC(): JSX.Element {
             }
             { /* -------------- */}
             <CatalogFC />
-            {/* Here is a button for will be loaded more the poitions */}
-            <LoaderMoreFC />
           </section>
         </div>
       </div>
