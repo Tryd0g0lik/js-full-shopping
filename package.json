@@ -67,7 +67,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "description": "[1.2]: запустил redux, ][1.03]: catalog create for a main page  ",
+  "description": "[1.2.1]: i will be do make a store Redux for sum positions of a Catalog , [1.2]: запустил redux, ][1.03]: catalog create for a main page  ",
   "main": "./src/index.ts",
   "author": "",
   "license": "ISC"

@@ -84,13 +84,14 @@ export class SFetch {
  * If an error recived then returns `body`
  * @returns
  */
-  async parserResponseAsJson(body: Response): Promise<unknown> {
+  async parserResponseAsJson(body: Response) {
     try {
       const jsonData = await body.json() as Array<Record<string, unknown>>;
       return jsonData;
     } catch (err) {
       console.warn('render a response in to the JSON returned Error: ', err);
     }
+    return body.json();
   }
 
   /**
@@ -157,7 +158,6 @@ export class SFetch {
 
       if (answer.ok) {
         const answerJson = await this.parserResponseAsJson(answer);
-        console.log(`[Promise]: ${JSON.stringify(answerJson)}`);
 
         /* Below: The useState hook for update state from a React */
         let responce: unknown | Position[] = '';
@@ -166,19 +166,23 @@ export class SFetch {
           if (key.includes('offset')) {
             responce = Array.from(Object.values({ ...answerJson }));
             // handler(oldOffset as Position[]);
+            // handler(responce as Position[]);
+            // console.log(`[server.ts/SFetch][/offset 6+] Recived: ${Array.isArray(responce)} first Value: ${(responce as Position[]).length}`);
+            handler(responce as Position[]);
+            return;
           }
           handler(responce as Position[]);
         }
 
-        this.offsetsNumber = undefined;
-        this.q_ = undefined;
-        this.topSales = undefined;
-        this.categories = undefined;
+        // this.offsetsNumber = undefined;
+        // this.q_ = undefined;
+        // this.topSales = undefined;
+        // this.categories = undefined;
       } else {
         console.warn('[Ошибка HTTP]: ' + answer.status);
         console.warn('[Ошибка HTTP]: ' + answer.statusText);
       }
-    } catch (error: ErrorInfo | unknown | undefined) {
+    } catch (error) {
       const err = error;
       console.warn('The fetch request was aborted: ', err);
     }

@@ -1,5 +1,4 @@
 // src\frontend\src\components\pages\Home\Main\index.tsx
-
 import React, { JSX, Fragment, useState, useEffect } from 'react';
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
@@ -9,58 +8,42 @@ import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
 import { HandlerPositionVal } from '@type';
 import UseCategoriesFC from '@site/Categories.tsx';
-import LoaderMoreFC from '@site/Loadmore';
 
 /* REDUX */
-import { connect } from 'react-redux';
-import store, { RootDispatch, RooteStore } from '@reduxs/store.ts';
+import { storeDispatch } from '@reduxs/store.ts';
 
 import changeCategory from '@reduxs/changeCategoryDispatch.ts';
-import { RootState } from '@reduxs/actions.ts';
+import { Categories } from '@reduxs/interfaces.ts';
+import { CatalogFC } from '@site/Catalog.tsx';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
-let oldOffset: number = 0;
 
-/* получаем данные из редукс  */
-const getUserCategory = (num) => {
-  const stateUserCategory = store.getState()
-    .counterReducer.categories;
-  const category: number = stateUserCategory.payload;
-  num = category;
+const setUserCategory = (intstate: number = 1): void => {
+  const state = changeCategory(intstate);
+  const categories: Categories = {
+    type: 'CATEGORY',
+    name: state.name,
+    payload: state.payload
+  };
+  storeDispatch({ ...categories });
 };
 
-const setUserCategory = (dispatch: RootDispatch) => (categoryNumber: number) => {
-  try {
-    const state = changeCategory(categoryNumber);
-    const categories: RootState['categories'] = {
-      name: state.name,
-      payload: state.payload
-    };
-
-    const action = { // !! не трогать
-      type: 'CATEGORY',
-      ...categories
-    };
-
-    dispatch(action);
-  } catch (er) {
-    console.error('[Home/Main] mapStateToProps: ', err.message);
-  }
-};
 /* The top-sales from a server request */
-
 /**
+ * `src\frontend\src\components\pages\Home\Main\index.tsx`
+ *
  * `import { UseMainFC } from './Main/index.tsx';`
+ *
+ * This  works with a `Redux` funnction
  */
 export function UseMainFC(): JSX.Element {
   // /* REDUX tools */
   /* This datas  is a state for the top-sales */
-  const [filterCategories, useFilter] = useState(1);
-  const [topsales, useTopsales] = useState<HandlerPositionVal>();
-  const [category, useCategory] = useState<HandlerPositionVal>();
-  const [positions, usePositions] = useState<HandlerPositionVal>();
+  const [topsales, useTopsales] = useState<HandlerPositionVal>(); // top-sales
+  const [category, useCategory] = useState<HandlerPositionVal>(); // THis a dashbord of ctegories
+
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
@@ -78,43 +61,14 @@ export function UseMainFC(): JSX.Element {
   /* There is below a request to server | '/items/?offset=6' and
   * here the is listener for listening a button name 'Загрузить ещё'
   */
+  /* There is below a filter categories. It's a category number  | '/categories'  */
 
-  useEffect(() => {
-    const serverPositions = new SFetch(url);
-    /* create a request to the server | '/items/?offset=6' */
-    serverPositions.requestOneBefore = { offset: 6 };
-    serverPositions.requestOneParamAsync(usePositions);
-    /* ------------ */
-    const hablerLoaderMore = (event: MouseEvent): void => {
-      event.preventDefault();
-      oldOffset += 6;
-      serverPositions.requestOneBefore = { offset: oldOffset };
-      serverPositions.requestOneParamAsync(usePositions);
-    };
-
-    const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
-    if (buttontextCenter !== undefined) {
-      (buttontextCenter as HTMLElement).addEventListener('click', hablerLoaderMore);
-    }
-    return (): void => {
-      /* object will be removed */
-      if ((buttontextCenter !== undefined) && (buttontextCenter !== null)) {
-        (buttontextCenter as HTMLElement).removeEventListener('click', hablerLoaderMore);
-      }
-
-      oldOffset = 0;
-    };
-  }, [usePositions]);
-
-  /* There is below a filter categories. | '/categories'  */
-  const handlerFilterCategories = (event: MouseEvent) => {
+  const handlerFilterCategories = (event: MouseEvent): void => {
     event.preventDefault();
     const target = (event.target as HTMLAnchorElement);
 
     const categoryUSerNumber = Number(target.dataset.category);
-    useFilter(categoryUSerNumber);
-    /* отправляем данные в redux */
-    setUserCategory(store.dispatch)(categoryUSerNumber);
+    setUserCategory(categoryUSerNumber);
   };
 
   const handlerCaegoriesForUseEffect = (): () => void => {
@@ -133,9 +87,7 @@ export function UseMainFC(): JSX.Element {
   };
   useEffect(handlerCaegoriesForUseEffect, [handlerFilterCategories]);
 
-  console.warn('[newCategoryTest]: ', filterCategories);
   return (
-
     <main className="container">
       <div className="row">
         <div className="col">
@@ -145,8 +97,7 @@ export function UseMainFC(): JSX.Element {
           </Fragment>
           <section className="top-sales">
             <HeadFC number={2} classes='text-center' title='Хиты продаж!' />
-            { /* This's a "Top-sales". | '/top-sales'
-            It's based at varieble: "topsales: Position[]|undefined" */
+            { /* This's a "Top-sales". | '/top-sales' */
               (topsales !== undefined)
                 ? (
                   <div className="row">
@@ -168,7 +119,7 @@ export function UseMainFC(): JSX.Element {
           </section>
           <section className="catalog">
             <HeadFC number={2} classes='text-center' title='Каталог' />
-            {/* Category menu. It is based at variavle: "category". | '/items/?offset=6'
+            {/* Category menu. It is based at variable: "category". | '/items/?offset=6'
              It's type Array ("Position[]|undefined") */
               (category !== undefined)
                 ? (
@@ -179,61 +130,10 @@ export function UseMainFC(): JSX.Element {
                 )
             }
             { /* -------------- */}
-            <div className="row">
-              {/* This is simply positions. It is based  at variables: 'filter:number' */}
-              {
-
-                (positions !== undefined)
-                  ? (
-                    Array.from(positions).map((obj) => (
-                      /* filterCategories */
-
-                      (filterCategories === Number(obj.category))
-                        ? (/* Here is category after  filtering */
-                          <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
-                            <Fragment>
-                              <ImageFC path={
-                                ((obj.images !== undefined) &&
-                                  (obj.images.length > 0))
-                                  ? obj.images[0]
-                                  : '#'
-                              } classes='card-img-top img-fluid' context={obj.title} />
-                            </Fragment>
-                          </PositionFC>
-                        )
-                        : (filterCategories === 1) // 
-                          ? (
-                            <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
-                              <Fragment>
-                                <ImageFC path={
-                                  ((obj.images !== undefined) &&
-                                    (obj.images.length > 0))
-                                    ? obj.images[0]
-                                    : '#'
-                                } classes='card-img-top img-fluid' context={obj.title} />
-                              </Fragment>
-                            </PositionFC>
-                          )
-                          : null
-                    ))
-                  )
-                  : < ImLoader />
-              }
-            </div>
-            {/* Here is a button for will be loaded more the poitions */}
-            <LoaderMoreFC />
+            <CatalogFC />
           </section>
         </div>
       </div>
     </main>
   );
 }
-
-/* The global state including  in this props */
-// const subscriber = store.subscribe(getUserCategory(filterCategories));
-/* will be include */
-
-// export default connect()(
-//   /* the onecom ponent included */
-//   UseMainFC
-// );

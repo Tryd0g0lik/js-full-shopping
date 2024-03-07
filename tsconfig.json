@@ -1,3 +1,4 @@
+// https://www.typescriptlang.org/tsconfig
 {
   "compilerOptions": {
     "jsx": "react",
@@ -11,7 +12,6 @@
     "allowJs": false,
     "sourceMap": true,
     "outDir": "./dist",
-  
     "noImplicitReturns": true,
     "noUnusedLocals": false,
     "allowSyntheticDefaultImports": true,
