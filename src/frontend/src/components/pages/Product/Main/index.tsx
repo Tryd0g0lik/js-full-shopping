@@ -1,8 +1,9 @@
 import { Position } from '@type';
-import React, { JSX, useId } from 'react';
+import React, { JSX } from 'react';
 import { useAsyncValue } from 'react-router-dom';
 import { handlerMinus } from './handler-events/calculator.ts';
 import { handlerSize } from './handler-events/sizer.ts';
+import { handlerButtom } from './handler-events/handlerButton.ts';
 
 export function ProductMainFC(): JSX.Element {
   const params = useAsyncValue() as Position;
@@ -71,7 +72,7 @@ export function ProductMainFC(): JSX.Element {
                   </span>
                   </p>
                 </div>
-                <button className="btn btn-danger btn-block btn-lg">В корзину</button>
+								<button className="btn btn-danger btn-block btn-lg" onClick={handlerButtom}>В корзину</button>
               </div>
             </div>
           </section>
