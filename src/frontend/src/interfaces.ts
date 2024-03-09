@@ -136,8 +136,13 @@ export interface Position extends Child {
   heelSize?: string
   price?: number
   oldPrice?: number
-  sizes?: [Record<string, boolean>]
+  sizes?: Array<{
+    size: string
+    available: boolean
+  }> // [Record<string, boolean>]
 }
+
+export interface PositionLoader { params: Position }
 
 /**
  * `src\frontend\src\interfaces.ts`

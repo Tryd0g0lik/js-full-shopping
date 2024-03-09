@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
-import { Pages } from '@type';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Pages, Position, PositionLoader } from '@type';
+import { BrowserRouter, Routes, Route, useLoaderData, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HomepageFC } from './Home/index.tsx';
 /* below is a code for loaded.html */
 import { LoadedpageFC } from './Loaded/index.tsx';
@@ -16,42 +16,98 @@ import { AboutpageFC } from './About/index.tsx';
 import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
+import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 /**
  * Determine the route
  * @returns
  */
 export function PagesFC(): JSX.Element {
-  const LoaderCatalogId = async (id): Promise<void> => {
-    // const sfetch = new SFetch('http://localhost:7070/api/items/:id');
-    console.log(`#1 [PageFC][LoaderCatalogId] fetch Result: ${result}`);
-    const answer = await fetch(`http://localhost:7070/api/items/${id}`);
-    if (answer.ok) {
-      const result = await answer.json();
-      console.log(`#2 [PageFC][LoaderCatalogId] fetch Result: ${result}`);
+  const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
+    const respons = await fetch(`http://localhost:7070/api/items/${params.id}`);
+    if (!respons.ok) {
+      throw new Error('Status of respons is 404 (position not found)');
     }
+    return respons;
   };
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          { /* About page is below */}
-          <Route path={Pages.About} element={<AboutpageFC />} />
-          { /* Cart page is below */}
-          <Route path={Pages.Cart} element={<CartpageFC />} />
-          { /* Catalog page is below */}
-          <Route path={Pages.Catalog} element={<CatalogpageFC />} />
-          <Route path='/catalog/:id' loader={LoaderCatalogId} element={<ProductFC />} />
-
-          { /* Contacts page is below */}
-          <Route path={Pages.Contacts} element={<ContactspageFC />} />
-          { /* Loaded page is below */}
-          <Route path={Pages.Loaded} element={<LoadedpageFC />} />
-          { /* Main page is below */}
-          <Route path={Pages.Home} element={<HomepageFC />} />
-          <Route path='*' element={<UnderfinedpageFC />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+  const router = createBrowserRouter([
+    // <Route path={Pages.About} element={<AboutpageFC />} />
+    {
+      path: Pages.About,
+      element: <AboutpageFC />
+    },
+    // <Route path={Pages.Cart} element={<CartpageFC />} />
+    {
+      path: Pages.About,
+      element: <CartpageFC />
+    },
+    // <Route path={Pages.Catalog} element={<CatalogpageFC />} />
+    {
+      path: Pages.Catalog,
+      element: < CatalogpageFC />
+    },
+    {
+      // < Route path = { Pages.Contacts } element = {< ContactspageFC />} />
+      path: Pages.Contacts,
+      element: < ContactspageFC />
+    },
+    // <Route path={Pages.Loaded} element={<LoadedpageFC />} />
+    {
+      path: Pages.Loaded,
+      element: < LoadedpageFC />
+    },
+    // <Route path={Pages.Home} element={<HomepageFC />} />
+    {
+      path: Pages.Home,
+      element: < HomepageFC />
+    },
+    // <Route path='*' element={<UnderfinedpageFC />} />
+    {
+      path: '*',
+      element: < UnderfinedpageFC />
+    },
+    {
+      path: '/catalog/:id',
+      loader: LoaderCatalogId,
+      id: 'root',
+      children: [
+        {
+          path: '/catalog/:id',
+          loader: LoaderCatalogId,
+          element: <ProductFC />
+        }
+      ],
+      element: <ProductFC />
+    }
+  ]);
+  return <RouterProvider router={router} />;
 }
+//   return (
+//     <>
+//       <BrowserRouter>
+//         <Routes>
+//           { /* About page is below */}
+//           <Route path={Pages.About} element={<AboutpageFC />} />
+//           { /* Cart page is below */}
+//           <Route path={Pages.Cart} element={<CartpageFC />} />
+//           { /* Catalog page is below */}
+//           <Route path={Pages.Catalog} element={<CatalogpageFC />} />
+//           <Route path='/catalog/:id' loader={LoaderCatalogId} element={<ProductFC />} />
+
+//           { /* Contacts page is below */}
+//           <Route path={Pages.Contacts} element={<ContactspageFC />} />
+//           { /* Loaded page is below */}
+//           <Route path={Pages.Loaded} element={<LoadedpageFC />} />
+//           { /* Main page is below */}
+//           <Route path={Pages.Home} element={<HomepageFC />} />
+//           <Route path='*' element={<UnderfinedpageFC />} />
+//         </Routes>
+//       </BrowserRouter>
+//     </>
+//   );
+// }
+
+// createRoot(el).render(
+//   <RouterProvider router={router} />
+// );
