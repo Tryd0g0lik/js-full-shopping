@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
 import { Pages, Position, PositionLoader } from '@type';
-import { BrowserRouter, Routes, Route, useLoaderData, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HomepageFC } from './Home/index.tsx';
 /* below is a code for loaded.html */
 import { LoadedpageFC } from './Loaded/index.tsx';
@@ -68,7 +68,7 @@ export function PagesFC(): JSX.Element {
       element: < UnderfinedpageFC />
     },
     {
-      path: '/catalog/:id',
+      path: '/',
       loader: LoaderCatalogId,
       id: 'root',
       children: [
@@ -83,30 +83,7 @@ export function PagesFC(): JSX.Element {
   ]);
   return <RouterProvider router={router} />;
 }
-//   return (
-//     <>
-//       <BrowserRouter>
-//         <Routes>
-//           { /* About page is below */}
-//           <Route path={Pages.About} element={<AboutpageFC />} />
-//           { /* Cart page is below */}
-//           <Route path={Pages.Cart} element={<CartpageFC />} />
-//           { /* Catalog page is below */}
-//           <Route path={Pages.Catalog} element={<CatalogpageFC />} />
-//           <Route path='/catalog/:id' loader={LoaderCatalogId} element={<ProductFC />} />
 
-//           { /* Contacts page is below */}
-//           <Route path={Pages.Contacts} element={<ContactspageFC />} />
-//           { /* Loaded page is below */}
-//           <Route path={Pages.Loaded} element={<LoadedpageFC />} />
-//           { /* Main page is below */}
-//           <Route path={Pages.Home} element={<HomepageFC />} />
-//           <Route path='*' element={<UnderfinedpageFC />} />
-//         </Routes>
-//       </BrowserRouter>
-//     </>
-//   );
-// }
 
 // createRoot(el).render(
 //   <RouterProvider router={router} />

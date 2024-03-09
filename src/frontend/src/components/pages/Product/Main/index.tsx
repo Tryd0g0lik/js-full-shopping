@@ -4,35 +4,13 @@ import { useAsyncValue } from 'react-router-dom';
 
 export function ProductMainFC(): JSX.Element {
   const params = useAsyncValue() as Position;
-  // const userparams = useRouteLoaderData(params);
-  // const newParams = JSON.parse(JSON.stringify({ ...params }));
   const { id, images, title, sku, manufacturer, color, material, season, reason, sizes, ...param } = { ...params };
-  console.log(`#1 [Product][ProductMainFC] fetch ID: ${id}`);
-  console.log(`#1 [Product][ProductMainFC] fetch title: ${title}`);
-  console.log(`#1 [Product][ProductMainFC] fetch manufacturer: ${manufacturer}`);
-  // const newId = (id !== undefined) || useId();
-  // const newTitle = (title !== undefined) || 'Продукт не найден';
-  // const newSku = (title !== undefined) || 'Null';
-  // const newManufacturer = (manufacturer !== undefined) || 'Null';
-  // const newColor = (color !== undefined) || 'Null';
-  // const newMaterial = (material !== undefined) || 'Null';
-  // const newSeason = (season !== undefined) || 'Null';
-  // const newReason = (reason !== undefined) || 'Null';
-  // const newSizes = (sizes !== undefined) || [{
-  //   size: 'Null',
-  //   available: false
-  // }];
 
   const img: string = ((images !== undefined) && (Array.isArray(images))) ? ((images.length > 0) ? images[1] : images[1]) : '';
   return (
     <header className="container">
       <div className="row">
         <div className="col">
-          {/* <div className="banner">
-            <img src={img} className="img-fluid" alt={newTitle as string} />
-            <h2 className="banner-header">{title}</h2>
-          </div> */}
-
           <section className="catalog-item">
             <h2 className="text-center">{title}</h2>
             <div className="row">
