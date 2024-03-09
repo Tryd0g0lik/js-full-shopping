@@ -1,12 +1,16 @@
 import { Position } from '@type';
 import React, { JSX, useId } from 'react';
 import { useAsyncValue } from 'react-router-dom';
+import { handlerMinus } from './handler-events/calculator.ts';
+import { handlerSize } from './handler-events/sizer.ts';
 
 export function ProductMainFC(): JSX.Element {
   const params = useAsyncValue() as Position;
   const { id, images, title, sku, manufacturer, color, material, season, reason, sizes, ...param } = { ...params };
 
-  const img: string = ((images !== undefined) && (Array.isArray(images))) ? ((images.length > 0) ? images[1] : images[1]) : '';
+  const img = ((images !== undefined) && (Array.isArray(images))) ? ((images.length > 0) ? images[1] : images[1]) : '';
+
+
   return (
     <header className="container">
       <div className="row">
@@ -47,7 +51,7 @@ export function ProductMainFC(): JSX.Element {
                     </tr>
                   </tbody>
                 </table>
-                <div className="text-center">
+                <div className="text-center" onClick={handlerSize}>
                   <p>Размеры в наличии:
                     {
                       Array.from(sizes as Array<{
@@ -55,15 +59,15 @@ export function ProductMainFC(): JSX.Element {
                         available: boolean
                       }>).map((item) => {
                         if (item.available) {
-                          return <span key={id} className="catalog-item-size">{item.size}</span>;
+                          return <span key={id} data-size={item.size} className="catalog-item-size">{item.size}</span>;
                         }
                       })
                     }
                   </p>
-                  <p>Количество: <span className="btn-group btn-group-sm pl-2">
-                    <button className="btn btn-secondary">-</button>
-                    <span className="btn btn-outline-primary">1</span>
-                    <button className="btn btn-secondary">+</button>
+                  <p>Количество: <span className="btn-group btn-group-sm pl-2" onClick={handlerMinus}>
+                    <button className="btn btn-secondary" data-type='minus'>-</button>
+                    <span className="btn btn-outline-primary">0</span>
+                    <button className="btn btn-secondary" data-type='plus'>+</button>
                   </span>
                   </p>
                 </div>
