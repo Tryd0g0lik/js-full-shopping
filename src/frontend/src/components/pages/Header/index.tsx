@@ -1,6 +1,6 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
-import React, { JSX } from 'react';
+import React, { JSX, useEffect } from 'react';
 import headerLogo from '@img/header-logo.png';
 import LiFC from '@site/Li.tsx';
 import AncorFC from '@site/Ancor.tsx';

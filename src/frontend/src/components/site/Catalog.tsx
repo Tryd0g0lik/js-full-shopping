@@ -64,7 +64,6 @@ export function CatalogFC(): JSX.Element {
 
       if (((getTotalStore.catalog.positions).length < stateOldCatalog) ||
         ((getTotalStore.catalog.positions).length > stateOldCatalog)) {
-        console.log(`#1 [CatalogFC][hablerLoaderMore][categorySetInaterval]  More position for catalog:  ${(getTotalStore.catalog.positions).length},`);
         usePositions(getTotalStore.catalog.positions);
         stateOldCatalog = getTotalStore.catalog.positions.length;
       }
@@ -89,9 +88,9 @@ export function CatalogFC(): JSX.Element {
     };
   }, [usePositions]);
 
-  console.log('#1 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions);
+  console.log('#1 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ');
   if (Array.isArray(positions)) {
-    console.log('#2 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions);
+    console.log('#2 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions.length);
     reduxSetUserCatalog(positions);
   }
   return (
@@ -106,7 +105,7 @@ export function CatalogFC(): JSX.Element {
 
                 (filterCategories === Number(obj.category))
                   ? (/* Here is category after  filtering */
-                    <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
+                    <PositionFC key={obj.id} id={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                       <Fragment>
                         <ImageFC path={
                           ((obj.images !== undefined) &&
@@ -119,7 +118,7 @@ export function CatalogFC(): JSX.Element {
                   )
                   : (filterCategories === 1) //
                     ? (
-                      <PositionFC key={obj.id} category={obj.category} title={obj.title} price={obj.price}>
+                      <PositionFC key={obj.id} id={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                         <Fragment>
                           <ImageFC path={
                             ((obj.images !== undefined) &&

@@ -80,7 +80,7 @@ export function DMainFC(): JSX.Element {
                 {/* This is positions by a page 'Категории' */}
                 {
                   Array.from(positionsArr).map((obj) => (
-                    <PositionFC key={useId()} category={obj.category} title={obj.title} price={obj.price}>
+                    <PositionFC key={useId()} id={obj.id} category={obj.category} title={obj.title} price={obj.price}>
                       <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
                     </PositionFC>
                   ))

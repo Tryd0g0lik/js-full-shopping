@@ -17,6 +17,7 @@
  }
   ```
  */
+
 export enum Pages {
   'Home' = '/',
   'Loaded' = '/loaded',
@@ -24,7 +25,8 @@ export enum Pages {
   'Catalog' = '/catalog',
   'Cart' = '/cart',
   'About' = '/about',
-  'Undefin' = '/404'
+  '404_' = '/404',
+  'Product' = '/catalog/:id'
 }
 
 /**
@@ -37,7 +39,8 @@ export enum PTitle {
   '/' = 'Главная',
   '/catalog' = 'Каталог',
   '/about' = 'О магазине',
-  '/contacts' = 'Контакты'
+  '/contacts' = 'Контакты',
+  '/404' = 'Не найден'
 }
 
 export enum FilterCategories {

@@ -1,4 +1,6 @@
 import React, { Children, JSX } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+
 import { Position } from '@type';
 import AncorFC from '@site/Ancor.tsx';
 
@@ -25,7 +27,10 @@ import AncorFC from '@site/Ancor.tsx';
     </div>
   ```
  */
-export function PositionFC({ title, category = undefined, price = 0, children }: Position): JSX.Element {
+export function PositionFC({ title, id, category = undefined, price = 0, children }: Position): JSX.Element {
+  const ind: string = (id !== undefined) ? String(id) : '9999';
+  const pathes = `./catalog/${ind}`;
+  // process.env.REACT_APP_URL = process.env.REACT_APP_FPORT + pathes;
   const result = (category !== undefined)
     ? (
       <div className="col-4" data-category={category}>
@@ -36,7 +41,8 @@ export function PositionFC({ title, category = undefined, price = 0, children }:
           <div className="card-body">
             <p className="card-text">{title}</p>
             <p className="card-text">{price} руб.</p>
-            <AncorFC path='/products/1.html' classes='btn btn-outline-primary' context='Заказать' />
+            <NavLink className='btn btn-outline-primary' to={pathes}>Заказать</NavLink>
+            {/* <AncorFC path={pathes} classes='btn btn-outline-primary' context='Заказать' /> */}
           </div>
         </div>
       </div>
@@ -50,7 +56,8 @@ export function PositionFC({ title, category = undefined, price = 0, children }:
           <div className="card-body">
             <p className="card-text">{title}</p>
             <p className="card-text">{price} руб.</p>
-            <AncorFC path='/products/1.html' classes='btn btn-outline-primary' context='Заказать' />
+            <NavLink className='btn btn-outline-primary' to={pathes}>Заказать</NavLink>
+            {/* <AncorFC path={pathes} classes='btn btn-outline-primary' context='Заказать' /> */}
           </div>
         </div>
       </div>
