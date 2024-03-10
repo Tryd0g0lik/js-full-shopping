@@ -79,9 +79,15 @@ export interface CategoryChildAction extends Basicnum {
 export type CATALOG = 'CATALOG';
 // export type CATEGORY = 'CATEGORY';
 
-export interface PositionsCatalog {
-  type: CATALOG
+interface Positions {
   positions: Position[]
+}
+export interface PositionsCatalog extends Positions {
+  type: CATALOG
+}
+type ORDER = 'ORDER';
+export interface PositionsCard extends Positions {
+  type: ORDER
 }
 
 export type Actions = CategoryAllAction | CategoryChildAction | CategoryMenAction | CategoryWomanAction | CateryUnisexAction;

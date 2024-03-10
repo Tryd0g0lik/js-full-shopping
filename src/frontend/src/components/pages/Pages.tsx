@@ -9,7 +9,7 @@ import { ContactspageFC } from './Contacts/index.tsx';
 /* below is a code for catalog.html */
 import { CatalogpageFC } from './Catalog/index.tsx';
 /* below is a code for catalog.html */
-import { CartpageFC } from './Cart/imdex.tsx';
+import { CartFC, CartpageFC } from './Cart/imdex.tsx';
 /* below is a code for about.html */
 import { AboutpageFC } from './About/index.tsx';
 /* below is a code for 404.html */
@@ -66,6 +66,10 @@ export function PagesFC(): JSX.Element {
     {
       path: '*',
       element: < UnderfinedpageFC />
+    },
+    {
+      path: '/card',
+      element: <CartpageFC />
     },
     {
       path: '/',

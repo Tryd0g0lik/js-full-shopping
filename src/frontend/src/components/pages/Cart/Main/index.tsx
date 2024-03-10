@@ -13,7 +13,6 @@ import FormFC from '@site/Forms/index.tsx';
 import InputsFC from '@site/Forms/Imputs.tsx';
 import LabelFC from '@site/Forms/Lebel.tsx';
 import ButtonFC from '@site/Forms/Button.tsx';
-// import
 
 /**
  * `CMFC` - it value is:
@@ -25,11 +24,6 @@ import ButtonFC from '@site/Forms/Button.tsx';
  * @returns html
  */
 export function CMFC(): JSX.Element { // the parh main of cart.html
-  const thead = [
-    ['col', '#'], ['col', 'Название'],
-    ['col', 'Размер'], ['col', 'Кол - во'],
-    ['col', 'Стоимость'], ['col', 'Итого'],
-    ['col', 'Действия']];
   return (
     <>
       <main className="container">
@@ -45,7 +39,7 @@ export function CMFC(): JSX.Element { // the parh main of cart.html
             <section className="cart">
               {/* Корзина  - заголовок & таблица */}
               <HeadFC number={2} classes='text-center' title='Корзина' />
-              <TableFc headers={thead} />
+              <TableFc />
 
             </section>
             <section className="order">

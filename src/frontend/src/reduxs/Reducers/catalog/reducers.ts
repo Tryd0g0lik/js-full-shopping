@@ -9,6 +9,7 @@ const catalogReducer = (state: PositionsCatalog = {
   type: 'CATALOG',
   positions: []
 }, action: PositionsCatalog): PositionsCatalog => {
+
   if ((action.type !== undefined) && ((action.type as string).includes('CATALOG'))) {
     console.log(`#3 [Reducer.catalog] state.positions  Length: ${state.positions.length}`);
     for (let i = 0; i < action.positions.length; i++) {

@@ -120,9 +120,12 @@ export interface Categories {
  * @prop `price?`: `number`
  * @prop `oldPrice?`: `number`
  * @prop `sizes?`: `[Record<string, boolean>]`
+ * @prop `size?`: `string`
+ * * @prop `quantility?`: `number`
  * @prop `children?`: React.JSX.Elements
  */
 export interface Position extends Child {
+  positions?: any
   id?: number
   category?: number
   title?: string
@@ -136,10 +139,12 @@ export interface Position extends Child {
   heelSize?: string
   price?: number
   oldPrice?: number
+  quantility?: string
   sizes?: Array<{
     size: string
     available: boolean
   }> // [Record<string, boolean>]
+  size?: string
 }
 
 export interface PositionLoader { params: Position }
