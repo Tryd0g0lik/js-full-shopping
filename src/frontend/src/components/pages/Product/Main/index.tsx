@@ -8,7 +8,6 @@ import baner from '@img/banner.jpg';
 import { storeGetstate } from '@reduxs/store.ts';
 
 export function ProductMainFC(): JSX.Element {
-
   const params = useAsyncValue() as Position;
   const { id, images, price, title, sku, manufacturer, color, material, season, reason, sizes, ...param } = { ...params };
 

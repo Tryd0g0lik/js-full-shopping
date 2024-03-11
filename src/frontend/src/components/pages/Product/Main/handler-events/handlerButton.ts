@@ -2,6 +2,7 @@
 /* REDUX */
 import { PositionsCard } from '@reduxs/interfaces';
 import { storeDispatch } from '@reduxs/store.ts';
+import { DispatcherStorage } from '@service/postmane';
 import { Position } from '@type';
 import { useNavigate } from 'react-router-dom';
 export function handlerButtom(event: React.MouseEvent): void {
@@ -21,6 +22,13 @@ export function handlerButtom(event: React.MouseEvent): void {
     return;
   }
   console.log(`#1 [Product/Main][ProductMainFC][handlerEvent] Index: ${index} `);
+
+  /* Note: 'storeDispatch' is below.
+  Bossible in delete/
+  This is not used!!
+
+  Then moving to a new page, we lose this's data/
+  */
   const order: PositionsCard = {
     type: 'ORDER',
     positions: [{
@@ -33,5 +41,7 @@ export function handlerButtom(event: React.MouseEvent): void {
   };
 
   storeDispatch(order);
+  const dispatch = new DispatcherStorage(order);
+  dispatch.setToLocalStorage('order');
   location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT + '/card';
 }

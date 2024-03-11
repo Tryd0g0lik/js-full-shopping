@@ -24,7 +24,8 @@ module.exports = {
 			'@type': path.resolve(__dirname, 'src/interfaces.ts'),
 			'@pages': path.resolve(__dirname, 'src/components/pages'),
 			'@site': path.resolve(__dirname, 'src/components/site'),
-			'@service': path.resolve(__dirname, 'src/services')
+      '@service': path.resolve(__dirname, 'src/services'),
+
 
     }
   },

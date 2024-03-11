@@ -125,7 +125,7 @@ export interface Categories {
  * @prop `children?`: React.JSX.Elements
  */
 export interface Position extends Child {
-  positions?: any
+	order?: any
   id?: number
   category?: number
   title?: string

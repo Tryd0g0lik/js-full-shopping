@@ -1,29 +1,44 @@
 // src\frontend\src\components\pages\Cart\Main\index.tsx
 
-import React, { JSX, Fragment } from 'react';
+import React, { JSX, Fragment, useState, useEffect } from 'react';
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
 import BannerFC from '@site/Baners.tsx';
 import ImageFC from '@site/Img.tsx';
 
 /* Teble */
-import TableFc from '@site/table/index.tsx';
+import CardFc from '@site/card-orders/index.tsx';
 /* Levels from a form */
 import FormFC from '@site/Forms/index.tsx';
 import InputsFC from '@site/Forms/Imputs.tsx';
 import LabelFC from '@site/Forms/Lebel.tsx';
 import ButtonFC from '@site/Forms/Button.tsx';
 
+import { DispatcherStorage } from '@service/postmane.ts';
+import { Position } from '@type';
 /**
- * `CMFC` - it value is:
- *
- * `C` - `cart`
- * `M` - `main`
- * `F` - `function`
- * `C` - `components`
  * @returns html
  */
-export function CMFC(): JSX.Element { // the parh main of cart.html
+export function CartMainFC(): JSX.Element { // the parh main of cart.html
+  const [orders, setOrders] = useState<Position[]>([]);
+  const newPositions: React.SetStateAction<Position[]> | { id: number; order: Record<string, any>; }[] = [];
+  const dispatcher = new DispatcherStorage();
+  const result = dispatcher.getOfLocalStorage('order');
+  let indOrder = 0;
+  if (result !== null) {
+    for (let i = 0; i < (result as Position[]).length; i++) {
+      console.log('result[i]: ', result[i]);
+      newPositions.push({
+        id: indOrder += 1,
+        order: result[i].positions[0]
+      });
+    }
+  }
+  const test = newPositions.slice();
+  console.log('TEST: ', test);
+  useEffect(() => {
+    setOrders(newPositions);
+  }, [setOrders]);
   return (
     <>
       <main className="container">
@@ -39,7 +54,7 @@ export function CMFC(): JSX.Element { // the parh main of cart.html
             <section className="cart">
               {/* Корзина  - заголовок & таблица */}
               <HeadFC number={2} classes='text-center' title='Корзина' />
-              <TableFc />
+              <CardFc prop={orders} />
 
             </section>
             <section className="order">
