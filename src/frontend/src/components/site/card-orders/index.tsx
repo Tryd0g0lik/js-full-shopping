@@ -18,9 +18,15 @@ interface StoreOrderPos {
  * @param `headers`: `string[][]`. It's array headers. We can to see table's headers
  * @returns teble, it's React.JSX.Element
  */
-export default function CardFc({ prop }: any): JSX.Element {
-  const orders = prop;
-
+export default function CardFc({ prop }: { prop: Position[] }): JSX.Element {
+  // const [sumary, setSumary] = useState(0);
+  // const orders = { prop };
+  let sum = 0;
+  const priceAll = (prop).map((item) => {
+    sum += (item.order.quantility * item.order.price);
+    return sum;
+  });
+  sum = priceAll[prop.length - 1];
   return (
     <table className="table table-bordered">
       <thead>
@@ -36,8 +42,7 @@ export default function CardFc({ prop }: any): JSX.Element {
       </thead>
       <tbody>
         {
-          (orders as Position[]).map((item) => (
-            // ((item.position) as Position[]).map((item.position) => (
+          (prop).map((item) => (
             <tr key={useId() + String(item.order.id)}>
               <td scope="row">{item.id}</td>
               <td><a href="/products/1.html">{item.order.title} </a></td>
@@ -51,7 +56,8 @@ export default function CardFc({ prop }: any): JSX.Element {
         }
         <tr>
           <td colSpan={5} className="text-right">Общая стоимость</td>
-          <td>34_000 руб.</td>
+
+          <td>{sum}</td>
         </tr>
       </tbody>
     </table>
