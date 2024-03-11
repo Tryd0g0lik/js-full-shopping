@@ -5,7 +5,7 @@ import { Child } from '@type';
 
 import { HeaderFC } from '@pages/Header/index.tsx';
 import { FooterFC } from '@pages/Footer/index.tsx';
-import { CMFC } from './Main/index.tsx';
+import { CartMainFC } from './Main/index.tsx';
 
 export function CartFC({ children }: Child): JSX.Element {
   return (
@@ -20,7 +20,7 @@ export function CartpageFC(): JSX.Element {
     <CartFC>
       <Fragment>
         <HeaderFC />
-        <CMFC />
+				<CartMainFC />
         <FooterFC />
       </Fragment>
     </CartFC>

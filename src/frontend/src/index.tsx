@@ -7,6 +7,7 @@ import './css/style.css';
 /* REDUX */
 import { Provider } from 'react-redux';
 import configStore from '@reduxs/store.ts';
+import { PagesFC } from '@pages/Pages.tsx';
 
 const root = document.getElementById('root');
 
@@ -16,7 +17,9 @@ if ((root !== null) && (root !== undefined)) {
     <Provider store={configStore}>
       <StrictMode>
         {/* <BrowserRouter> */}
-        <AppFC />
+        {/* <AppFC />
+         */}
+        <PagesFC />
         {/* </BrowserRouter > */}
       </StrictMode>
     </Provider>

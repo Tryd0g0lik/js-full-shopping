@@ -86,7 +86,7 @@ export function LMain({ categories }: Categories): JSX.Element {
               {
                 Array.from(positionsArr).map((obj) => (
                   <>
-                    <PositionFC title={obj.title} price={String(obj.price)}>
+                    <PositionFC id={obj.id} title={obj.title} price={obj.price}>
                       <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
                     </PositionFC>
                   </>

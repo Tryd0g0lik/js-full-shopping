@@ -102,7 +102,7 @@ export function UseMainFC(): JSX.Element {
                 ? (
                   <div className="row">
                     {Array.from(topsales).map((obj) => (
-                      <PositionFC key={obj.id} title={obj.title} price={obj.price} >
+                      <PositionFC key={obj.id} id={obj.id} title={obj.title} price={obj.price} >
                         <ImageFC path={
                           ((obj.images !== undefined) &&
                             (obj.images.length > 0))

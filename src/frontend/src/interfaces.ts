@@ -17,6 +17,7 @@
  }
   ```
  */
+
 export enum Pages {
   'Home' = '/',
   'Loaded' = '/loaded',
@@ -24,7 +25,8 @@ export enum Pages {
   'Catalog' = '/catalog',
   'Cart' = '/cart',
   'About' = '/about',
-  'Undefin' = '/404'
+  '404_' = '/404',
+  'Product' = '/catalog/:id'
 }
 
 /**
@@ -37,7 +39,8 @@ export enum PTitle {
   '/' = 'Главная',
   '/catalog' = 'Каталог',
   '/about' = 'О магазине',
-  '/contacts' = 'Контакты'
+  '/contacts' = 'Контакты',
+  '/404' = 'Не найден'
 }
 
 export enum FilterCategories {
@@ -117,9 +120,12 @@ export interface Categories {
  * @prop `price?`: `number`
  * @prop `oldPrice?`: `number`
  * @prop `sizes?`: `[Record<string, boolean>]`
+ * @prop `size?`: `string`
+ * * @prop `quantility?`: `number`
  * @prop `children?`: React.JSX.Elements
  */
 export interface Position extends Child {
+	order?: any
   id?: number
   category?: number
   title?: string
@@ -133,8 +139,15 @@ export interface Position extends Child {
   heelSize?: string
   price?: number
   oldPrice?: number
-  sizes?: [Record<string, boolean>]
+  quantility?: string
+  sizes?: Array<{
+    size: string
+    available: boolean
+  }> // [Record<string, boolean>]
+  size?: string
 }
+
+export interface PositionLoader { params: Position }
 
 /**
  * `src\frontend\src\interfaces.ts`
