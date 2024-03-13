@@ -27,22 +27,12 @@ export const TypeUseState = typeof useState;
 export function CartMainFC(): JSX.Element { // the parh main of cart.html
   const [orders, setOrders] = useState<Position[]>([]);
   const [remov, setRemov] = useState<Position[] | undefined>([]);
-  // const addCall = useMemo(() => useAddCard(), []);
-  // const delCall = useMemo(() => useOrderDelete(), []);
-
-
-  // let orders: Position[] = [];
-
-  // CardMemo(): ({ prop }: {
-  //   prop: Position[];
-  // }) => JSX.Element
   const addCall = useAddCard();
-  // const delCall = useOrderDelete();
   console.log("Greeting was rendered at [useMemo]", new Date().toLocaleTimeString());
   const CardMemo = useMemo((): Position[] => {
-
+    // debugger
     // console.log("Greeting was rendered at [addCall]", addCall, new Date().toLocaleTimeString());
-
+    // new Date().toLocaleTimeString()
     // console.log("Greeting was rendered at [delCall]", addCall, new Date().toLocaleTimeString());
 
     if ((Array.isArray(addCall)) && (
@@ -55,12 +45,9 @@ export function CartMainFC(): JSX.Element { // the parh main of cart.html
       )) {
       // debugger
       const result = (remov !== undefined) ? remov : addCall;
-      // setOrders(result as unknown as Position[]);
       return result as unknown as Position[];
     } else {
       console.log("Greeting was rendered at [TEST]", new Date().toLocaleTimeString());
-      // debugger
-      // setOrders(addCall);
       return addCall
     }
 
@@ -76,16 +63,11 @@ export function CartMainFC(): JSX.Element { // the parh main of cart.html
     const dispatch = new DispatcherStorage();
     dispatch.deleteOneOfLocalStorage('order', n);
     const dataObj = dispatch.getOfLocalStorage('order');
-  // if ((dataObj as Array<Record<string, unknown>>).data === undefined) {
-  //   return;
-  // }
     // debugger
     for (let i = 0; i < ((dataObj as Array<Record<string, unknown>>).data).length; i++) {
       newPositions.push({ order: ((dataObj as Record<string, any>).data)[i].order[0] });
-
       // debugger
     }
-    // return newPositions
     // debugger
     setRemov(newPositions as Position[] | undefined);
   }

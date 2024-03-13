@@ -8,7 +8,7 @@ interface StoreOrderPos {
   ind: number
   position: Position
 }
-
+let sum = 0;
 /**
  * `src\frontend\src\components\site\table\index.tsx`
  *
@@ -20,19 +20,24 @@ interface StoreOrderPos {
  * @returns teble, it's React.JSX.Element
  */
 export default function CardFc({ prop }: { prop: Position[] }): JSX.Element {
+  // { new Date().toLocaleTimeString() } -[Sum: ] { sum }
 
-  let sum = 0;
-  // debugger
-  if ((prop.length > 0)) {
-    let priceAll = (prop).map((item) => {
-      // debugger
-      sum += (item.order.quantility * item.order.price);
-      return sum;
-    });
+  debugger
+  // if ((prop.length > 0)) {
+  //   // let priceAll = (prop).map((item, index, arr) => {
 
-    sum = priceAll[prop.length - 1];
-    priceAll = [] as number[];
+  for (let i = 0; i < prop.length; i++) {
+    const quantility = ((prop[i].order as Position).quantility as number);
+    const price = ((prop[i].order as Position).price as number);
+    sum += (quantility * price);
   }
+
+  //   // return sum;
+  //   // });
+
+  //   // sum = priceAll[prop.length - 1];
+  //   // priceAll = [] as number[];
+  // }
 
   return (
     <table className="table table-bordered">
@@ -50,17 +55,19 @@ export default function CardFc({ prop }: { prop: Position[] }): JSX.Element {
       <tbody>
         {
           (prop).map((item) => (
-            <tr key={useId() + String(item.order.id)}>
+            <tr key={useId() + (String(item.order.id))}>
               <td scope="row">{item.id}</td>
-              <td><a href="/products/1.html">{item.order.title ?? ''} </a></td>
-              <td>{(item.order.size !== undefined) ? item.order.size : ''}</td>
-              <td>{(item.order.quantility !== undefined) ? item.order.quantility : ''}</td>
-              <td>{(item.order.price !== undefined) ? item.order.price : '0 '} руб.</td>
+              <td><a href="/products/1.(html">{(item.order as Position).title ?? ''} </a></td>
+              <td>{(item.order as Position).size !== (undefined) ? (item.order as Position).size : ''}</td>
+              <td>{(item.order as Position).quantility !== (undefined) ? (item.order as Position).quantility : ''}</td>
+              <td>{(item.order as Position).price !== (undefined) ? (item.order as Position).price : '0 '} руб.</td>
 
-              <td>{((item.order.quantility !== undefined) ? item.order.quantility : 0) *
-                ((item.order.price !== undefined) ? item.order.price : 0)} руб.</td>
+              <td > {((item.order as Position).quantility !== (undefined)) ? ((item.order as Position).quantility) : 0 *
+                ((((
+                  item.order as Position[]
+                )[0].price) !== undefined) ? (item.order)[0].price : 0)} руб.</td >
               <td><button data-index={String(item.id)} className="btn btn-outline-danger btn-sm">Удалить</button></td>
-            </tr>
+            </tr >
           ))
         }
         <tr>
