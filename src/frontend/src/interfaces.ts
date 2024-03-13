@@ -139,7 +139,7 @@ export interface Position extends Child {
   heelSize?: string
   price?: number
   oldPrice?: number
-  quantility?: string
+  quantility?: number
   sizes?: Array<{
     size: string
     available: boolean

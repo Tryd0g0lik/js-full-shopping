@@ -7,22 +7,14 @@ import { HeaderFC } from '@pages/Header/index.tsx';
 import { FooterFC } from '@pages/Footer/index.tsx';
 import { CartMainFC } from './Main/index.tsx';
 
-export function CartFC({ children }: Child): JSX.Element {
-  return (
-    <>
-      {children}
-    </>
-  );
-}
 
 export function CartpageFC(): JSX.Element {
+  console.log("Greeting was rendered at [CartpageFC]", new Date().toLocaleTimeString());
   return (
-    <CartFC>
-      <Fragment>
-        <HeaderFC />
-				<CartMainFC />
-        <FooterFC />
-      </Fragment>
-    </CartFC>
+    <>
+      <HeaderFC />
+      <CartMainFC />
+      <FooterFC />
+    </>
   );
 }

@@ -8,20 +8,20 @@ import { useNavigate } from 'react-router-dom';
 export function handlerButtom(event: React.MouseEvent): void {
   event.stopPropagation();
   const position = document.querySelector('.catalog-item') as HTMLElement;
-  const index = (document.querySelector('section[data-ind]') as HTMLElement).dataset.ind as string;
-  const name = (document.querySelector('h2.text-center') as HTMLElement).innerHTML;
-  const sizes = (position.querySelector('span[data-size].catalog-item-size.selected') as HTMLElement).innerHTML;
-  const countQuantility = (position.querySelector('span[data-type="quantility"]') as HTMLElement).innerHTML;
+  const index = (document.querySelector('section[data-ind]') as HTMLElement);
+  const name = (document.querySelector('h2.text-center') as HTMLElement);
+  const sizes = (position.querySelector('span[data-size].catalog-item-size.selected') as HTMLElement);
+  const countQuantility = (position.querySelector('span[data-type="quantility"]') as HTMLElement);
   const prices = ((position.querySelector('td[data-type="price"]') as HTMLElement)
     .innerHTML).split(' RUB')[0];
   if ((countQuantility === null) ||
-    ((countQuantility !== null) && (((countQuantility.includes('0') && ((countQuantility.length === 1))))))) {
+    ((countQuantility !== null) && (((countQuantility.innerHTML.includes('0') && ((countQuantility.innerHTML.length === 1))))))) {
     return;
   }
   if (sizes === null) {
     return;
   }
-  console.log(`#1 [Product/Main][ProductMainFC][handlerEvent] Index: ${index} `);
+  console.log(`#1 [Product/Main][ProductMainFC][handlerEvent] Index: ${index.dataset.ind} `);
 
   /* Note: 'storeDispatch' is below.
   Bossible in delete/
@@ -31,11 +31,11 @@ export function handlerButtom(event: React.MouseEvent): void {
   */
   const order: PositionsCard = {
     type: 'ORDER',
-    positions: [{
-      id: Number(index),
-      title: name,
-      size: sizes,
-      quantility: countQuantility,
+    order: [{
+      id: Number(index.dataset.ind),
+      title: name.innerHTML,
+      size: sizes.innerHTML,
+      quantility: Number(countQuantility.innerHTML),
       price: Number(prices)
     }]
   };

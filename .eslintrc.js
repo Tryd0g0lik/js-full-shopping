@@ -43,6 +43,8 @@ module.exports = {
     "@stylistic/eslint-plugin-plus"
   ],
   "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "quotes": "off",
     "import/extensions": [ // укзываем расширение файлов?
       "error",
@@ -57,6 +59,7 @@ module.exports = {
       ignoreTypeValueShadow: true,
       ignoreFunctionTypeParameterNameValueShadow: true
     }],
+    "react/display-name": ["error", { ignoreTranspilerName: true, displayName: true }],
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-explicit-any": ["error", { fixToUnknown: false, ignoreRestArgs: true }],
@@ -80,7 +83,7 @@ module.exports = {
     "default-param-last": "off",
     "@typescript-eslint/default-param-last": "off",
     "@typescript-eslint/strict-boolean-expressions": "error",
-    "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": ["error", { ignoreTernaryTests: true }],
     "require-await": "off",
     "@typescript-eslint/require-await": "error",
     "@typescript-eslint/restrict-template-expressions": ["error", {
