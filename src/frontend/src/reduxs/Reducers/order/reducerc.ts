@@ -5,11 +5,12 @@
    "heelSize": "4 см.", "price": 34000, "sizes": [{ "size": "18 US", "available": true },
      { "size": "20 US", "available": false }] } */
 
-import { PositionsCard } from '@reduxs/interfaces.ts';
+import { PositionsCard } from "@type";
 import { Position } from '@type';
 const map = new Map();
 map.clear();
-const userStete: PositionsCard['order'] = [];
+
+const userStete: PositionsCard['order'] = [] as unknown as (PositionsCard['order']);
 /**
  * Action.order has Tenplate. It's:  ```ts
  * {
@@ -29,7 +30,7 @@ const userStete: PositionsCard['order'] = [];
  */
 const orderReducer = (state: PositionsCard = {
   type: 'ORDER',
-  order: []
+  order: userStete
 }, action: PositionsCard): PositionsCard => {
   const newState = { ...state };
   if ((action !== undefined) && ((action.type as string).includes('ORDER'))) {

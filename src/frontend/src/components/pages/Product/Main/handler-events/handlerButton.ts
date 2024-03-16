@@ -1,8 +1,8 @@
 // src\frontend\src\components\pages\Product\Main\handler-events\handlerButton.ts
 /* REDUX */
-import { PositionsCard } from '@reduxs/interfaces';
+import { PositionsCard } from '@type';
 import { storeDispatch } from '@reduxs/store.ts';
-import { DispatcherStorage } from '@service/postmane';
+import { DispatcherStorage } from '@service/postman';
 import { Position } from '@type';
 import { useNavigate } from 'react-router-dom';
 export function handlerButtom(event: React.MouseEvent): void {
@@ -31,6 +31,7 @@ export function handlerButtom(event: React.MouseEvent): void {
   */
   const order: PositionsCard = {
     type: 'ORDER',
+
     order: [{
       id: Number(index.dataset.ind),
       title: name.innerHTML,

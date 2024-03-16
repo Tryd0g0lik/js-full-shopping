@@ -85,16 +85,5 @@ interface Positions {
 export interface PositionsCatalog extends Positions {
   type: CATALOG
 }
-type ORDER = 'ORDER';
-export interface PositionsCard {
-  type: ORDER
-  order: [{
-    id: number
-    title: string
-    size: string
-    quantility: number
-    price: number
-  }]
-}
 
 export type Actions = CategoryAllAction | CategoryChildAction | CategoryMenAction | CategoryWomanAction | CateryUnisexAction;

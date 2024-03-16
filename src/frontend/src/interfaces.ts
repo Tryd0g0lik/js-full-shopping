@@ -17,7 +17,6 @@
  }
   ```
  */
-
 export enum Pages {
   'Home' = '/',
   'Loaded' = '/loaded',
@@ -146,14 +145,41 @@ export interface Position extends Child {
   }> // [Record<string, boolean>]
   size?: string
 }
+export type ORDER = 'ORDER';
+/**
+ * @prop 'order' is vef a template:
+ * [{
+ *  id: number
+ *  title: string
+ *  size: string
+ *  quantility: number
+ *  price: number
+ * }]
+ */
+export interface PositionsCard {
+  type: ORDER
+  id?: number
+  order: Position[]
+}
 
+/*
+* https://github.com/microsoft/TypeScript/issues/40383#issuecomment-720395788
+*
+* Below is a aswer on error:
+* Engl - "Type '{ className: string; }' is not assignable to type 'IntrinsicAttributes"
+* RU: = "Тип не может быть назначен для типа "IntrinsicAttributes"."
+*/
+export interface DataToCart extends React.Component<any> {
+  props: { order: Position[] }
+}
+
+// export interface : {
+//   id: number;
+//   order: Position;
+// } []
 export interface PositionLoader { params: Position }
 
 /**
- * `src\frontend\src\interfaces.ts`
- *
- * `import { PromiseArr } from '@type';`
- *
  * @returns `{
  * id: number
  * category: number
@@ -171,8 +197,6 @@ export interface PromiseOne {
 }
 
 /**
- * `src\frontend\src\interfaces.ts`
- *
  * `import { PromiseArr } from '@type';`
  *
  * @returns `{promise: PromiseOne[]}`
@@ -182,8 +206,6 @@ export interface PromiseArr {
 }
 
 /**
- * file: `src\frontend\src\interfaces.ts`
- *
  * import { Td } from '@type';
  * ```
  * @prop `context: `string`  It is context for display on the page `<html><tr><th>Your contex</th></tr></html>`.
@@ -199,25 +221,17 @@ export interface Heads {
 }
 
 /**
- * `src\frontend\src\interfaces.ts`
- *
  * @returns `type Str = string;`
  */
 export type Str = string;
 
 /**
- * `src\frontend\src\interfaces.ts`
- *
  * @returns `type Val = string | number`
  */
 export type Val = string | number;
 
 export type HandlerPositionVal = Position[] | undefined;
 /**
- * `src\frontend\src\interfaces.ts`
- *
- * `import { Request } from '@type';`
- *
  * ```
  * ind?: number
  * offset?: number
