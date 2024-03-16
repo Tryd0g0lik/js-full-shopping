@@ -28,12 +28,19 @@ function oldStatePositions(): Position[] {
  * Inside the CartMainFC component we have a 'handlerDeleter' handler . There is a function to remove from the cart. 
  * That DELETE ,  a simple user see on athe cart page. A Delete button will appear.
  * It's handler for a 'CartFc' child component 
+ * 
+ * src\frontend\src\components\pages\Header\index.tsx
+ * The state orders in a page header change into the 'page/Header/HeaderFC' component
+ * * The state orders in a page header will be change. We has  a three varios: 
+ * - page loading;
+ *  or
+ * - the mouse click event was recived. It's if a click by the button 'Удалить' (from is a the page cart).
  * @returns JSX.Element
  */
 export function CartMainFC(): JSX.Element {
   const [orders, setOrders] = useState<Position[]>(() => oldStatePositions());
   const handlerDeleter = useCallback((ev: React.MouseEvent) => {
-    ev.stopPropagation();
+    ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);
     if ((indexLine.tagName.includes('BUTTON')) && (indexLine.innerText.includes('Удалить'))) {
       const n: number = Number(indexLine.dataset.index);

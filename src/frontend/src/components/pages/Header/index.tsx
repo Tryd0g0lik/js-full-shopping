@@ -1,10 +1,12 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
-import React, { JSX, useEffect } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import headerLogo from '@img/header-logo.png';
 import LiFC from '@site/Li.tsx';
 import AncorFC from '@site/Ancor.tsx';
-import { Pages } from '@type';
+import { Pages, Position } from '@type';
+import { DispatcherStorage } from '@service/postman';
+import { QuantilityOrdersFC } from '@site/Orders';
 const topMenuArr = [
   {
     id: 1,
@@ -29,6 +31,44 @@ const topMenuArr = [
 ];
 
 export function HeaderFC(): JSX.Element {
+  const dispatch = new DispatcherStorage();
+  const check = dispatch.chackeKeyToLockalStorage('order');
+  let count = 0;
+  if (check) {
+    /* counter for orders. this is value for publication in the page header 
+     * The state orders on a page header will be change. We has  a three varios: 
+     * - page loading;
+     *  or
+     * - the mouse click event was recived. It's if a click by the button 'Удалить' (from is a the page cart). src\frontend\src\components\pages\Cart\Main\index.tsx
+    */
+    const ordersData = (dispatch.getOfLocalStorage('order'));
+    const ordersArr = (ordersData !== null)
+      ? ordersData.data.order : [];
+    count += ordersArr.length;
+  }
+  const [counter, stateCounter] = useState(count);
+  useEffect(() => {
+    window.addEventListener('click', handlerCaunter);
+    return () => {
+      window.removeEventListener('click', handlerCaunter);
+    }
+  }, [counter])
+
+  const handlerCaunter = (e: MouseEvent) => {
+    const indexLine = (e.target as HTMLElement);
+    if ((e.type === 'click') && (indexLine.tagName.includes('BUTTON')) && (indexLine.innerText.includes('Удалить'))) {
+      const dataObj = dispatch.getOfLocalStorage('order');
+      const datas = (dataObj as { data: { order: Array<Position[]> } }).data.order as Position[];
+      stateCounter(datas.length);
+
+    } else {
+      stateCounter(count);
+    }
+
+  }
+
+  const counerValueCart = QuantilityOrdersFC(counter);
+  // stateCounter(count);
   return (
     <header className="container">
       <div className="row">
@@ -56,7 +96,7 @@ export function HeaderFC(): JSX.Element {
                   <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
                   { /* <!-- Do programmatic navigation on click to /cart.html --> */}
                   <div className="header-controls-pic header-controls-cart">
-                    <div className="header-controls-cart-full">1</div>
+                    {counerValueCart}
                     <div className="header-controls-cart-menu"></div>
                   </div>
                 </div>

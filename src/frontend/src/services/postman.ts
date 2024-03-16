@@ -1,17 +1,17 @@
 import { Position, PositionsCard } from "@type";
 
 /* есди вернет false -ключ не найден в lockalStorage, или true */
-function chackeKeyToLockalStorage(name: string): boolean {
-  let result = false;
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    result = (key !== null) ? key.includes(name) : false;
-    if (result) {
-      return result;
-    }
-  }
-  return result;
-}
+// function chackeKeyToLockalStorage(name: string): boolean {
+//   let result = false;
+//   for (let i = 0; i < localStorage.length; i++) {
+//     const key = localStorage.key(i);
+//     result = (key !== null) ? key.includes(name) : false;
+//     if (result) {
+//       return result;
+//     }
+//   }
+//   return result;
+// }
 
 export class DispatcherStorage {
   readonly datas: Record<string, any> | undefined;
@@ -28,6 +28,19 @@ export class DispatcherStorage {
     */
   constructor(data: Record<string, any> | undefined = undefined) {
     this.datas = data;
+  }
+
+  /* есди вернет false -ключ не найден в lockalStorage, или true */
+  chackeKeyToLockalStorage(name: string): boolean {
+    let result = false;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      result = (key !== null) ? key.includes(name) : false;
+      if (result) {
+        return result;
+      }
+    }
+    return result;
   }
 
   /**
@@ -58,7 +71,7 @@ export class DispatcherStorage {
     */
   setToLocalStorage(key: string): void {
     if (this.datas === undefined) return;
-    const chacke = chackeKeyToLockalStorage(key);
+    const chacke = this.chackeKeyToLockalStorage(key);
     if (chacke) {
       // const resultStr = localStorage.getItem(key) as string;
       const resultJson = this.getItemOfKey(key);// JSON.parse(resultStr);
@@ -88,7 +101,7 @@ export class DispatcherStorage {
   * @returns oject of the key if data is true or null
   */
   getOfLocalStorage(key: string): Record<string, any> | null { // Dubl function/ First is belove/
-    const chacke = chackeKeyToLockalStorage(key);
+    const chacke = this.chackeKeyToLockalStorage(key);
     if (chacke) {
       const resultStr = localStorage.getItem(key);
       const resultJson = JSON.parse(resultStr as string) as Record<string, any>;
