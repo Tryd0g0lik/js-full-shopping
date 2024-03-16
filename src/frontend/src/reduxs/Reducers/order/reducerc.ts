@@ -5,16 +5,17 @@
    "heelSize": "4 см.", "price": 34000, "sizes": [{ "size": "18 US", "available": true },
      { "size": "20 US", "available": false }] } */
 
-import { PositionsCard } from '@reduxs/interfaces.ts';
+import { PositionsCard } from "@type";
 import { Position } from '@type';
 const map = new Map();
 map.clear();
-const userStete: PositionsCard['positions'] = [];
+
+const userStete: PositionsCard['order'] = [] as unknown as (PositionsCard['order']);
 /**
  * Action.order has Tenplate. It's:  ```ts
  * {
     type: 'ORDER',
-    positions: [{
+    order: [{
       id: number,
       title: string,
       size: string,
@@ -29,31 +30,31 @@ const userStete: PositionsCard['positions'] = [];
  */
 const orderReducer = (state: PositionsCard = {
   type: 'ORDER',
-  positions: []
+  order: userStete
 }, action: PositionsCard): PositionsCard => {
   const newState = { ...state };
   if ((action !== undefined) && ((action.type as string).includes('ORDER'))) {
-    console.log(` №0 [Reducers/order/reducers][PositionsCard] State.position.length on start: ${state.positions.length}`);
-    console.log(` №1 [Reducers/order/reducers][PositionsCard] Action.position Before SET: Length: ${action.positions.length}`);
-    for (let i = 0; i < action.positions.length; i++) {
-      const id = action.positions[i].id;
+    console.log(` №0 [Reducers/order/reducers][PositionsCard] State.position.length on start: ${state.order.length}`);
+    console.log(` №1 [Reducers/order/reducers][PositionsCard] Action.position Before SET: Length: ${action.order.length}`);
+    for (let i = 0; i < action.order.length; i++) {
+      const id = action.order[i].id;
 
       if (!map.has(id)) {
-        (newState.positions).push(action.positions[i]);
-        map.set(id, action.positions[i]);
+        (newState.order).push(action.order[i]);
+        map.set(id, action.order[i]);
       }
     }
-    state.positions = newState.positions;
-    // state.positions = (state.positions).concat(action.positions);
-    console.log(`## [Reducers/order/reducers][PositionsCard] State position is Before SENDING: ${state.positions.length}`);
+    state.order = newState.order;
+    // state.order = (state.order).concat(action.order);
+    console.log(`## [Reducers/order/reducers][PositionsCard] State position is Before SENDING: ${state.order.length}`);
     return {
       type: 'ORDER',
-      positions: state.positions
+      order: state.order
     };
   } else {
     return {
       type: 'ORDER',
-      positions: state.positions
+      order: state.order
     };
   }
 };

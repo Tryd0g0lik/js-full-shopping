@@ -1,32 +1,24 @@
-import React, { JSX, useId, useEffect, useState } from 'react';
+// `src\frontend\src\components\site\table\index.tsx`
+import React, { JSX } from 'react';
 
-/* inteface */
-import { Heads, Position } from '@type';
+import { Position } from '@type';
 
-interface StoreOrderPos {
-  ind: number
-  position: Position
-}
 
 /**
- * `src\frontend\src\components\site\table\index.tsx`
- *
- * `import TableFc from '@site/table/index.tsx';`
- *
- * `<table class='...'>`
- *
- * @param `headers`: `string[][]`. It's array headers. We can to see table's headers
+ * That an data tenmplate on entrypoint. {"data":{"order":[{"id":66,"title":"Босоножки 'Myer' с завязкой на щиколотке","size":"18 US","quantility":1,"price":34000},{"id":66,"title":"Босоножки 'Myer' с завязкой на щиколотке","size":"18 US","quantility":1,"price":34000},{"id":73,"title":"Супергеройские кеды","size":"16 US","quantility":1,"price":1400},{"id":26,"title":"Кроссовки с рынка","size":"10 US","quantility":1,"price":1500},{"id":27,"title":"Кроссовки пёстрые","size":"10 US","quantility":1,"price":1750},{"id":28,"title":"Туфли-долматинцы","size":"10 US","quantility":1,"price":4000}]}}
+ * 
+ * This is the order table for the cart
  * @returns teble, it's React.JSX.Element
  */
-export default function CardFc({ prop }: { prop: Position[] }): JSX.Element {
-  // const [sumary, setSumary] = useState(0);
-  // const orders = { prop };
+export default function CartFc({ ...props }): JSX.Element {
   let sum = 0;
-  const priceAll = (prop).map((item) => {
-    sum += (item.order.quantility * item.order.price);
-    return sum;
-  });
-  sum = priceAll[prop.length - 1];
+  const rest = props.order;
+  for (let i = 0; i < props.order.length; i++) {
+    const quantility = ((rest[i] as Position).quantility as number);
+    const price = ((rest[i] as Position).price as number);
+    sum += (quantility * price);
+  } 
+
   return (
     <table className="table table-bordered">
       <thead>
@@ -42,16 +34,18 @@ export default function CardFc({ prop }: { prop: Position[] }): JSX.Element {
       </thead>
       <tbody>
         {
-          (prop).map((item) => (
-            <tr key={useId() + String(item.order.id)}>
-              <td scope="row">{item.id}</td>
-              <td><a href="/products/1.html">{item.order.title} </a></td>
-              <td>{item.order.size}</td>
-              <td>{item.order.quantility}</td>
-              <td>{item.order.price} руб.</td>
-              <td>{item.order.quantility * item.order.price} руб.</td>
-              <td><button className="btn btn-outline-danger btn-sm">Удалить</button></td>
-            </tr>
+          (rest).map((item: Position, index: number) => (
+            <tr key={index}>
+              <td scope="row">{index}</td>
+              <td><a href="/products/1.(html">{(item as Position).title ?? ''} </a></td>
+              <td>{(item as Position).size !== (undefined) ? (item as Position).size : ''}</td>
+              <td>{(item as Position).quantility !== (undefined) ? (item as Position).quantility : ''}</td>
+              <td>{(item as Position).price !== (undefined) ? (item as Position).price : '0 '} руб.</td>
+
+              <td > {((item as Position).quantility !== (undefined)) ? ((item as Position).quantility) : 0 *
+                ((((item).price) !== undefined) ? (item).price : 0)} руб.</td >
+              <td><button data-index={String(item.id)} className="btn btn-outline-danger btn-sm">Удалить</button></td>
+            </tr >
           ))
         }
         <tr>

@@ -21,7 +21,7 @@ module.exports = {
       '@img': path.resolve(__dirname, 'src/img'),
       '@svgs': path.resolve(__dirname, 'src/svgs'),
       '@reduxs': path.resolve(__dirname, './src/reduxs'),
-			'@type': path.resolve(__dirname, 'src/interfaces.ts'),
+      '@type': path.resolve(__dirname, 'src/interfaces.ts'),
 			'@pages': path.resolve(__dirname, 'src/components/pages'),
 			'@site': path.resolve(__dirname, 'src/components/site'),
       '@service': path.resolve(__dirname, 'src/services'),
