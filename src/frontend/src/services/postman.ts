@@ -62,13 +62,23 @@ export class DispatcherStorage {
     if (chacke) {
       // const resultStr = localStorage.getItem(key) as string;
       const resultJson = this.getItemOfKey(key);// JSON.parse(resultStr);
-      // const newDatas: Position[] =
-      debugger
+      /* ---------------- -- */
+      const ordersArr = (resultJson?.data.order as Array<Position>);
+      for (let i = 0; i < ordersArr.length; i++) {
+        if (ordersArr[i].id === this.datas.order[0].id as Position) {
+          ordersArr[i].quantility += this.datas.order[0].quantility;
+          localStorage.removeItem(key);
+          this.setItemByKey(key, JSON.stringify({ data: { order: ordersArr } }));
+          return
+        }
+      }
+      /* ---------------- -- */
+
       (resultJson.data.order).push(this.datas.order[0] as Position);
-      debugger
       this.setItemByKey(key, JSON.stringify({ data: { order: resultJson.data.order } }));
+
     } else {
-      debugger
+
       this.setItemByKey(key, JSON.stringify({ data: { order: this.datas.order as Position[] } }));
     }
   }
@@ -77,7 +87,7 @@ export class DispatcherStorage {
   * @param key it's a key of/for localStorage where are keep the datas all.
   * @returns oject of the key if data is true or null
   */
-  getOfLocalStorage(key: string): Record<string, any> | null {
+  getOfLocalStorage(key: string): Record<string, any> | null { // Dubl function/ First is belove/
     const chacke = chackeKeyToLockalStorage(key);
     if (chacke) {
       const resultStr = localStorage.getItem(key);
@@ -95,7 +105,6 @@ export class DispatcherStorage {
   deleteOneOfLocalStorage(key: string, idLine: number): void {
     const result = this.getOfLocalStorage(key);
     if (key !== null) {
-      // const i = 0;
       const arr = (result?.data.order as Array<Position>);
       const newArr = [];
       for (let i = 0; i < arr.length; i++) {
