@@ -42,8 +42,9 @@ export default function CartFc({ ...props }): JSX.Element {
               <td>{(item as Position).quantility !== (undefined) ? (item as Position).quantility : ''}</td>
               <td>{(item as Position).price !== (undefined) ? (item as Position).price : '0 '} руб.</td>
 
-              <td > {((item as Position).quantility !== (undefined)) ? ((item as Position).quantility) : 0 *
-                ((((item).price) !== undefined) ? (item).price : 0)} руб.</td >
+              <td > {((item.quantility !== undefined) && (item.price !== undefined))
+                ? ((item.quantility as number) * item.price)
+                : 0} руб.</td >
               <td><button data-index={String(item.id)} className="btn btn-outline-danger btn-sm">Удалить</button></td>
             </tr >
           ))
