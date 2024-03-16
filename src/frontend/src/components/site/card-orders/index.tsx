@@ -36,7 +36,7 @@ export default function CartFc({ ...props }): JSX.Element {
         {
           (rest).map((item: Position, index: number) => (
             <tr key={index}>
-              <td scope="row">{index}</td>
+              <td scope="row">{index + 1}</td>
               <td><a href="/products/1.(html">{(item as Position).title ?? ''} </a></td>
               <td>{(item as Position).size !== (undefined) ? (item as Position).size : ''}</td>
               <td>{(item as Position).quantility !== (undefined) ? (item as Position).quantility : ''}</td>
@@ -45,7 +45,7 @@ export default function CartFc({ ...props }): JSX.Element {
               <td > {((item.quantility !== undefined) && (item.price !== undefined))
                 ? ((item.quantility as number) * item.price)
                 : 0} руб.</td >
-              <td><button data-index={String(item.id)} className="btn btn-outline-danger btn-sm">Удалить</button></td>
+              <td><button data-row={index + 1} data-index={String(item.id)} className="btn btn-outline-danger btn-sm">Удалить</button></td>
             </tr >
           ))
         }

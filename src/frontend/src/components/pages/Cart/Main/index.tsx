@@ -43,7 +43,8 @@ export function CartMainFC(): JSX.Element {
     ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);
     if ((indexLine.tagName.includes('BUTTON')) && (indexLine.innerText.includes('Удалить'))) {
-      const n: number = Number(indexLine.dataset.index);
+      const n: number = Number(indexLine.dataset.row);
+
       dispatch.deleteOneOfLocalStorage('order', n);
 
       const dataObj = dispatch.getOfLocalStorage('order');
