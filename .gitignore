@@ -4,7 +4,7 @@
  /node_modules
 **/node_modules
 ./styleguide
-**/components/pages/**/Main/db.ts
+
 /.pnp
 .pnp.js
 .vscode
@@ -32,6 +32,6 @@ build
 dist
 design
 
-**/.env
+
 **/relevants.ts
 **/svgs
