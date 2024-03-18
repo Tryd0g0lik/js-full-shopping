@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { OurContext, AuthSearchProvider } from '@site/OurProvider';
+import { OurContext, AuthSearchProvider } from '@site/catalog-searcher/OurProvider';
 import { SearchContext } from '@type';
 /**
  * Вызывая этот наш hook , получаем 'val = { ...text, fn: searcher } ' из 'SearchProviderFC'

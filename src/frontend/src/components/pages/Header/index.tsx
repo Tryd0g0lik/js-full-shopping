@@ -7,7 +7,7 @@ import AncorFC from '@site/Ancor.tsx';
 import { Pages, Position } from '@type';
 import { DispatcherStorage } from '@service/postman';
 import { QuantilityOrdersFC } from '@site/Orders';
-import { SearcherFC } from '@site/Searcher';
+import { SearcherFC } from '@site/catalog-searcher/Searcher';
 const topMenuArr = [
   {
     id: 1,

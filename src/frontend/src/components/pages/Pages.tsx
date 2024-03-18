@@ -16,7 +16,7 @@ import { AboutpageFC } from './About/index.tsx';
 import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
-import { AuthSearchProvider } from '@site/OurProvider.tsx';
+import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
 
 
 /**
