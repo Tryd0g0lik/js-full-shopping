@@ -71,4 +71,5 @@ export interface Forms extends Classes {
   onChange?: ChangeEventHandler<HTMLInputElement>
   htmlfor?: string
   context?: string
+  searchly?: string
 }

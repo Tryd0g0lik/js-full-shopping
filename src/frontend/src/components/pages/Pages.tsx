@@ -16,8 +16,8 @@ import { AboutpageFC } from './About/index.tsx';
 import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
-import ReactDOM from 'react-dom';
-import { createRoot } from 'react-dom/client';
+import { AuthSearchProvider } from '@site/OurProvider.tsx';
+
 
 /**
  * Determine the route
@@ -68,7 +68,7 @@ export function PagesFC(): JSX.Element {
       element: < UnderfinedpageFC />
     },
     {
-      path: '/card',
+      path: '/cart',
       element: <CartpageFC />
     },
     {
@@ -85,7 +85,12 @@ export function PagesFC(): JSX.Element {
       element: <ProductFC />
     }
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <AuthSearchProvider>
+      {/* все что обврнули, получает 'text' черезе 'useContext' */}
+      < RouterProvider router={router} />
+    </AuthSearchProvider>
+  )
 }
 
 

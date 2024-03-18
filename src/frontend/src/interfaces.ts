@@ -268,3 +268,8 @@ export interface POSTRequests {
 export interface ReadOnlyFunction {
   readonly: () => void
 }
+
+export type SearchContext = {
+  searchly: string
+  method: (newText: string, cb: () => void) => void // (datacerch: any, cb: any) => void
+}

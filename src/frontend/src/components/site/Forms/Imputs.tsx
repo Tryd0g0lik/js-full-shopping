@@ -10,9 +10,9 @@ import { Forms } from '@site/interfaces.ts';
  * @param `classes?`: `string`. Defoult  It is single a class name or multiple. Also is possible and without him.
  *
  */
-export default function InputsFC({ classes = '', types = '', ind = '', placeholder = '' }: Forms): JSX.Element {
+export default function InputsFC({ classes = '', types = '', ind = '', placeholder = '', searchly='' }: Forms): JSX.Element {
   return (
     <input type={types} className={classes} id={ind}
-      placeholder={placeholder} />
+      placeholder={placeholder} value={searchly} />
   );
 }

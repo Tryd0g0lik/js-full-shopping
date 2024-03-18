@@ -7,6 +7,7 @@ import AncorFC from '@site/Ancor.tsx';
 import { Pages, Position } from '@type';
 import { DispatcherStorage } from '@service/postman';
 import { QuantilityOrdersFC } from '@site/Orders';
+import { SearcherFC } from '@site/Searcher';
 const topMenuArr = [
   {
     id: 1,
@@ -67,7 +68,7 @@ export function HeaderFC(): JSX.Element {
 
   }
 
-  const counerValueCart = QuantilityOrdersFC(counter);
+  const counterValueCart = QuantilityOrdersFC(counter);
   // stateCounter(count);
   return (
     <header className="container">
@@ -93,10 +94,13 @@ export function HeaderFC(): JSX.Element {
               </ul>
               <div>
                 <div className="header-controls-pics">
-                  <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
+                  <SearcherFC />
+                  {/* <div data-id="search-expander" className="header-controls-pic header-controls-search header-controls-search-form">
+                    <input name="search" className="form-control" type='text' />
+                  </div> */}
                   { /* <!-- Do programmatic navigation on click to /cart.html --> */}
                   <div className="header-controls-pic header-controls-cart">
-                    {counerValueCart}
+                    {counterValueCart}
                     <div className="header-controls-cart-menu"></div>
                   </div>
                 </div>

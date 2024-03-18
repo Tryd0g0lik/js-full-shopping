@@ -25,17 +25,7 @@ const arr = [
   }
 ];
 
-// export function CatalogFC({ children }: Child): JSX.Element {
-//   return (
-//     <>
-//       {children}
-//     </>
-//   );
-// }
 
-/**
- * `import { CatalogpageFC } from './Catalog/index.tsx';`
- */
 export function CatalogpageFC(): JSX.Element {
   return (
     <>

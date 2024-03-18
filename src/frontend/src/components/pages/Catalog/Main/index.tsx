@@ -22,6 +22,7 @@ import { positionsArr } from '../../Loaded/Main/db.ts';
 import UseCategoriesFC from '@site/Categories.tsx';
 import { SFetch } from '@service/server.ts';
 import LoaderMoreFC from '@site/Loadmore.tsx';
+import { useLocation } from 'react-router-dom';
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -41,7 +42,9 @@ const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 // export function DMainFC({ categories }: Categories): JSX.Element {
 export function DMainFC(): JSX.Element {
   // const arr = { ...categories };
+  const location = useLocation();
   const [category, useCategory] = useState<HandlerPositionVal>();
+  console.warn('[location]: ', location);
   useEffect(() => {
     const serverCategory = new SFetch(url);
     /* create a request to the server */
@@ -64,7 +67,7 @@ export function DMainFC(): JSX.Element {
               <HeadFC number={2} classes='text-center' title='Каталог' />
               {/* Top form search by directory */}
               <FormFC classes='catalog-search-form form-inline'>
-                <InputsFC classes="form-control" placeholder="Поиск" />
+                <InputsFC classes="form-control" searchly={location.state.searchly} placeholder="Поиск" />
               </FormFC>
               {/* This categories is located under the catalog's search form */}
               {

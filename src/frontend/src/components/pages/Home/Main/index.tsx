@@ -6,7 +6,7 @@ import ImageFC from '@site/Img.tsx';
 import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
-import { HandlerPositionVal } from '@type';
+import { HandlerPositionVal, Position } from '@type';
 import UseCategoriesFC from '@site/Categories.tsx';
 
 /* REDUX */
@@ -42,7 +42,7 @@ export function UseMainFC(): JSX.Element {
   // /* REDUX tools */
   /* This datas  is a state for the top-sales */
   const [topsales, useTopsales] = useState<HandlerPositionVal>(); // top-sales
-  const [category, useCategory] = useState<number>(); // THis a dashbord of ctegories
+  const [category, useCategory] = useState<Position[]>(); // THis a dashbord of ctegories
 
   useEffect(() => {
     const serverTopSales = new SFetch(url);
