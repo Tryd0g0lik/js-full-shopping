@@ -238,14 +238,33 @@ export type HandlerPositionVal = Position[] | undefined;
  * q?: string
   ```
  */
-export interface Request {
+export interface Requests {
   ind?: number
+  order?: {
+    owner: {
+      phone: string
+      address: string
+    }
+    items: Array<{
+      id: number
+      price: number
+      count: number
+    }>
+  }
   offset?: number
   q?: string
   'top-sales'?: boolean
   categories?: boolean
 }
+export interface POSTRequests {
+  method: string
+  body: Requests["order"]
 
+  headers: {
+    "Content-Type:": string,
+    "Access-Control-Allow-Origin": string
+  }
+};
 export interface ReadOnlyFunction {
   readonly: () => void
 }

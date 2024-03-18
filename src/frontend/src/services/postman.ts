@@ -120,4 +120,8 @@ export class DispatcherStorage {
       this.setItemByKey(key, JSON.stringify({ data: { order: newArr } }));
     }
   }
+
+  removAll(key: string): void {
+    localStorage.removeItem(key);
+  }
 }

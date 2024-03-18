@@ -42,20 +42,20 @@ export function UseMainFC(): JSX.Element {
   // /* REDUX tools */
   /* This datas  is a state for the top-sales */
   const [topsales, useTopsales] = useState<HandlerPositionVal>(); // top-sales
-  const [category, useCategory] = useState<HandlerPositionVal>(); // THis a dashbord of ctegories
+  const [category, useCategory] = useState<number>(); // THis a dashbord of ctegories
 
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
     serverTopSales.requestOneBefore = { 'top-sales': true };
-    serverTopSales.requestOneParamAsync(useTopsales);
+    serverTopSales.getRrequestOneParamServer(useTopsales as typeof useState);
   }, [useTopsales]);
 
   useEffect(() => {
     const serverCategory = new SFetch(url);
     /* create a request to the server | '/categories' */
     serverCategory.requestOneBefore = { categories: true };
-    serverCategory.requestOneParamAsync(useCategory);
+    serverCategory.getRrequestOneParamServer(useCategory as typeof useState);
   }, [useCategory]);
 
   /* There is below a request to server | '/items/?offset=6' and

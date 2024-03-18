@@ -41,7 +41,7 @@ export function CatalogFC(): JSX.Element {
     event.preventDefault();
     oldOffset += 6;
     serverPositions.requestOneBefore = { offset: oldOffset };
-    serverPositions.requestOneParamAsync(usePositions);
+    serverPositions.getRrequestOneParamServer(usePositions);
   };
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export function CatalogFC(): JSX.Element {
     /* Here is positions of Catalog.
     Create a request to the server | '/items/?offset=6' */
     serverPositions.requestOneBefore = { offset: 6 };
-    serverPositions.requestOneParamAsync(usePositions);
+    serverPositions.getRrequestOneParamServer(usePositions as typeof useState);
 
 
     const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');

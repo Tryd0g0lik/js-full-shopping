@@ -16,7 +16,7 @@ import { HandlerPositionVal } from '@type';
 /* Positions */
 import { PositionFC } from '@site/Positions/index.tsx';
 
-import { positionsArr } from './db.ts';
+import { positionsArr } from '../../Loaded/Main/db.ts';
 
 /* Categories */
 import UseCategoriesFC from '@site/Categories.tsx';
@@ -46,7 +46,7 @@ export function DMainFC(): JSX.Element {
     const serverCategory = new SFetch(url);
     /* create a request to the server */
     serverCategory.requestOneBefore = { categories: true };
-    serverCategory.requestOneParamAsync(useCategory);
+    serverCategory.getRrequestOneParamServer(useCategory as typeof useState);
   }, [useCategory]);
   return (
     <>
