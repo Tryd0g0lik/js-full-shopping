@@ -1,5 +1,5 @@
 import React, { createContext, KeyboardEvent, useState, JSX, ChangeEventHandler, ChangeEvent } from 'react';
-import { useSearch } from '@site/catalog-searcher/useSeacrch';
+import { useSearch } from '@site/catalog-searcher/useSearch';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchContext } from '@type';
 // https://youtu.be/jv0ckzkKYzU?list=PLiZoB8JBsdznY1XwBcBhHL9L7S_shPGVE&t=1286
@@ -19,30 +19,35 @@ export function SearcherFC(): JSX.Element {
 	// const search = location.search.slice
 	const handlerrEntre = (e: KeyboardEvent) => {
 		if (e.key.includes('Enter')) {
-			e.preventDefault();
+      e.preventDefault();
 		}
 	}
 	// ChangeEventHandler<HTMLInputElement>
-	let oldSearchly = "";
-	const handlerSearch = (event: ChangeEvent<HTMLInputElement>) => {
-		let searchTime;
+  let searchTime: string | number | NodeJS.Timeout | undefined;
+  const handlerSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    let oldSearchly = "";
+
 		// event.stopPropagation();
 		const target = event.target;
-		setInputValue(target.value);
-		oldSearchly = target.value;
+    // setInputValue(target.value);
+    oldSearchly += target.value;
 		clearTimeout(searchTime);
 		searchTime = setTimeout(() => {
 			if ((target.value).includes(oldSearchly)) {
-				method(oldSearchly as string, () => navigate(fromPage, { state: { searchly: oldSearchly } })); // переадресация  
+        method(oldSearchly as string, () => navigate(fromPage, { state: { searchly: oldSearchly } })); // переадресация  
+        // setTimeout(() => {
+        //   navigate(fromPage, { state: { searchly: undefined } })
+        // }, 1500);
+
 			}
-		}, 1500);
+    }, 1200);
 
 	}
 
 	return (
 		<div data-id="search-expander" onKeyDown={handlerrEntre} className="header-controls-pic header-controls-search header-controls-search-form">
 			<form >
-				<input name="searchup" value={inputValue} className="form-control" type='text' onChange={handlerSearch} />
+        <input name="searchup" className="form-control" type='text' onChange={handlerSearch} /> {/* value={inputValue} */}
 			</form>
 
 		</div>

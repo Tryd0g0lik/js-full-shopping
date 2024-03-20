@@ -8,14 +8,9 @@ import ImageFC from '@site/Img.tsx';
 
 /* Teble */
 import CartFc from '@site/card-orders/index.tsx';
-/* Levels from a form */
-import FormFC from '@site/Forms/index.tsx';
-import InputsFC from '@site/Forms/Imputs.tsx';
-import LabelFC from '@site/Forms/Lebel.tsx';
-import ButtonFC from '@site/Forms/Button.tsx';
 
 import { DispatcherStorage } from '@service/postman';
-import { HandlerPositionVal, Position } from '@type';
+import { Position } from '@type';
 
 import useAddCard from '@service/card/add';
 import CartFormFC from '@site/CartForm';

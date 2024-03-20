@@ -1,7 +1,7 @@
 import { Position } from '@type';
 
-const searching = (data: string, positionsList: Position[]) => {
-  const dataSplitup = data.split(' ');
+const searching = (serchlyStr: string, positionsList: Position[]): Position[] => {
+  const dataSplitup = serchlyStr.split(' ');
   let newPositionsList: Position[] = [];
 
   positionsList.forEach((item) => {

@@ -2,7 +2,7 @@ import React, { createContext, useState, JSX } from 'react';
 import { SearchContext } from '@type';
 
 
-// export const OurContext = createContext({ searchly: '', fn: (datacerch: any, cb: any): void => { } });
+// формируем данные для работы в поиске на страниАХ
 export const OurContext = createContext({ searchly: '', method: (newText: string, cb: () => void) => { } });
 
 
@@ -10,12 +10,12 @@ export const AuthSearchProvider = ({ children }: any) => {
   const [text, stateText] = useState<string>('');
   const searcher = (newText: string, cb: Function): void => {
     stateText(newText);
-    cb(); // для переадресации
+    cb(); // для переадресации, в дальнейшем 'navigate'
   };
 
-  // const val = { text } as SearchContext // text - доступно в любом компоненте
 
-  return (
+
+  return ( // Провайдер - обхватим ве страницы
     <OurContext.Provider value={{ searchly: text as string, method: searcher } as SearchContext}>
       {children}
     </OurContext.Provider>)

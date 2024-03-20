@@ -1,17 +1,13 @@
 // src\frontend\src\components\pages\Catalog\Main\index.tsx
 
-import React, { Fragment, useEffect, useId, useState } from 'react';
+import React, { ChangeEvent, Fragment, KeyboardEvent, useEffect, useId, useState } from 'react';
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
 import BannerFC from '@site/Baners.tsx';
 import ImageFC from '@site/Img.tsx';
 
-import FormFC from '@site/Forms/index.tsx';
-import InputsFC from '@site/Forms/Imputs.tsx';
-import ButtonFC from '@site/Forms/Button.tsx';
-
 /* Categories / Position */
-import { HandlerPositionVal } from '@type';
+import { HandlerPositionVal, Position } from '@type';
 
 /* Positions */
 import { PositionFC } from '@site/Positions/index.tsx';
@@ -22,11 +18,17 @@ import { positionsArr } from '../../Loaded/Main/db.ts';
 import UseCategoriesFC from '@site/Categories.tsx';
 import { SFetch } from '@service/server.ts';
 import LoaderMoreFC from '@site/Loadmore.tsx';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import searching from '@site/catalog-searcher/doSearch.ts';
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 
+const usePositionCatalog = () => {
+
+
+  // setCatalog(positionarr);
+}
 /**
  * src\frontend\src\components\pages\Catalog\Main\index.tsx
  *
@@ -41,21 +43,69 @@ const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
  */
 // export function DMainFC({ categories }: Categories): JSX.Element {
 export function DMainFC(): JSX.Element {
-  // const arr = { ...categories };
   const location = useLocation();
-  const [category, useCategory] = useState<HandlerPositionVal>();
-  console.warn('[location]: ', location);
+  const [category, setCategory] = useState<HandlerPositionVal>();
+  const [catalog, setCatalog] = useState<Position[]>(Array.from(positionsArr).slice(0));
+  const [valSearch, setSearch] = useState<string | undefined>(undefined);
+  /* ------------------- */
+  let valueInput: string | undefined = undefined;
+  if ((location?.state?.searchly !== undefined) && (location?.state?.searchly.length > 0)) {
+    valueInput = location?.state?.searchly as string
+    // 
+  }
+
+  let positionarr: Position[] = Array.from(positionsArr).slice(0);
+
   useEffect(() => {
     const serverCategory = new SFetch(url);
     /* create a request to the server */
     serverCategory.requestOneBefore = { categories: true };
-    serverCategory.getRrequestOneParamServer(useCategory as typeof useState);
-  }, [useCategory]);
+    serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
+
+    setSearch(valueInput);
+    positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
+      ? searching(valueInput, positionarr)
+      : positionarr;
+
+
+    setCatalog(positionarr);
+  }, [setCategory]);
+
+  const handlerKeyboardEnter = (e: KeyboardEvent) => {
+    if (e.key.includes('Enter')) {
+      e.preventDefault();
+    }
+  }
+
+  let changeTime: NodeJS.Timeout | undefined;
+  const hadlerChangeInput = (ev: React.ChangeEvent) => {
+
+    location.state.searchly = undefined
+    clearTimeout(changeTime);
+    const target = ev.target as HTMLInputElement;
+
+    valueInput = target.value;
+    changeTime = setTimeout(() => {
+      positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
+        ? searching(valueInput, positionarr)
+        : positionarr;
+
+      setSearch(valueInput);
+      setCatalog(positionarr);
+    }, 700);
+
+
+    // useCatalog();
+    // positionarr = catalog;
+    const eventType = ev.type;
+
+  }
+
   return (
     <>
       <main className="container">
-        <div className="row">
-          <div className="col">
+        <div className="row" >
+          <div className="col" >
             {/* Top baner */}
             <BannerFC>
               <Fragment>
@@ -63,13 +113,20 @@ export function DMainFC(): JSX.Element {
                 <HeadFC number={2} classes='banner-header' title='К весне готовы!' />
               </Fragment>
             </BannerFC>
-            <section className="catalog">
+            <section className="catalog" > {/* onKeyDown={handlerKeyboardEnter} */}
               <HeadFC number={2} classes='text-center' title='Каталог' />
               {/* Top form search by directory */}
-              <FormFC classes='catalog-search-form form-inline'>
-                <InputsFC classes="form-control" searchly={location.state.searchly} placeholder="Поиск" />
-              </FormFC>
+              <form className='catalog-search-form form-inline'  >
+                <label htmlFor="search" onKeyDown={handlerKeyboardEnter}>
+                  <input type="text" className="form-control" id="search"
+                    onChange={hadlerChangeInput}
+                    placeholder={
+                      ((valSearch !== undefined) &&
+                        ((valSearch as string).length > 0)) ? valSearch : 'Поиск'} />
+                </label>
+              </form>
               {/* This categories is located under the catalog's search form */}
+              < ul className="catalog-categories nav justify-content-center" >
               {
                 (category !== undefined)
                   ? (
@@ -79,12 +136,13 @@ export function DMainFC(): JSX.Element {
                     <></>
                   )
               }
+              </ul >
               <div className="row">
                 {/* This is positions by a page 'Категории' */}
                 {
-                  Array.from(positionsArr).map((obj) => (
-                    <PositionFC key={useId()} id={obj.id} category={obj.category} title={obj.title} price={obj.price}>
-                      <ImageFC path={obj.images[0]} classes='card-img-top img-fluid' context={obj.title} />
+                  catalog.map((obj, index) => (
+                    <PositionFC key={index} id={obj.id} category={obj.category} title={obj.title} price={obj.price}>
+                      <ImageFC path={(obj.images as string[])[0]} classes='card-img-top img-fluid' context={obj.title} />
                     </PositionFC>
                   ))
                 }

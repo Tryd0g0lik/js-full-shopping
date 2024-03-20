@@ -67,7 +67,7 @@ import AncorFC from './Ancor.tsx';
 export default function UseCategoriesFC(categoriesArr: Position[]): JSX.Element {
   const arr = Object.values(categoriesArr);
   return (
-    < ul className="catalog-categories nav justify-content-center" >
+    <>
       <LiFC key={useId()} classes='nav-item'>
         <AncorFC classes='nav-link' dataCategory={1} path='#' context='Все' />
       </LiFC>
@@ -78,6 +78,6 @@ export default function UseCategoriesFC(categoriesArr: Position[]): JSX.Element 
           </LiFC>
         ))
       }
-    </ul >
+    </>
   );
 }
