@@ -11,13 +11,15 @@ const setUserCategory = (intstate: number = 1): void => {
     name: state.name,
     payload: state.payload
   };
+
+  /* REdux */
   storeDispatch({ ...categories });
 };
 
-/* There is below a request to server | '/items/?offset=6' and
-  * here the is listener for listening a button name 'Загрузить ещё'
-  */
-/* There is below a filter categories. It's a category number  | '/categories'  */
+
+/**
+ * through a redux (setUserCategory) he working
+ * There is below a filter categories. It's a category number  | '/categories'  */
 const handlerFilterCategories = (event: MouseEvent): void => {
   event.preventDefault();
   const target = (event.target as HTMLAnchorElement);

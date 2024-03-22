@@ -1,6 +1,8 @@
 // src\frontend\src\components\pages\Catalog\Main\index.tsx
 
 import React, { ChangeEvent, Fragment, KeyboardEvent, useEffect, useId, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
 import BannerFC from '@site/Baners.tsx';
@@ -10,27 +12,21 @@ import ImageFC from '@site/Img.tsx';
 import { HandlerPositionVal, Position } from '@type';
 
 /* Positions */
-import { PositionFC } from '@site/Positions/index.tsx';
-
 import { positionsArr } from '../../Loaded/Main/db.ts';
 
 /* Categories */
-import UseCategoriesFC from '@site/Categories/index.tsx';
 import { SFetch } from '@service/server.ts';
-import LoaderMoreFC from '@site/Catalog/Loadmore.tsx';
-import { useLocation, useNavigate } from 'react-router-dom';
+
+
 import searching from '@site/catalog-searcher/doSearch.ts';
 import { CatalogFC } from '@site/Catalog/index.tsx';
 import Categories from '@site/Categories/index.tsx';
+import handlerCategories from '@site/Categories/handlers.ts'
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 
-const usePositionCatalog = () => {
 
-
-  // setCatalog(positionarr);
-}
 /**
  * src\frontend\src\components\pages\Catalog\Main\index.tsx
  *
@@ -96,6 +92,9 @@ export function DMainFC(): JSX.Element {
       setCatalog(positionarr);
     }, 700);
   }
+
+  /* -------------------- */
+  useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
 
   return (
     <>

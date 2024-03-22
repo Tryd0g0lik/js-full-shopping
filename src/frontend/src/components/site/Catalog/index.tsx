@@ -9,6 +9,7 @@ import { SFetch } from '@service/server.ts';
 import LoaderMoreFC from './Loadmore.tsx';
 import BigSerachFormFC from '../catalog-searcher/bigSearchForm.tsx';
 import loaderMore from './hablerLoaderMore.ts';
+import HeadFC from '@site/Headers.tsx';
 
 
 let getTotalStore = storeGetstate();
@@ -43,7 +44,9 @@ export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 		useFilter(getTotalStore.category.payload);
 
 		/**
-		 * Here is recived a number of Redux.category.playload.
+		 * This function works through the setInterval
+     * Here is recived a category number of Redux.category.playload. It's after a push event of user
+     *  
 		 * The variable 'stateCategory' update/ It's a number type for the 'useFilter'
 		 */
 		const categorySetInaterval = setInterval(() => {
@@ -67,10 +70,12 @@ export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 		/* Here is positions of Catalog.
 		Create a request to the server | '/items/?offset=6' */
     loaderMore.requestSFetch(6, usePositions as typeof useState)
-    // serverPositions.requestOneBefore = { offset: 6 };
-    // serverPositions.getRrequestOneParamServer(usePositions as typeof useState);
 
-
+    /**
+      * 
+      * There is below a request to server | '/items/?offset=6' and
+      * here the is listener for listening a button name 'Загрузить ещё'
+      */
 		const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
     if (buttontextCenter !== null) {
     // debugger
@@ -85,9 +90,7 @@ export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 		};
 	}, [usePositions]);
 
-	console.log('#1 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ');
-	if (Array.isArray(positions)) {
-		console.log('#2 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions.length);
+  if (Array.isArray(positions)) {
 		reduxSetUserCatalog(positions);
 	}
 
@@ -97,7 +100,8 @@ export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 		tate: props.state
 	}
 	return (
-		<>
+    <>
+
 			<BigSerachFormFC {...searchForm} />
 			{/* This categories is located under the catalog's search form */}
 			<div className="row">

@@ -12,11 +12,12 @@ import Categories from '@site/Categories/index.tsx';
 
 import { CatalogFC } from '@site/Catalog/index.tsx';
 import handlerCategories from '@site/Categories/handlers.ts'
+import useCategory from '@site/Categories/useStateCategory';
 // import useCategoryconst 
+
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
-
 /* The top-sales from a server request */
 /**
  * `src\frontend\src\components\pages\Home\Main\index.tsx`
@@ -29,9 +30,8 @@ export function UseMainFC(): JSX.Element {
   // /* REDUX tools */
   /* This datas  is a state for the top-sales */
   const [topsales, useTopsales] = useState<HandlerPositionVal>(); // top-sales
-  const [category, useCategory] = useState<Position[]>(); // THis a dashbord of ctegories
 
-  /* ------------ */
+
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
@@ -39,17 +39,10 @@ export function UseMainFC(): JSX.Element {
     serverTopSales.getRrequestOneParamServer(useTopsales as typeof useState);
   }, [useTopsales]);
 
-  /* ------------ */
-  useEffect(() => {
-    const serverCategory = new SFetch(url);
-    /* create a request to the server | '/categories' */
-    serverCategory.requestOneBefore = { categories: true };
-    serverCategory.getRrequestOneParamServer(useCategory as typeof useState);
-  }, [useCategory]);
 
   /* ------------ */
   useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
-
+  const category = useCategory();
   return (
     <main className="container">
       <div className="row">
