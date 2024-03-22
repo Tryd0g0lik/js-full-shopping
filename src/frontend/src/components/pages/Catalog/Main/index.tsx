@@ -20,6 +20,7 @@ import { SFetch } from '@service/server.ts';
 import LoaderMoreFC from '@site/Loadmore.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import searching from '@site/catalog-searcher/doSearch.ts';
+import { CatalogFC } from '@site/Catalog.tsx';
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -71,11 +72,7 @@ export function DMainFC(): JSX.Element {
     setCatalog(positionarr);
   }, [setCategory]);
 
-  const handlerKeyboardEnter = (e: KeyboardEvent) => {
-    if (e.key.includes('Enter')) {
-      e.preventDefault();
-    }
-  }
+
 
   let changeTime: NodeJS.Timeout | undefined;
   const hadlerChangeInput = (ev: React.ChangeEvent) => {
@@ -114,16 +111,6 @@ export function DMainFC(): JSX.Element {
             <section className="catalog" > {/* onKeyDown={handlerKeyboardEnter} */}
               <HeadFC number={2} classes='text-center' title='Каталог' />
               {/* Top form search by directory */}
-              <form className='catalog-search-form form-inline'  >
-                <label htmlFor="search" onKeyDown={handlerKeyboardEnter}>
-                  <input type="text" className="form-control" id="search"
-                    onChange={hadlerChangeInput}
-                    placeholder={
-                      ((valSearch !== undefined) &&
-                        ((valSearch as string).length > 0)) ? valSearch : 'Поиск'} />
-                </label>
-              </form>
-              {/* This categories is located under the catalog's search form */}
               < ul className="catalog-categories nav justify-content-center" >
               {
                 (category !== undefined)
@@ -134,9 +121,9 @@ export function DMainFC(): JSX.Element {
                     <></>
                   )
               }
-              </ul >
-              <div className="row">
-                {/* This is positions by a page 'Категории' */}
+              </ul>
+              {/* <div className="row">
+                { This is positions by a page 'Категории' }
                 {
                   catalog.map((obj, index) => (
                     <PositionFC key={index} id={obj.id} category={obj.category} title={obj.title} price={obj.price}>
@@ -144,7 +131,8 @@ export function DMainFC(): JSX.Element {
                     </PositionFC>
                   ))
                 }
-              </div>
+              </div> */}
+              <CatalogFC />
               <LoaderMoreFC />
             </section>
           </div>

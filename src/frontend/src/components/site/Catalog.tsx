@@ -1,12 +1,13 @@
-import React, { Fragment, JSX, useEffect, useState } from 'react';
+import React, { ChangeEvent, Fragment, JSX, useEffect, useState } from 'react';
 import { PositionFC } from './Positions/index.tsx';
 import ImageFC from './Img.tsx';
 import ImLoader from './ImgLoader.tsx';
 import { PositionsCatalog } from '@reduxs/interfaces.ts';
 import store, { RootDispatch, storeDispatch, storeGetstate } from '@reduxs/store.ts';
-import { HandlerPositionVal, Position } from '@type';
+import { HandlerPositionVal, Position, SearchForm } from '@type';
 import { SFetch } from '@service/server.ts';
 import LoaderMoreFC from './Loadmore.tsx';
+import BigSerachFormFC from './catalog-searcher/bigSearchForm.tsx';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
@@ -32,8 +33,7 @@ const reduxSetUserCatalog = (props: Position[]): void => {
 const serverPositions = new SFetch(url);
 /* ---------addPositionsForCatalog--- */
 
-
-export function CatalogFC(): JSX.Element {
+export function CatalogFC({ ...props }: SearchForm): JSX.Element {
   const [filterCategories, useFilter] = useState<number>(1);
   const [positions, usePositions] = useState<HandlerPositionVal>([]);
 
@@ -93,8 +93,15 @@ export function CatalogFC(): JSX.Element {
     console.log('#2 [CatalogFC][hablerLoaderMore]  moreUserPositions it is Array: ', Array.isArray(positions), 'Value: ', positions.length);
     reduxSetUserCatalog(positions);
   }
+
+  const searchForm = {
+    cb: props.cb as (e: React.ChangeEvent) => void,
+    tate: props.state
+  }
   return (
     <>
+      <BigSerachFormFC {...searchForm} />
+      {/* This categories is located under the catalog's search form */}
       <div className="row">
         {/* This is simply positions. It is based  at variables: 'filter:number' */}
         {

@@ -1,5 +1,5 @@
 // src\frontend\src\interfaces.ts
-
+import React, { useState } from 'react'
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
@@ -272,4 +272,10 @@ export interface ReadOnlyFunction {
 export type SearchContext = {
   searchly: string
   method: (newText: string, cb: () => void) => void // (datacerch: any, cb: any) => void
+}
+
+
+export interface SearchForm {
+  cb?: (event: React.ChangeEvent) => void
+  state?: typeof useState // type string
 }
