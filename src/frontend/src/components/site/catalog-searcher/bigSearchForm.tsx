@@ -7,7 +7,7 @@ import React, { ChangeEvent, useState } from 'react';
 
 /**
  * Here is only a search form
- * @param cb : callback for events by an input.
+ * @param cb : callback for events by an input. It's 'event: React.ChangeEvent'
  * @param state : THis's 'useState' for a 'placeholder' from the 'input'
  * @returns void
  */
@@ -24,10 +24,11 @@ export default function BigSerachFormFC({ ...props }: SearchForm): React.JSX.Ele
         <input type="text" className="form-control" id="search"
           onChange={(props.cb !== undefined) ? props.cb : (e: ChangeEvent) => { }} // hadlerChangeInput
           placeholder={
-            ((props.state !== undefined) && // valSearch
-              ((props.state).length > 0)) ? ((props.state) as unknown as string) : 'Поиск'} />
+            ((props.search !== undefined) && // valSearch
+              ((props.search).length > 0)) ? props.search : 'Поиск'} />
       </label>
     </form>
   )
 }
 // 
+

@@ -34,14 +34,14 @@ const reduxSetUserCatalog = (props: Position[]): void => {
 // const serverPositions = new SFetch(url);
 
 /* ---------Component for add positions ещ еру catalog--- */
-export function CatalogFC({ ...props }: SearchForm): JSX.Element {
-	const [filterCategories, useFilter] = useState<number>(1);
-	const [positions, usePositions] = useState<HandlerPositionVal>([]);
+export function CatalogFC(): JSX.Element {
+  const [filterCategories, useFilterCategories] = useState<number>(1); // number category
+  const [positions, usePositions] = useState<HandlerPositionVal>([]); // state a set of position
 
 
 
 	useEffect(() => {
-		useFilter(getTotalStore.category.payload);
+    useFilterCategories(getTotalStore.category.payload);
 
 		/**
 		 * This function works through the setInterval
@@ -56,7 +56,7 @@ export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 			if (stateOldCategory < (stateCategory as number) || stateOldCategory > (stateCategory as number)) {
 				stateOldCategory = stateCategory as number;
 				const copyCategoryArr = [stateCategory].slice();
-				useFilter(copyCategoryArr[0] as number);
+        useFilterCategories(copyCategoryArr[0] as number);
 			}
 			/* --------Catalog-------- */
 
@@ -94,15 +94,11 @@ export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 		reduxSetUserCatalog(positions);
 	}
 
-	/* ------------ */
-	const searchForm = {
-		cb: props.cb as (e: React.ChangeEvent) => void,
-		tate: props.state
-	}
+
 	return (
     <>
 
-			<BigSerachFormFC {...searchForm} />
+
 			{/* This categories is located under the catalog's search form */}
 			<div className="row">
 				{/* This is simply positions. It is based  at variables: 'filter:number' */}

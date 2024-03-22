@@ -22,6 +22,8 @@ import searching from '@site/catalog-searcher/doSearch.ts';
 import { CatalogFC } from '@site/Catalog/index.tsx';
 import Categories from '@site/Categories/index.tsx';
 import handlerCategories from '@site/Categories/handlers.ts'
+import BigSerachFormFC from '@site/catalog-searcher/bigSearchForm.tsx';
+
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -44,7 +46,7 @@ export function DMainFC(): JSX.Element {
   const location = useLocation();
   const [category, setCategory] = useState<HandlerPositionVal>();
   const [catalog, setCatalog] = useState<Position[]>(Array.from(positionsArr).slice(0));
-  const [valSearch, setSearch] = useState<string | undefined>(undefined);
+  const [valueSearch, setValueSearch] = useState<string | undefined>(undefined);
   /* ------------------- */
   let valueInput: string | undefined = undefined;
   if ((location?.state?.searchly !== undefined) && (location?.state?.searchly.length > 0)) {
@@ -60,7 +62,7 @@ export function DMainFC(): JSX.Element {
     serverCategory.requestOneBefore = { categories: true };
     serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
 
-    setSearch(valueInput);
+    setValueSearch(valueInput);
     positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
       ? searching(valueInput, positionarr)
       : positionarr;
@@ -68,7 +70,6 @@ export function DMainFC(): JSX.Element {
 
     setCatalog(positionarr);
   }, [setCategory]);
-
 
 
   let changeTime: NodeJS.Timeout | undefined;
@@ -82,7 +83,7 @@ export function DMainFC(): JSX.Element {
       location.state.searchly === undefined
     }
     valueInput = target.value;
-    setSearch(valueInput);
+    setValueSearch(valueInput);
     changeTime = setTimeout(() => {
       positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
         ? searching(valueInput, positionarr)
@@ -95,6 +96,12 @@ export function DMainFC(): JSX.Element {
 
   /* -------------------- */
   useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
+
+  /* ------------ */
+  const searchForm = {
+    cb: hadlerChangeInput as (e: React.ChangeEvent) => void,
+    search: valueInput
+  }
 
   return (
     <>
@@ -112,6 +119,7 @@ export function DMainFC(): JSX.Element {
               <HeadFC number={2} classes='text-center' title='Каталог' />
               {/* Top form search by directory */}
               <Categories order={category as Position[]} />
+              <BigSerachFormFC {...searchForm} />
               <CatalogFC />
             </section>
           </div>

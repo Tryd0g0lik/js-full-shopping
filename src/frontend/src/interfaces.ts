@@ -278,4 +278,5 @@ export type SearchContext = {
 export interface SearchForm {
   cb?: (event: React.ChangeEvent) => void
   state?: typeof useState // type string
+  search?: string
 }
