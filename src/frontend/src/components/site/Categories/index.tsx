@@ -19,41 +19,7 @@ import AncorFC from '../Ancor.tsx';
  * ...
  * }`
 	```
- * @returns ```tsx
-	(
-		< ul className="catalog-categories nav justify-content-center" >
-		 <LiFC key={String(obj.id)} classes='nav-item'>
-				<AncorFC classes='nav-link' path='#' context="Все" />
-			</LiFC>
-			{
-				Array.from(categories).map((obj) => (
-					<>
-						<LiFC key={String(obj.id)} classes='nav-item'>
-							<AncorFC classes='nav-link' path='#' context={obj.title} />
-						</LiFC>
-					</>
-				))
-			}
-		</ul >
-	);
-	```
- - then
-	```tsx
-	import UseCategoriesFC from '@site/Categories.tsx';
-	const [category, useCategory] = useState<HandlerPositionVal>();
-	// ....
 
-	{
-		(category !== undefined)
-			? (
-				<UseCategoriesFC {...category} />
-			)
-			: (
-				<></>
-			)
-	}
-```
- - or
 	```html
 	<ul class="catalog-categories nav justify-content-center">
 		<li class="nav-item"><a class="nav-link" href="#">Все</a></li>

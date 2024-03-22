@@ -7,30 +7,15 @@ import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
 import { HandlerPositionVal, Position } from '@type';
-import UseCategoriesFC from '@site/Categories.tsx';
+import UseCategoriesFC from '@site/Categories';
 
-/* REDUX */
-import { storeDispatch } from '@reduxs/store.ts';
 
-import changeCategory from '@reduxs/changeCategoryDispatch.ts';
-import { Categories } from '@reduxs/interfaces.ts';
-import { CatalogFC } from '@site/Catalog';
-import LoaderMoreFC from '@site/Loadmore';
-
+import { CatalogFC } from '@site/Catalog/index.tsx';
+import handlerCategories from '@site/Categories/handlers.ts'
 // import useCategoryconst 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
-
-const setUserCategory = (intstate: number = 1): void => {
-  const state = changeCategory(intstate);
-  const categories: Categories = {
-    type: 'CATEGORY',
-    name: state.name,
-    payload: state.payload
-  };
-  storeDispatch({ ...categories });
-};
 
 /* The top-sales from a server request */
 /**
@@ -63,33 +48,7 @@ export function UseMainFC(): JSX.Element {
   }, [useCategory]);
 
   /* ------------ */
-  /* There is below a request to server | '/items/?offset=6' and
-  * here the is listener for listening a button name 'Загрузить ещё'
-  */
-  /* There is below a filter categories. It's a category number  | '/categories'  */
-  const handlerFilterCategories = (event: MouseEvent): void => {
-    event.preventDefault();
-    const target = (event.target as HTMLAnchorElement);
-
-    const categoryUSerNumber = Number(target.dataset.category);
-    setUserCategory(categoryUSerNumber);
-  };
-
-  const handlerCaegoriesForUseEffect = (): () => void => {
-    const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item'));
-
-    for (let i = 0; i < navCategories.length; i++) {
-      (navCategories[i] as HTMLLIElement).addEventListener('click', handlerFilterCategories);
-    }
-
-    return () => {
-      /* object will be removed */
-      for (let i = 0; i < navCategories.length; i++) {
-        (navCategories[i] as HTMLLIElement).removeEventListener('click', handlerFilterCategories);
-      }
-    };
-  };
-  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCategories]);
+  useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
 
   return (
     <main className="container">

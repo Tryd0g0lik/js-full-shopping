@@ -15,7 +15,7 @@ import { PositionFC } from '@site/Positions/index.tsx';
 import { positionsArr } from '../../Loaded/Main/db.ts';
 
 /* Categories */
-import UseCategoriesFC from '@site/Categories.tsx';
+import UseCategoriesFC from '@site/Categories/index.tsx';
 import { SFetch } from '@service/server.ts';
 import LoaderMoreFC from '@site/Loadmore.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
