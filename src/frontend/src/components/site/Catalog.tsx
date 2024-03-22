@@ -41,7 +41,7 @@ export function CatalogFC(): JSX.Element {
     event.preventDefault();
     oldOffset += 6;
     serverPositions.requestOneBefore = { offset: oldOffset };
-    serverPositions.getRrequestOneParamServer(usePositions);
+    serverPositions.getRrequestOneParamServer(usePositions as typeof useState);
   };
 
   useEffect(() => {

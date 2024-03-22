@@ -84,21 +84,19 @@ export function DMainFC(): JSX.Element {
     clearTimeout(changeTime);
     const target = ev.target as HTMLInputElement;
 
+    if ((location?.state !== undefined) && (location.state.searchly !== undefined)) {
+      location.state.searchly === undefined
+    }
     valueInput = target.value;
+    setSearch(valueInput);
     changeTime = setTimeout(() => {
       positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
         ? searching(valueInput, positionarr)
         : positionarr;
 
-      setSearch(valueInput);
+
       setCatalog(positionarr);
     }, 700);
-
-
-    // useCatalog();
-    // positionarr = catalog;
-    const eventType = ev.type;
-
   }
 
   return (
