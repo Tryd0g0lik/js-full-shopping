@@ -20,7 +20,7 @@ import { SFetch } from '@service/server.ts';
 import LoaderMoreFC from '@site/Loadmore.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import searching from '@site/catalog-searcher/doSearch.ts';
-import { CatalogFC } from '@site/Catalog.tsx';
+import { CatalogFC } from '@site/Catalog/index.tsx';
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -122,18 +122,7 @@ export function DMainFC(): JSX.Element {
                   )
               }
               </ul>
-              {/* <div className="row">
-                { This is positions by a page 'Категории' }
-                {
-                  catalog.map((obj, index) => (
-                    <PositionFC key={index} id={obj.id} category={obj.category} title={obj.title} price={obj.price}>
-                      <ImageFC path={(obj.images as string[])[0]} classes='card-img-top img-fluid' context={obj.title} />
-                    </PositionFC>
-                  ))
-                }
-              </div> */}
               <CatalogFC />
-              <LoaderMoreFC />
             </section>
           </div>
         </div>

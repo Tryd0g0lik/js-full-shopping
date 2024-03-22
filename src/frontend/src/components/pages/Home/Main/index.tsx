@@ -14,8 +14,10 @@ import { storeDispatch } from '@reduxs/store.ts';
 
 import changeCategory from '@reduxs/changeCategoryDispatch.ts';
 import { Categories } from '@reduxs/interfaces.ts';
-import { CatalogFC } from '@site/Catalog.tsx';
+import { CatalogFC } from '@site/Catalog';
+import LoaderMoreFC from '@site/Loadmore';
 
+// import useCategoryconst 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -44,6 +46,7 @@ export function UseMainFC(): JSX.Element {
   const [topsales, useTopsales] = useState<HandlerPositionVal>(); // top-sales
   const [category, useCategory] = useState<Position[]>(); // THis a dashbord of ctegories
 
+  /* ------------ */
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
@@ -51,6 +54,7 @@ export function UseMainFC(): JSX.Element {
     serverTopSales.getRrequestOneParamServer(useTopsales as typeof useState);
   }, [useTopsales]);
 
+  /* ------------ */
   useEffect(() => {
     const serverCategory = new SFetch(url);
     /* create a request to the server | '/categories' */
@@ -58,11 +62,11 @@ export function UseMainFC(): JSX.Element {
     serverCategory.getRrequestOneParamServer(useCategory as typeof useState);
   }, [useCategory]);
 
+  /* ------------ */
   /* There is below a request to server | '/items/?offset=6' and
   * here the is listener for listening a button name 'Загрузить ещё'
   */
   /* There is below a filter categories. It's a category number  | '/categories'  */
-
   const handlerFilterCategories = (event: MouseEvent): void => {
     event.preventDefault();
     const target = (event.target as HTMLAnchorElement);
@@ -137,5 +141,5 @@ export function UseMainFC(): JSX.Element {
         </div>
       </div>
     </main>
-  );
+  )
 }

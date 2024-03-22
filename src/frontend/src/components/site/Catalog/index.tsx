@@ -8,17 +8,16 @@ import { HandlerPositionVal, Position, SearchForm } from '@type';
 import { SFetch } from '@service/server.ts';
 import LoaderMoreFC from '../Loadmore.tsx';
 import BigSerachFormFC from '../catalog-searcher/bigSearchForm.tsx';
+import loaderMore from './hablerLoaderMore.ts';
 
-const REACT_APP_URL = process.env.REACT_APP_URL as string;
-const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
-const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
+
 let getTotalStore = storeGetstate();
 let stateCategory: number | boolean | Position[] = getTotalStore.category.playload;
 let stateOldCategory: number = 1;
 let stateOldCatalog: number = 0;
 
 /* ------------ */
-let oldOffset: number = 6;
+
 const reduxSetUserCatalog = (props: Position[]): void => {
 	try {
 		const action: PositionsCatalog = {
@@ -31,19 +30,14 @@ const reduxSetUserCatalog = (props: Position[]): void => {
 		console.error('[reduxSetUserCatalog] Err: ', (er as Record<any, any>).message);
 	}
 };
-const serverPositions = new SFetch(url);
+// const serverPositions = new SFetch(url);
 
 /* ---------Component for add positions ещ еру catalog--- */
 export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 	const [filterCategories, useFilter] = useState<number>(1);
 	const [positions, usePositions] = useState<HandlerPositionVal>([]);
 
-	// const hablerLoaderMore = (event: MouseEvent): void => {
-	//   event.preventDefault();
-	//   oldOffset += 6;
-	//   serverPositions.requestOneBefore = { offset: oldOffset };
-	//   serverPositions.getRrequestOneParamServer(usePositions as typeof useState);
-	// };
+
 
 	useEffect(() => {
 		useFilter(getTotalStore.category.payload);
@@ -72,19 +66,21 @@ export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 
 		/* Here is positions of Catalog.
 		Create a request to the server | '/items/?offset=6' */
-		serverPositions.requestOneBefore = { offset: 6 };
-		serverPositions.getRrequestOneParamServer(usePositions as typeof useState);
+    loaderMore.requestSFetch(6, usePositions as typeof useState)
+    // serverPositions.requestOneBefore = { offset: 6 };
+    // serverPositions.getRrequestOneParamServer(usePositions as typeof useState);
 
 
 		const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
-		if (buttontextCenter !== undefined) {
-			(buttontextCenter as HTMLElement).addEventListener('click', hablerLoaderMore);
+    if (buttontextCenter !== null) {
+    // debugger
+      (buttontextCenter as HTMLElement).addEventListener('click', loaderMore.hablerLoaderMore(usePositions as typeof useState));
 		}
 		return (): void => {
 			clearInterval(categorySetInaterval);
 			/* object will be removed */
-			if ((buttontextCenter !== undefined) && (buttontextCenter !== null)) {
-				(buttontextCenter as HTMLElement).removeEventListener('click', hablerLoaderMore);
+      if ((buttontextCenter !== null) && (buttontextCenter !== null)) {
+        (buttontextCenter as HTMLElement).removeEventListener('click', loaderMore.hablerLoaderMore(usePositions as typeof useState));
 			}
 		};
 	}, [usePositions]);
@@ -145,7 +141,7 @@ export function CatalogFC({ ...props }: SearchForm): JSX.Element {
 				}
 			</div>
 			{/* Here is a button for will be loaded more the poitions */}
-			<LoaderMoreFC />
+      <LoaderMoreFC />
 		</>
 	);
 }
