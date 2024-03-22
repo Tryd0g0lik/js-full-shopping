@@ -28,7 +28,18 @@ const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 
+let oldPhraseSerch: string | undefined = '';
+function useSearched(prop: {
+  valueInput: string | undefined
+  positionarr: Position[] | undefined
+}): JSX.Element {
 
+  const positionarr = ((prop.valueInput !== undefined) && (prop.valueInput.length > 0))
+    ? searching(prop.valueInput, (prop.positionarr !== undefined) ? prop.positionarr : [])
+    : (prop.positionarr !== undefined) ? prop.positionarr : [];
+
+  return <CatalogFC {...positionarr as Position[]} />
+}
 /**
  * src\frontend\src\components\pages\Catalog\Main\index.tsx
  *
@@ -45,8 +56,9 @@ const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 export function DMainFC(): JSX.Element {
   const location = useLocation();
   const [category, setCategory] = useState<HandlerPositionVal>();
-  const [catalog, setCatalog] = useState<Position[]>(Array.from(positionsArr).slice(0));
+  // const [catalog, setCatalog] = useState<Position[]>(Array.from(positionsArr).slice(0));
   const [valueSearch, setValueSearch] = useState<string | undefined>(undefined);
+
   /* ------------------- */
   let valueInput: string | undefined = undefined;
   if ((location?.state?.searchly !== undefined) && (location?.state?.searchly.length > 0)) {
@@ -56,6 +68,7 @@ export function DMainFC(): JSX.Element {
 
   let positionarr: Position[] = Array.from(positionsArr).slice(0);
 
+  let catalog: JSX.Element = useSearched({ valueInput, positionarr });
   useEffect(() => {
     const serverCategory = new SFetch(url);
     /* create a request to the server */
@@ -63,17 +76,17 @@ export function DMainFC(): JSX.Element {
     serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
 
     setValueSearch(valueInput);
-    positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
-      ? searching(valueInput, positionarr)
-      : positionarr;
+    // positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
+    //   ? searching(valueInput, positionarr)
+    //   : positionarr;
 
-
-    setCatalog(positionarr);
+    catalog = useSearched({ valueInput, positionarr })
+    // setCatalog(positionarr);
   }, [setCategory]);
 
 
   let changeTime: NodeJS.Timeout | undefined;
-  const hadlerChangeInput = (ev: React.ChangeEvent) => {
+  const hadlerChangeInput: React.FormEventHandler = (ev: React.ChangeEvent) => {
 
     location.state.searchly = undefined
     clearTimeout(changeTime);
@@ -84,14 +97,17 @@ export function DMainFC(): JSX.Element {
     }
     valueInput = target.value;
     setValueSearch(valueInput);
-    changeTime = setTimeout(() => {
-      positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
-        ? searching(valueInput, positionarr)
-        : positionarr;
-
-
-      setCatalog(positionarr);
-    }, 700);
+    // changeTime = setTimeout(() => {
+    //   positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
+    //     ? searching(target.value, positionarr)
+    //     : positionarr;
+    // debugger
+    // console.log(`[positionarr]: ${positionarr}`);
+    // setCatalog(positionarr);
+    // valueInput = target.value;
+    debugger
+    catalog = useSearched({ valueInput, positionarr })
+    // }, 700);
   }
 
   /* -------------------- */
@@ -99,7 +115,7 @@ export function DMainFC(): JSX.Element {
 
   /* ------------ */
   const searchForm = {
-    cb: hadlerChangeInput as (e: React.ChangeEvent) => void,
+
     search: valueInput
   }
 
@@ -115,12 +131,13 @@ export function DMainFC(): JSX.Element {
                 <HeadFC number={2} classes='banner-header' title='К весне готовы!' />
               </Fragment>
             </BannerFC>
-            <section className="catalog" > {/* onKeyDown={handlerKeyboardEnter} */}
+            <section className="catalog" onChange={hadlerChangeInput} > {/* onKeyDown={handlerKeyboardEnter} */}
               <HeadFC number={2} classes='text-center' title='Каталог' />
               {/* Top form search by directory */}
               <Categories order={category as Position[]} />
               <BigSerachFormFC {...searchForm} />
-              <CatalogFC />
+
+              {catalog}
             </section>
           </div>
         </div>

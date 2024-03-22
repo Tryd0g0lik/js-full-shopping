@@ -20,7 +20,7 @@ export default function BigSerachFormFC({ ...props }: SearchForm): React.JSX.Ele
 
   return (
     <form className='catalog-search-form form-inline'  >
-      <label htmlFor="search" onKeyDown={handlerKeyboardEnter}>
+      <label htmlFor="search" >
         <input type="text" className="form-control" id="search"
           onChange={(props.cb !== undefined) ? props.cb : (e: ChangeEvent) => { }} // hadlerChangeInput
           placeholder={

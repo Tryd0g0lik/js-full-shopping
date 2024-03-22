@@ -13,7 +13,7 @@ import HeadFC from '@site/Headers.tsx';
 
 
 let getTotalStore = storeGetstate();
-let stateCategory: number | boolean | Position[] = getTotalStore.category.playload;
+let stateCategoryNumber: number = getTotalStore.category.playload;
 let stateOldCategory: number = 1;
 let stateOldCatalog: number = 0;
 
@@ -32,12 +32,17 @@ const reduxSetUserCatalog = (props: Position[]): void => {
 	}
 };
 // const serverPositions = new SFetch(url);
+// function useSearchPositions(prop: Position[] | undefined): Position[] | undefined {
+//   const [positions, usePositions] = useState<HandlerPositionVal>((prop !== undefined) ? prop : []); // state a set of position
 
+//   (prop !== undefined) ? prop : []
+
+// }
 /* ---------Component for add positions ещ еру catalog--- */
-export function CatalogFC(): JSX.Element {
+export function CatalogFC(prop: Position[] | undefined): JSX.Element {
   const [filterCategories, useFilterCategories] = useState<number>(1); // number category
-  const [positions, usePositions] = useState<HandlerPositionVal>([]); // state a set of position
-
+  const [positions, usePositions] = useState<HandlerPositionVal>((prop !== undefined) ? prop : []); // state a set of position
+  // debugger
 
 
 	useEffect(() => {
@@ -52,10 +57,10 @@ export function CatalogFC(): JSX.Element {
 		const categorySetInaterval = setInterval(() => {
 			getTotalStore = storeGetstate();
 			/* --------Category-------- */
-			stateCategory = getTotalStore.category.payload;
-			if (stateOldCategory < (stateCategory as number) || stateOldCategory > (stateCategory as number)) {
-				stateOldCategory = stateCategory as number;
-				const copyCategoryArr = [stateCategory].slice();
+      stateCategoryNumber = getTotalStore.category.payload;
+      if (stateOldCategory < (stateCategoryNumber as number) || stateOldCategory > (stateCategoryNumber as number)) {
+        stateOldCategory = stateCategoryNumber as number;
+        const copyCategoryArr = [stateCategoryNumber].slice();
         useFilterCategories(copyCategoryArr[0] as number);
 			}
 			/* --------Catalog-------- */
@@ -80,7 +85,10 @@ export function CatalogFC(): JSX.Element {
     if (buttontextCenter !== null) {
     // debugger
       (buttontextCenter as HTMLElement).addEventListener('click', loaderMore.hablerLoaderMore(usePositions as typeof useState));
-		}
+    }
+
+    /* ------Positions------ */
+
 		return (): void => {
 			clearInterval(categorySetInaterval);
 			/* object will be removed */

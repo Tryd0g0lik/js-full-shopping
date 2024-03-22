@@ -11,7 +11,7 @@ const searching = (serchlyStr: string, positionsList: Position[]): Position[] =>
       }
     }
   });
-
+  // debugger
   return newPositionsList;
 };
 export default searching
