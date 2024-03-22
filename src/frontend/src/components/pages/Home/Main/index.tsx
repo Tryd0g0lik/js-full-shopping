@@ -7,7 +7,7 @@ import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
 import { HandlerPositionVal, Position } from '@type';
-import UseCategoriesFC from '@site/Categories';
+import Categories from '@site/Categories/index.tsx';
 
 
 import { CatalogFC } from '@site/Catalog/index.tsx';
@@ -82,18 +82,7 @@ export function UseMainFC(): JSX.Element {
           </section>
           <section className="catalog">
             <HeadFC number={2} classes='text-center' title='Каталог' />
-            < ul className="catalog-categories nav justify-content-center" >
-            {/* Category menu. It is based at variable: "category". | '/items/?offset=6'
-             It's type Array ("Position[]|undefined") */
-              (category !== undefined)
-                ? (
-                  <UseCategoriesFC {...category} />
-                )
-                : (
-                  < ImLoader />
-                )
-              }
-            </ul>
+            <Categories order={category as Position[]} />
             { /* -------------- */}
             <CatalogFC />
           </section>

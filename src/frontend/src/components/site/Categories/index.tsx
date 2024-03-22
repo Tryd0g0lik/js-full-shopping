@@ -1,7 +1,8 @@
 import React, { JSX, useId, useEffect } from 'react';
-import { Position } from '@type';
+import { Position, PositionsCard } from '@type';
 import LiFC from '../Li.tsx';
 import AncorFC from '../Ancor.tsx';
+import ImLoader from '@site/ImgLoader.tsx';
 
 /**
  * `src\frontend\src\components\site\Categories.tsx`
@@ -30,7 +31,7 @@ import AncorFC from '../Ancor.tsx';
 		</ul>
 	```
  */
-export default function UseCategoriesFC(categoriesArr: Position[]): JSX.Element {
+function UseCategoriesFC(categoriesArr: Position[]): JSX.Element {
 	const arr = Object.values(categoriesArr);
 	return (
 		<>
@@ -46,4 +47,22 @@ export default function UseCategoriesFC(categoriesArr: Position[]): JSX.Element 
 			}
 		</>
 	);
+}
+
+export default function Categories({ order }: { order: Position[] }) {
+  // const order = { ...prop };
+  return (
+    < ul className="catalog-categories nav justify-content-center" >
+      {/* Category menu. It is based at variable: "category". | '/items/?offset=6'
+             It's type Array ("Position[]|undefined") */
+        (order !== undefined)
+          ? (
+            <UseCategoriesFC {...order} />
+          )
+          : (
+            < ImLoader />
+          )
+      }
+    </ul>
+  )
 }

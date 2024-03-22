@@ -17,10 +17,11 @@ import { positionsArr } from '../../Loaded/Main/db.ts';
 /* Categories */
 import UseCategoriesFC from '@site/Categories/index.tsx';
 import { SFetch } from '@service/server.ts';
-import LoaderMoreFC from '@site/Loadmore.tsx';
+import LoaderMoreFC from '@site/Catalog/Loadmore.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import searching from '@site/catalog-searcher/doSearch.ts';
 import { CatalogFC } from '@site/Catalog/index.tsx';
+import Categories from '@site/Categories/index.tsx';
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
@@ -111,17 +112,7 @@ export function DMainFC(): JSX.Element {
             <section className="catalog" > {/* onKeyDown={handlerKeyboardEnter} */}
               <HeadFC number={2} classes='text-center' title='Каталог' />
               {/* Top form search by directory */}
-              < ul className="catalog-categories nav justify-content-center" >
-              {
-                (category !== undefined)
-                  ? (
-                    <UseCategoriesFC {...category} />
-                  )
-                  : (
-                    <></>
-                  )
-              }
-              </ul>
+              <Categories order={category as Position[]} />
               <CatalogFC />
             </section>
           </div>

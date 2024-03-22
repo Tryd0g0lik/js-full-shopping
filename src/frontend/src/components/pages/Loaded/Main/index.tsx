@@ -17,7 +17,7 @@ import ImageFC from '@site/Img.tsx';
 /* Forms */
 import ButtonFC from '@site/Forms/Button.tsx';
 import DivFC from '@site/Div.tsx';
-import LoaderMoreFC from '@site/Loadmore.tsx';
+import LoaderMoreFC from '@site/Catalog/Loadmore.tsx';
 
 export function LMain({ categories }: Categories): JSX.Element {
   return (

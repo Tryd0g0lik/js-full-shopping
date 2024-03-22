@@ -6,7 +6,7 @@ import { PositionsCatalog } from '@reduxs/interfaces.ts';
 import store, { RootDispatch, storeDispatch, storeGetstate } from '@reduxs/store.ts';
 import { HandlerPositionVal, Position, SearchForm } from '@type';
 import { SFetch } from '@service/server.ts';
-import LoaderMoreFC from '../Loadmore.tsx';
+import LoaderMoreFC from './Loadmore.tsx';
 import BigSerachFormFC from '../catalog-searcher/bigSearchForm.tsx';
 import loaderMore from './hablerLoaderMore.ts';
 
