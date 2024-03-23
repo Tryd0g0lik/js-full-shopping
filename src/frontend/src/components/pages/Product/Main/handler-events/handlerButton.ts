@@ -4,8 +4,10 @@ import { PositionsCard } from '@type';
 import { storeDispatch } from '@reduxs/store.ts';
 import { DispatcherStorage } from '@service/postman';
 import { Position } from '@type';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 export function handlerButtom(event: React.MouseEvent): void {
+  // const navigate = useNavigate();
   event.stopPropagation();
   const position = document.querySelector('.catalog-item') as HTMLElement;
   const index = (document.querySelector('section[data-ind]') as HTMLElement);
@@ -44,5 +46,6 @@ export function handlerButtom(event: React.MouseEvent): void {
   storeDispatch(order);
   const dispatch = new DispatcherStorage(order);
   dispatch.setToLocalStorage('order');
-  location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT + '/card';
+  location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT + '/cart';
+  navigate("/cart");
 }

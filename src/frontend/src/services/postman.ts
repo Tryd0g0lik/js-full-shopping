@@ -63,7 +63,7 @@ export class DispatcherStorage {
     if (chacke) {
       // const resultStr = localStorage.getItem(key) as string;
       const resultJson = this.getItemOfKey(key);// JSON.parse(resultStr);
-      /* ---------------- -- */
+      /* ------ */
       const ordersArr = (resultJson?.data.order as Array<Position>);
       /* below ,  are conditions for a one position*/
       for (let i = 0; i < ordersArr.length; i++) {
@@ -76,7 +76,7 @@ export class DispatcherStorage {
           return
         }
       }
-      /* ---------------- -- */
+      /* ------ */
 
       (resultJson.data.order).push(this.datas.order[0] as Position);
       this.setItemByKey(key, JSON.stringify({ data: { order: resultJson.data.order } }));

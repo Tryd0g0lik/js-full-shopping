@@ -62,7 +62,7 @@ export function DMainFC(): JSX.Element {
 
   let changeTime: NodeJS.Timeout | undefined;
   function hadlerChangeInput(ev: React.ChangeEvent<HTMLInputElement>) {
-    location.state.searchly = undefined
+    // location.state.searchly = undefined
     clearTimeout(changeTime);
     const target = ev.target as HTMLInputElement;
 

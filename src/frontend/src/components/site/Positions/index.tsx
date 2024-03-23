@@ -30,7 +30,7 @@ import AncorFC from '@site/Ancor.tsx';
 export function PositionFC({ title, id, category = undefined, price = 0, children }: Position): JSX.Element {
 
   const ind: string = (id !== undefined) ? String(id) : '9999';
-  const pathes = `./catalog/${ind}`;
+  const pathes = `/catalog/${ind}`;
   // process.env.REACT_APP_URL = process.env.REACT_APP_FPORT + pathes;
   const result = (category !== undefined)
     ? (

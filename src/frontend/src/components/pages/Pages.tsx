@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
 import { Pages, Position, PositionLoader } from '@type';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useNavigate, createBrowserRouter, RouterProvider, RelativeRoutingType } from 'react-router-dom';
 import { HomepageFC } from './Home/index.tsx';
 /* below is a code for loaded.html */
 import { LoadedpageFC } from './Loaded/index.tsx';
@@ -17,6 +17,8 @@ import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
 import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
+import { Location } from 'react-router-dom';
+import { ProductMainFC } from './Product/Main/index.tsx';
 
 
 /**
@@ -68,22 +70,23 @@ export function PagesFC(): JSX.Element {
       element: < UnderfinedpageFC />
     },
     {
-      path: '/cart',
+      path: Pages.Cart,
       element: <CartpageFC />
     },
     {
-      path: '/',
+      path: Pages.Home,
       loader: LoaderCatalogId,
-      id: 'root',
+      id: 'subroot',
       children: [
         {
-          path: '/catalog/:id',
+          path: Pages.Product,
           loader: LoaderCatalogId,
           element: <ProductFC />
         }
       ],
       element: <ProductFC />
-    }
+    },
+
   ]);
   return (
     <AuthSearchProvider>
@@ -92,8 +95,3 @@ export function PagesFC(): JSX.Element {
     </AuthSearchProvider>
   )
 }
-
-
-// createRoot(el).render(
-//   <RouterProvider router={router} />
-// );
