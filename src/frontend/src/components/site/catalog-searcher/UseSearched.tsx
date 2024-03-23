@@ -12,9 +12,7 @@ import loadPage from '@site/Catalog/hablerLoaderMore.ts';
 import searching from '@site/catalog-searcher/doSearch.ts';
 import { CatalogFC } from '@site/Catalog/index.tsx';
 
-let index = 0;
 export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
-
   const [categoryNumbers, useCategoryNumbers] = useState<CatalogSearched['categoryNumber']>(1); // number category // filterCategories
   const [position, usePositions] = useState<HandlerPositionVal>([]); // state a set of position
 
@@ -47,7 +45,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
      */
     const categorySetInaterval = setInterval(() => {
       getTotalStore = storeGetstate();
-      /* --------Category-------- */
+      /* ------ Category ------ */
       stateCategoryNumber = getTotalStore.category.payload;
       if (stateOldCategory < (stateCategoryNumber) || stateOldCategory > (stateCategoryNumber)) {
         stateOldCategory = Number(String(stateCategoryNumber).slice(0));
@@ -56,7 +54,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
         useCategoryNumbers(copyCategoryCopy as CatalogSearched['categoryNumber']);
       }
 
-      /* --------Catalog-------- */
+      /* ------ Catalog ------ */
       if (((getTotalStore.catalog.positions).length < stateOldCatalog) ||
         ((getTotalStore.catalog.positions).length > stateOldCatalog)) {
         usePositions(getTotalStore.catalog.positions);
@@ -69,18 +67,16 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     loadPage.requestSFetch(6, usePositions as typeof useState)
 
     /**
-      * 
-      * There is below a request to server | '/items/?offset=6' and
-      * here the is listener for listening a button name 'Загрузить ещё'
-      */
+    * 
+    * There is below a request to server | '/items/?offset=6' and
+    * here the is listener for listening a button name 'Загрузить ещё'
+    */
     const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
     if (buttontextCenter !== null) {
-      // debugger
       (buttontextCenter as HTMLElement).addEventListener('click', loadPage.hablerLoaderMore(usePositions as typeof useState));
     }
 
-    /* ------Positions------ */
-
+    /* ------ Positions ------ */
     return (): void => {
       clearInterval(categorySetInaterval);
       /* object will be removed */
@@ -98,8 +94,6 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     ? searching(prop.inputValue, (position !== undefined) ? position : [])
     : (position !== undefined) ? position : [];
 
-  index += 1
-  console.log(`[INDEX]: ${index} LEngth Arr ${(sercgedPosition as Position[]).length}`)
   const catalog: CatalogSearched = {
     categoryNumber: categoryNumbers,
     positions: sercgedPosition,

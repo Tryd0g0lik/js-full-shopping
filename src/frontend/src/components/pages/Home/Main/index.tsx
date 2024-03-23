@@ -20,8 +20,7 @@ const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 /**
  * `src\frontend\src\components\pages\Home\Main\index.tsx`
  *
- * `import { UseMainFC } from './Main/index.tsx';`
- *
+ * `import { UseMainFC } from './Main/index.tsx';` \
  * This  works with a `Redux` funnction
  */
 export function UseMainFC(): JSX.Element {
@@ -44,9 +43,8 @@ export function UseMainFC(): JSX.Element {
 
   }, [setCategory]);
 
-  /* ------------ */
+  /* ------ */
   useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
-  // const category = useCategory();
   const catalogSearched: CatalogSearched = {
     categoryNumber: 1 as CatalogSearched['categoryNumber'],
     inputValue: undefined
