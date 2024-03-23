@@ -7,6 +7,13 @@ import LoaderMoreFC from './Loadmore.tsx';
 
 
 /* ------ Component for add positions ещ еру catalog ------ */
+/**
+ * 
+ * @params `categoryNumber`: `1 | 11 | 12 | 13 | 14 | 15` type.
+ * @params `positions`?: `Position[]`.
+ * @params `inputValue`: `string | undefined`.
+ * @returns JSX.Element
+ */
 export function CatalogFC({ ...props }: CatalogSearched): JSX.Element {
 
 	return (
