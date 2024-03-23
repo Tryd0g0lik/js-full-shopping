@@ -271,7 +271,7 @@ export interface ReadOnlyFunction {
 
 export type SearchContext = {
   searchly: string
-  method?: (newText: string, cb: () => void) => void // (datacerch: any, cb: any) => void
+  method?: (newText: string, cb: () => void) => void
 }
 
 

@@ -1,7 +1,7 @@
 // src\frontend\src\components\pages\Catalog\Main\index.tsx
 
 import React, { Fragment, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
@@ -72,7 +72,8 @@ export function DMainFC(): JSX.Element {
     inputValue = target.value;
 
     setValueSearch(inputValue)
-    inputValue = undefined
+
+
   }
 
   /* ------ */
@@ -89,6 +90,7 @@ export function DMainFC(): JSX.Element {
     search: inputValue
   }
 
+  // setTimeout(() => location.state.searchly = undefined, 1000);
   return (
     <>
       <main className="container">

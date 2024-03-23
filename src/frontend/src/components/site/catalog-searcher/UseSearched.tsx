@@ -1,3 +1,5 @@
+// src\frontend\src\components\site\catalog-searcher\UseSearched.tsx
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 

@@ -8,6 +8,7 @@ import { Pages, Position } from '@type';
 import { DispatcherStorage } from '@service/postman';
 import { QuantilityOrdersFC } from '@site/Orders';
 import { SearcherFC } from '@site/catalog-searcher/Searcher';
+import SmallSerachFormFC from '@site/catalog-searcher/smallSearchForm';
 const topMenuArr = [
   {
     id: 1,
@@ -67,7 +68,11 @@ export function HeaderFC(): JSX.Element {
     }
 
   }
-
+  const handlerrEntre = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key.includes('Enter')) {
+      e.preventDefault();
+    }
+  }
   const counterValueCart = QuantilityOrdersFC(counter);
   // stateCounter(count);
   return (
@@ -93,8 +98,8 @@ export function HeaderFC(): JSX.Element {
                 }
               </ul>
               <div>
-                <div className="header-controls-pics">
-                  <SearcherFC />
+                <div className="header-controls-pics" onKeyDown={handlerrEntre}>
+                  <SmallSerachFormFC />
                   {/* <div data-id="search-expander" className="header-controls-pic header-controls-search header-controls-search-form">
                     <input name="search" className="form-control" type='text' />
                   </div> */}

@@ -1,3 +1,5 @@
+// src\frontend\src\components\site\Catalog\index.tsx
+
 import React, { Fragment, JSX } from 'react';
 import { PositionFC } from '../Positions/index.tsx';
 import ImageFC from '../Img.tsx';

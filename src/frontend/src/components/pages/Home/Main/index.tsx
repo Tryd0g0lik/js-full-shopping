@@ -11,7 +11,6 @@ import Categories from '@site/Categories/index.tsx';
 
 import handlerCategories from '@site/Categories/handlers.ts'
 import useSearchedJSX from '@site/catalog-searcher/UseSearched';
-// import useCategoryconst 
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
