@@ -9,10 +9,7 @@ import { SFetch } from '@service/server.ts';
 import { CatalogSearched, HandlerPositionVal, Position } from '@type';
 import Categories from '@site/Categories/index.tsx';
 
-
-import { CatalogFC } from '@site/Catalog/index.tsx';
 import handlerCategories from '@site/Categories/handlers.ts'
-import useCategory from '@site/Categories/useStateCategory';
 import useSearchedJSX from '@site/catalog-searcher/UseSearched';
 // import useCategoryconst 
 
