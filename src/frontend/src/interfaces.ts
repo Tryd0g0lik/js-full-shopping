@@ -271,12 +271,15 @@ export interface ReadOnlyFunction {
 
 export type SearchContext = {
   searchly: string
-  method: (newText: string, cb: () => void) => void // (datacerch: any, cb: any) => void
+  method?: (newText: string, cb: () => void) => void // (datacerch: any, cb: any) => void
 }
 
 
 export interface SearchForm {
-  cb?: (event: React.ChangeEvent) => void
-  state?: typeof useState // type string
   search?: string
+}
+export interface CatalogSearched {
+  categoryNumber: 1 | 11 | 12 | 13 | 14 | 15
+  positions?: Position[]
+  inputValue: string | undefined
 }

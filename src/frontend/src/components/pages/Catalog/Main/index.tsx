@@ -9,7 +9,7 @@ import BannerFC from '@site/Baners.tsx';
 import ImageFC from '@site/Img.tsx';
 
 /* Categories / Position */
-import { HandlerPositionVal, Position } from '@type';
+import { CatalogSearched, HandlerPositionVal, Position } from '@type';
 
 /* Positions */
 import { positionsArr } from '../../Loaded/Main/db.ts';
@@ -18,28 +18,17 @@ import { positionsArr } from '../../Loaded/Main/db.ts';
 import { SFetch } from '@service/server.ts';
 
 
-import searching from '@site/catalog-searcher/doSearch.ts';
-import { CatalogFC } from '@site/Catalog/index.tsx';
 import Categories from '@site/Categories/index.tsx';
 import handlerCategories from '@site/Categories/handlers.ts'
 import BigSerachFormFC from '@site/catalog-searcher/bigSearchForm.tsx';
+import useSearchedJSX from '@site/catalog-searcher/UseSearched.tsx';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
 
-let oldPhraseSerch: string | undefined = '';
-function useSearched(prop: {
-  valueInput: string | undefined
-  positionarr: Position[] | undefined
-}): JSX.Element {
 
-  const positionarr = ((prop.valueInput !== undefined) && (prop.valueInput.length > 0))
-    ? searching(prop.valueInput, (prop.positionarr !== undefined) ? prop.positionarr : [])
-    : (prop.positionarr !== undefined) ? prop.positionarr : [];
 
-  return <CatalogFC {...positionarr as Position[]} />
-}
 /**
  * src\frontend\src\components\pages\Catalog\Main\index.tsx
  *
@@ -56,37 +45,36 @@ function useSearched(prop: {
 export function DMainFC(): JSX.Element {
   const location = useLocation();
   const [category, setCategory] = useState<HandlerPositionVal>();
-  // const [catalog, setCatalog] = useState<Position[]>(Array.from(positionsArr).slice(0));
   const [valueSearch, setValueSearch] = useState<string | undefined>(undefined);
-
+  let categoryNumber: CatalogSearched['categoryNumber'] = 1;
   /* ------------------- */
-  let valueInput: string | undefined = undefined;
+  let inputValue: string | undefined = undefined;
   if ((location?.state?.searchly !== undefined) && (location?.state?.searchly.length > 0)) {
-    valueInput = location?.state?.searchly as string
+    inputValue = location?.state?.searchly as string
     // 
   }
 
-  let positionarr: Position[] = Array.from(positionsArr).slice(0);
-
-  let catalog: JSX.Element = useSearched({ valueInput, positionarr });
+  // let categories: Position[] = (category !== undefined) ? category as Position[] : []// Array.from(positionsArr).slice(0);
+  // debugger
+  let catalog: JSX.Element = useSearchedJSX({ categoryNumber, inputValue });
   useEffect(() => {
     const serverCategory = new SFetch(url);
     /* create a request to the server */
     serverCategory.requestOneBefore = { categories: true };
     serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
 
-    setValueSearch(valueInput);
+    // setValueSearch(inputValue);
     // positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
     //   ? searching(valueInput, positionarr)
     //   : positionarr;
 
-    catalog = useSearched({ valueInput, positionarr })
+    // catalog = useSearchedJSX({ categoryNumber, inputValue, positions });
     // setCatalog(positionarr);
   }, [setCategory]);
 
 
   let changeTime: NodeJS.Timeout | undefined;
-  const hadlerChangeInput: React.FormEventHandler = (ev: React.ChangeEvent) => {
+  function hadlerChangeInput(ev: React.ChangeEvent<HTMLInputElement>) {
 
     location.state.searchly = undefined
     clearTimeout(changeTime);
@@ -95,8 +83,8 @@ export function DMainFC(): JSX.Element {
     if ((location?.state !== undefined) && (location.state.searchly !== undefined)) {
       location.state.searchly === undefined
     }
-    valueInput = target.value;
-    setValueSearch(valueInput);
+    inputValue = target.value;
+    // setValueSearch(inputValue);
     // changeTime = setTimeout(() => {
     //   positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
     //     ? searching(target.value, positionarr)
@@ -105,8 +93,9 @@ export function DMainFC(): JSX.Element {
     // console.log(`[positionarr]: ${positionarr}`);
     // setCatalog(positionarr);
     // valueInput = target.value;
-    debugger
-    catalog = useSearched({ valueInput, positionarr })
+    // debugger
+    setValueSearch(inputValue)
+    inputValue = undefined
     // }, 700);
   }
 
@@ -114,9 +103,15 @@ export function DMainFC(): JSX.Element {
   useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
 
   /* ------------ */
+  const catalogSearched = {
+    categoryNumber: 1 as CatalogSearched['categoryNumber'],
+    inputValue: valueSearch
+  }
+  catalog = useSearchedJSX({ ...catalogSearched })
+
   const searchForm = {
 
-    search: valueInput
+    search: inputValue
   }
 
   return (
