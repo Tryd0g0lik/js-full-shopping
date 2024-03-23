@@ -1,6 +1,6 @@
 import { Position } from '@type';
-import React, { JSX, useEffect } from 'react';
-import { useAsyncValue } from 'react-router-dom';
+import React, { JSX } from 'react';
+import { useAsyncValue, useLocation } from 'react-router-dom';
 import { handlerMinus } from './handler-events/calculator.ts';
 import { handlerSize } from './handler-events/sizer.ts';
 import { handlerButtom } from './handler-events/handlerButton.ts';
@@ -9,6 +9,7 @@ import { storeGetstate } from '@reduxs/store.ts';
 
 export function ProductMainFC(): JSX.Element {
   const params = useAsyncValue() as Position;
+  const location = useLocation();
   const { id, images, price, title, sku, manufacturer, color, material, season, reason, sizes, ...param } = { ...params };
 
   const img = ((images !== undefined) && (Array.isArray(images))) ? ((images.length > 0) ? images[1] : images[1]) : '';
@@ -75,7 +76,7 @@ export function ProductMainFC(): JSX.Element {
                       })
                     }
                   </p>
-                  <p>Количество: <span className="btn-group btn-group-sm pl-2" onClick={handlerMinus}>
+                  <p onClick={handlerMinus}>Количество: <span className="btn-group btn-group-sm pl-2" >
                     <button className="btn btn-secondary" data-type='minus'>-</button>
                     <span data-type="quantility" className="btn btn-outline-primary">0</span>
                     <button className="btn btn-secondary" data-type='plus'>+</button>

@@ -124,6 +124,7 @@ export interface Categories {
  * @prop `children?`: React.JSX.Elements
  */
 export interface Position extends Child {
+  pathname?: string
 	order?: any
   id?: number
   category?: number
@@ -139,6 +140,7 @@ export interface Position extends Child {
   price?: number
   oldPrice?: number
   quantility?: number
+
   sizes?: Array<{
     size: string
     available: boolean

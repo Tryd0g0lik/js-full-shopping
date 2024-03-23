@@ -37,6 +37,7 @@ function oldStatePositions(): Position[] {
 export function CartMainFC(): JSX.Element {
   const [orders, setOrders] = useState<Position[]>(() => oldStatePositions());
   const [zero, setZero] = useState<number>(0);
+
   const handlerDeleter = useCallback((ev: React.MouseEvent) => {
     ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);

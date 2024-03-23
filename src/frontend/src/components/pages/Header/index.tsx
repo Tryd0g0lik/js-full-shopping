@@ -1,6 +1,7 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
-import React, { JSX, useEffect, useState } from 'react';
+import React, { EventHandler, JSX, MouseEventHandler, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import headerLogo from '@img/header-logo.png';
 import LiFC from '@site/Li.tsx';
 import AncorFC from '@site/Ancor.tsx';
@@ -32,6 +33,7 @@ const topMenuArr = [
 ];
 
 export function HeaderFC(): JSX.Element {
+  const navigate = useNavigate();
   const dispatch = new DispatcherStorage();
   const check = dispatch.chackeKeyToLockalStorage('order');
   let count = 0;
@@ -72,6 +74,11 @@ export function HeaderFC(): JSX.Element {
       e.preventDefault();
     }
   }
+
+  const handlerToCartReference: MouseEventHandler<HTMLDivElement> = (e) => {
+
+    navigate('/cart');
+  }
   const counterValueCart = QuantilityOrdersFC(counter);
   // stateCounter(count);
   return (
@@ -103,7 +110,7 @@ export function HeaderFC(): JSX.Element {
                     <input name="search" className="form-control" type='text' />
                   </div> */}
                   { /* <!-- Do programmatic navigation on click to /cart.html --> */}
-                  <div className="header-controls-pic header-controls-cart">
+                  <div className="header-controls-pic header-controls-cart" onClick={handlerToCartReference}>
                     {counterValueCart}
                     <div className="header-controls-cart-menu"></div>
                   </div>

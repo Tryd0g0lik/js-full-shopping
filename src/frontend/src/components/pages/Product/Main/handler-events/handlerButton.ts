@@ -7,6 +7,7 @@ import { Position } from '@type';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export function handlerButtom(event: React.MouseEvent): void {
+
   // const navigate = useNavigate();
   event.stopPropagation();
   const position = document.querySelector('.catalog-item') as HTMLElement;
@@ -39,7 +40,8 @@ export function handlerButtom(event: React.MouseEvent): void {
       title: name.innerHTML,
       size: sizes.innerHTML,
       quantility: Number(countQuantility.innerHTML),
-      price: Number(prices)
+      price: Number(prices),
+      pathname: location.pathname
     }]
   };
 
@@ -47,5 +49,4 @@ export function handlerButtom(event: React.MouseEvent): void {
   const dispatch = new DispatcherStorage(order);
   dispatch.setToLocalStorage('order');
   location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT + '/cart';
-  navigate("/cart");
 }
