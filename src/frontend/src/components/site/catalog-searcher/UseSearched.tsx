@@ -7,7 +7,7 @@ import { storeGetstate } from '@reduxs/store.ts';
 import { PositionsCatalog } from '@reduxs/interfaces.ts';
 
 import { RootDispatch, storeDispatch } from '@reduxs/store.ts';
-import loaderMore from '@site/Catalog/hablerLoaderMore.ts';
+import { requestSFetch, hablerLoaderMore } from '@site/Catalog/hablerLoaderMore.ts';
 
 import searching from '@site/catalog-searcher/doSearch.ts';
 import { CatalogFC } from '@site/Catalog/index.tsx';
@@ -66,7 +66,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
 
     /* Here is positions of Catalog.
     Create a request to the server | '/items/?offset=6' */
-    loaderMore.requestSFetch(6, usePositions as typeof useState)
+    requestSFetch(6, usePositions as typeof useState)
 
     /**
       * 
@@ -76,7 +76,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
     if (buttontextCenter !== null) {
       // debugger
-      (buttontextCenter as HTMLElement).addEventListener('click', loaderMore.hablerLoaderMore(usePositions as typeof useState));
+      (buttontextCenter as HTMLElement).addEventListener('click', hablerLoaderMore(usePositions as typeof useState));
     }
 
     /* ------Positions------ */
@@ -85,7 +85,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
       clearInterval(categorySetInaterval);
       /* object will be removed */
       if ((buttontextCenter !== null) && (buttontextCenter !== null)) {
-        (buttontextCenter as HTMLElement).removeEventListener('click', loaderMore.hablerLoaderMore(usePositions as typeof useState));
+        (buttontextCenter as HTMLElement).removeEventListener('click', hablerLoaderMore(usePositions as typeof useState));
       }
     };
   }, [usePositions]);

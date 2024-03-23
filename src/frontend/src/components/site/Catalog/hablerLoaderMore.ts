@@ -17,7 +17,7 @@ function requestSFetch(num: number, state: typeof useState) {
   serverPositions.getRrequestOneParamServer(state);
 }
 
-let oldOffset: number = 6;
+let oldOffset: number = 0;
 
 interface HandlerLoader {
   state: typeof useState
@@ -35,8 +35,9 @@ function hablerLoaderMore(state: HandlerLoader['state']) {
   return ((event: MouseEvent): void => {
     event.preventDefault();
     oldOffset += 6;
+    // debugger
     requestSFetch(oldOffset, state)
   })
 }
 
-export default { requestSFetch, hablerLoaderMore }
+export { requestSFetch, hablerLoaderMore }

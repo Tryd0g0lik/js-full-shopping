@@ -56,14 +56,14 @@ export function DMainFC(): JSX.Element {
 
   // let categories: Position[] = (category !== undefined) ? category as Position[] : []// Array.from(positionsArr).slice(0);
   // debugger
-  let catalog: JSX.Element = useSearchedJSX({ categoryNumber, inputValue });
+  // let catalog: JSX.Element = useSearchedJSX({ categoryNumber, inputValue });
   useEffect(() => {
     const serverCategory = new SFetch(url);
     /* create a request to the server */
     serverCategory.requestOneBefore = { categories: true };
     serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
 
-    // setValueSearch(inputValue);
+    setValueSearch(inputValue);
     // positionarr = ((valueInput !== undefined) && (valueInput.length > 0))
     //   ? searching(valueInput, positionarr)
     //   : positionarr;
@@ -107,7 +107,7 @@ export function DMainFC(): JSX.Element {
     categoryNumber: 1 as CatalogSearched['categoryNumber'],
     inputValue: valueSearch
   }
-  catalog = useSearchedJSX({ ...catalogSearched })
+  let catalog: JSX.Element = useSearchedJSX({ ...catalogSearched })
 
   const searchForm = {
 
