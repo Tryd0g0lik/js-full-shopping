@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import React, { ChangeEvent, Fragment, KeyboardEvent, useEffect, useId, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { CatalogSearched, HandlerPositionVal, Position } from '@type';
 
@@ -7,12 +7,12 @@ import { storeGetstate } from '@reduxs/store.ts';
 import { PositionsCatalog } from '@reduxs/interfaces.ts';
 
 import { RootDispatch, storeDispatch } from '@reduxs/store.ts';
-import { requestSFetch, hablerLoaderMore } from '@site/Catalog/hablerLoaderMore.ts';
+import loadPage from '@site/Catalog/hablerLoaderMore.ts';
 
 import searching from '@site/catalog-searcher/doSearch.ts';
 import { CatalogFC } from '@site/Catalog/index.tsx';
 
-
+let index = 0;
 export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
 
   const [categoryNumbers, useCategoryNumbers] = useState<CatalogSearched['categoryNumber']>(1); // number category // filterCategories
@@ -55,8 +55,8 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
         const copyCategoryCopy = Number(String(stateCategoryNumber).slice(0));
         useCategoryNumbers(copyCategoryCopy as CatalogSearched['categoryNumber']);
       }
-      /* --------Catalog-------- */
 
+      /* --------Catalog-------- */
       if (((getTotalStore.catalog.positions).length < stateOldCatalog) ||
         ((getTotalStore.catalog.positions).length > stateOldCatalog)) {
         usePositions(getTotalStore.catalog.positions);
@@ -66,7 +66,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
 
     /* Here is positions of Catalog.
     Create a request to the server | '/items/?offset=6' */
-    requestSFetch(6, usePositions as typeof useState)
+    loadPage.requestSFetch(6, usePositions as typeof useState)
 
     /**
       * 
@@ -76,7 +76,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     const buttontextCenter = document.querySelector('.catalog .btn-outline-primary');
     if (buttontextCenter !== null) {
       // debugger
-      (buttontextCenter as HTMLElement).addEventListener('click', hablerLoaderMore(usePositions as typeof useState));
+      (buttontextCenter as HTMLElement).addEventListener('click', loadPage.hablerLoaderMore(usePositions as typeof useState));
     }
 
     /* ------Positions------ */
@@ -85,7 +85,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
       clearInterval(categorySetInaterval);
       /* object will be removed */
       if ((buttontextCenter !== null) && (buttontextCenter !== null)) {
-        (buttontextCenter as HTMLElement).removeEventListener('click', hablerLoaderMore(usePositions as typeof useState));
+        (buttontextCenter as HTMLElement).removeEventListener('click', loadPage.hablerLoaderMore(usePositions as typeof useState));
       }
     };
   }, [usePositions]);
@@ -98,11 +98,13 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     ? searching(prop.inputValue, (position !== undefined) ? position : [])
     : (position !== undefined) ? position : [];
 
+  index += 1
+  console.log(`[INDEX]: ${index} LEngth Arr ${(sercgedPosition as Position[]).length}`)
   const catalog: CatalogSearched = {
     categoryNumber: categoryNumbers,
     positions: sercgedPosition,
     inputValue: undefined
-  }
+  } 
 
   return <CatalogFC {...catalog} />
 }

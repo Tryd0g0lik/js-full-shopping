@@ -1,7 +1,7 @@
 // src/frontend/src/components/site/catalog-searcher/bigSearchForm.tsx
 
 import { SearchContext, SearchForm } from '@type';
-import React, { ChangeEvent, useState } from 'react';
+import React from 'react';
 
 /* ----------------------- */
 

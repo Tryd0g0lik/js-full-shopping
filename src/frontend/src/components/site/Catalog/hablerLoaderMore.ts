@@ -35,9 +35,8 @@ function hablerLoaderMore(state: HandlerLoader['state']) {
   return ((event: MouseEvent): void => {
     event.preventDefault();
     oldOffset += 6;
-    // debugger
     requestSFetch(oldOffset, state)
   })
 }
 
-export { requestSFetch, hablerLoaderMore }
+export default { requestSFetch, hablerLoaderMore }

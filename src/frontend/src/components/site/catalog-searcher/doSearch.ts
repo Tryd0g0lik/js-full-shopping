@@ -1,5 +1,11 @@
 import { Position } from '@type';
 
+/**
+ * Entre point get the two varieble
+ * @param `serchlyStr`: `string`. It's a word from the search form.
+ * @param `positionsList`: Array<Position>
+ * @returns  the filtered  Array<Position>.
+ * */
 const searching = (serchlyStr: string, positionsList: Position[]): Position[] => {
   const dataSplitup = serchlyStr.split(' ');
   let newPositionsList: Position[] = [];
@@ -11,7 +17,6 @@ const searching = (serchlyStr: string, positionsList: Position[]): Position[] =>
       }
     }
   });
-  // debugger
   return newPositionsList;
 };
 export default searching
