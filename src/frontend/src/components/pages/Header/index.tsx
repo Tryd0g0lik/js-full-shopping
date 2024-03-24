@@ -69,11 +69,8 @@ export function HeaderFC(): JSX.Element {
         (ancor.innerText.includes('Главная'))) {
         (item as HTMLElement).classList.add('active')
       }
-
-
-
-
     });
+
     return () => {
       window.removeEventListener('click', handlerCaunter);
     }
