@@ -112,7 +112,7 @@ export function CartMainFC(): JSX.Element {
         items: newStateOrders
       }
       // debugger
-      const url = process.env.REACT_APP_RENDER_URL as string + ':' + process.env.REACT_APP_BPORT as string;
+      const url = process.env.REACT_APP_RENDER_URL as string as string;
       const request = new SFetch(url);
       request.requestOneBefore = { order: { ...orders } };
       request.getRrequestOneParamServer(setZero as typeof useState, false);

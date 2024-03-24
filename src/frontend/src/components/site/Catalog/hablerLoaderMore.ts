@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { SFetch } from "@service/server";
 const REACT_APP_RENDER_URL = process.env.REACT_APP_RENDER_URL as string;
-const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
-const url = REACT_APP_RENDER_URL + ':' + REACT_APP_BPORT + '/api';
+const url = REACT_APP_RENDER_URL + '/api';
 
 const serverPositions = new SFetch(url);
 
