@@ -8,7 +8,7 @@
     "starts": "forever ./src/server.js",
     "watch": "forever -w ./src/server.js",
     "start": "node ./src/server.js localhost 7070",
-    "build:render": "npm run starts"
+  "build:render": "webpack"
   },
   "author": "",
   "license": "ISC",
@@ -20,8 +20,11 @@
     "koa2-cors": "^2.0.6",
     "package.json": "^0.0.0",
     "react-scripts": "^5.0.1"
+    
   },
   "devDependencies": {
-    "koa-logger": "^3.2.1"
+    "koa-logger": "^3.2.1",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   }
 }

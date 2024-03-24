@@ -63,7 +63,7 @@
     "build:dev": "webpack --mode=development --config ./webpack.config.js",
     "build": "npm run build:dev",
     "watch": "npm --workspace=backend run watch",
-    "build:render": "npm run build:dev",
+    "build:render": "npm install -W package.json && npm --workspace=backend install package.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
