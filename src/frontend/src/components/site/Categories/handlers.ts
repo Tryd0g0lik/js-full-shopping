@@ -21,11 +21,20 @@ const setUserCategory = (intstate: number = 1): void => {
  * through a redux (setUserCategory) he working
  * There is below a filter categories. It's a category number  | '/categories'  */
 const handlerFilterCategories = (event: MouseEvent): void => {
+
   event.preventDefault();
   const target = (event.target as HTMLAnchorElement);
 
   const categoryUSerNumber = Number(target.dataset.category);
+  /* ------ */
+  const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item a'));
+  navCategories.forEach((item) => {
+    (item as HTMLElement).classList.remove('active')
+  });
+  (target as HTMLElement).classList.add('active');
+
   setUserCategory(categoryUSerNumber);
+
 };
 
 /* Thi's a handler for the change event/ It's listener for '<input value>' of seach form */

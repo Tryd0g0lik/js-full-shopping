@@ -1,7 +1,7 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
 import React, { EventHandler, JSX, MouseEventHandler, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import headerLogo from '@img/header-logo.png';
 import LiFC from '@site/Li.tsx';
 import AncorFC from '@site/Ancor.tsx';
@@ -34,6 +34,8 @@ const topMenuArr = [
 
 export function HeaderFC(): JSX.Element {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const dispatch = new DispatcherStorage();
   const check = dispatch.chackeKeyToLockalStorage('order');
   let count = 0;
@@ -52,9 +54,30 @@ export function HeaderFC(): JSX.Element {
   const [counter, stateCounter] = useState(count);
   useEffect(() => {
     window.addEventListener('click', handlerCaunter);
+
+    /* --- Active Ancor from a dashbord up --- */
+    const htmlLiArr = Array.from(document.querySelectorAll('.navbar .nav-item'));
+    const currentPathname = location.pathname.slice(0);
+
+    htmlLiArr.forEach((item) => {
+      const ancor = item.querySelector('a') as HTMLAnchorElement
+      item.classList.remove('active');
+      if (((ancor.href).includes(currentPathname)) && (currentPathname.length > 1)) {
+        (item as HTMLElement).classList.add('active')
+
+      } else if (((window.location.pathname as string).length === 1) &&
+        (ancor.innerText.includes('Главная'))) {
+        (item as HTMLElement).classList.add('active')
+      }
+
+
+
+
+    });
     return () => {
       window.removeEventListener('click', handlerCaunter);
     }
+
   }, [counter])
 
   const handlerCaunter = (e: MouseEvent) => {
@@ -80,7 +103,8 @@ export function HeaderFC(): JSX.Element {
     navigate('/cart');
   }
   const counterValueCart = QuantilityOrdersFC(counter);
-  // stateCounter(count);
+
+
   return (
     <header className="container">
       <div className="row">
@@ -96,9 +120,9 @@ export function HeaderFC(): JSX.Element {
                 {
                   Array.from(topMenuArr).map((obj) => (
 
-                    <LiFC key={obj.id} classes='nav-item'>
+                    <li key={obj.id} className='nav-item' >
                       <AncorFC classes='nav-link' path={obj.path} context={obj.title} />
-                    </LiFC>
+                    </li>
 
                   ))
                 }
@@ -127,3 +151,4 @@ export function HeaderFC(): JSX.Element {
 
   );
 }
+
