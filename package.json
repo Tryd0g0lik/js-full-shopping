@@ -61,7 +61,7 @@
     "lint": "eslint . ",
     "server:front": "webpack server --mode=development",
     "build:dev": "webpack --mode=development --config ./webpack.config.js",
-    "build": "npm run build:dev && run build:dev --workspace=frontend",
+    "build": "npm run build:dev && run  --workspace=frontend build:dev",
     "watch": "npm --workspace=backend run watch",
     "build:render": "yarn workspace backend run build:render",
     "test": "react-scripts test",
