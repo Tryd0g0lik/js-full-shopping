@@ -75,7 +75,7 @@ module.exports = {
   },
   plugins: [
     new TsconfigPathsPlugin({
-      configFile: '../../tsconfig.json'
+      configFile: '../../../tsconfig.json'
     })
   ],
   watchOptions: {
