@@ -10,8 +10,7 @@ module.exports = merge(webpackFront, {
   entry: './src/index.ts',
   // devtool: 'evel-'
   mode: 'none',
-  filename: `[name].js`,
-  publicPath: './',
+
 
   module: {},
   plugins: [
