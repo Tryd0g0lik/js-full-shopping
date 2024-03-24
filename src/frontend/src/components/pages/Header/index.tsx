@@ -1,12 +1,13 @@
 // src\frontend\src\components\pages\Header\index.tsx
 
-import React, { JSX, useEffect, useState } from 'react';
+import React, { JSX, MouseEventHandler, useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import headerLogo from '@img/header-logo.png';
-import LiFC from '@site/Li.tsx';
 import AncorFC from '@site/Ancor.tsx';
 import { Pages, Position } from '@type';
 import { DispatcherStorage } from '@service/postman';
 import { QuantilityOrdersFC } from '@site/Orders';
+import SmallSerachFormFC from '@site/catalog-searcher/smallSearchForm';
 const topMenuArr = [
   {
     id: 1,
@@ -31,6 +32,9 @@ const topMenuArr = [
 ];
 
 export function HeaderFC(): JSX.Element {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const dispatch = new DispatcherStorage();
   const check = dispatch.chackeKeyToLockalStorage('order');
   let count = 0;
@@ -49,9 +53,27 @@ export function HeaderFC(): JSX.Element {
   const [counter, stateCounter] = useState(count);
   useEffect(() => {
     window.addEventListener('click', handlerCaunter);
+
+    /* --- Active Ancor from a dashbord up --- */
+    const htmlLiArr = Array.from(document.querySelectorAll('.navbar .nav-item'));
+    const currentPathname = location.pathname.slice(0);
+
+    htmlLiArr.forEach((item) => {
+      const ancor = item.querySelector('a') as HTMLAnchorElement
+      item.classList.remove('active');
+      if (((ancor.href).includes(currentPathname)) && (currentPathname.length > 1)) {
+        (item as HTMLElement).classList.add('active')
+
+      } else if (((window.location.pathname as string).length === 1) &&
+        (ancor.innerText.includes('Главная'))) {
+        (item as HTMLElement).classList.add('active')
+      }
+    });
+
     return () => {
       window.removeEventListener('click', handlerCaunter);
     }
+
   }, [counter])
 
   const handlerCaunter = (e: MouseEvent) => {
@@ -66,9 +88,19 @@ export function HeaderFC(): JSX.Element {
     }
 
   }
+  const handlerrEntre = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key.includes('Enter')) {
+      e.preventDefault();
+    }
+  }
 
-  const counerValueCart = QuantilityOrdersFC(counter);
-  // stateCounter(count);
+  const handlerToCartReference: MouseEventHandler<HTMLDivElement> = (e) => {
+
+    navigate('/cart');
+  }
+  const counterValueCart = QuantilityOrdersFC(counter);
+
+
   return (
     <header className="container">
       <div className="row">
@@ -84,19 +116,22 @@ export function HeaderFC(): JSX.Element {
                 {
                   Array.from(topMenuArr).map((obj) => (
 
-                    <LiFC key={obj.id} classes='nav-item'>
+                    <li key={obj.id} className='nav-item' >
                       <AncorFC classes='nav-link' path={obj.path} context={obj.title} />
-                    </LiFC>
+                    </li>
 
                   ))
                 }
               </ul>
               <div>
-                <div className="header-controls-pics">
-                  <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
+                <div className="header-controls-pics" onKeyDown={handlerrEntre}>
+                  <SmallSerachFormFC />
+                  {/* <div data-id="search-expander" className="header-controls-pic header-controls-search header-controls-search-form">
+                    <input name="search" className="form-control" type='text' />
+                  </div> */}
                   { /* <!-- Do programmatic navigation on click to /cart.html --> */}
-                  <div className="header-controls-pic header-controls-cart">
-                    {counerValueCart}
+                  <div className="header-controls-pic header-controls-cart" onClick={handlerToCartReference}>
+                    {counterValueCart}
                     <div className="header-controls-cart-menu"></div>
                   </div>
                 </div>
@@ -112,3 +147,4 @@ export function HeaderFC(): JSX.Element {
 
   );
 }
+

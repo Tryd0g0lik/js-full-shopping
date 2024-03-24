@@ -1,5 +1,5 @@
 // src\frontend\src\interfaces.ts
-
+import React, { useState } from 'react'
 /**
  * file: `src\frontend\src\interfaces.ts`
  *
@@ -124,6 +124,7 @@ export interface Categories {
  * @prop `children?`: React.JSX.Elements
  */
 export interface Position extends Child {
+  pathname?: string
 	order?: any
   id?: number
   category?: number
@@ -139,6 +140,7 @@ export interface Position extends Child {
   price?: number
   oldPrice?: number
   quantility?: number
+
   sizes?: Array<{
     size: string
     available: boolean
@@ -238,14 +240,48 @@ export type HandlerPositionVal = Position[] | undefined;
  * q?: string
   ```
  */
-export interface Request {
+export interface Requests {
   ind?: number
+  order?: {
+    owner: {
+      phone: string
+      address: string
+    }
+    items: Array<{
+      id: number
+      price: number
+      count: number
+    }>
+  }
   offset?: number
   q?: string
   'top-sales'?: boolean
   categories?: boolean
 }
+export interface POSTRequests {
+  method: string
+  body: Requests["order"]
 
+  headers: {
+    "Content-Type:": string,
+    "Access-Control-Allow-Origin": string
+  }
+};
 export interface ReadOnlyFunction {
   readonly: () => void
+}
+
+export type SearchContext = {
+  searchly: string
+  method?: (newText: string, cb: () => void) => void
+}
+
+
+export interface SearchForm {
+  search?: string
+}
+export interface CatalogSearched {
+  categoryNumber: 1 | 11 | 12 | 13 | 14 | 15
+  positions?: Position[]
+  inputValue: string | undefined
 }

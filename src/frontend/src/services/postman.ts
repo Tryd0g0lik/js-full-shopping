@@ -1,17 +1,5 @@
 import { Position, PositionsCard } from "@type";
 
-/* есди вернет false -ключ не найден в lockalStorage, или true */
-// function chackeKeyToLockalStorage(name: string): boolean {
-//   let result = false;
-//   for (let i = 0; i < localStorage.length; i++) {
-//     const key = localStorage.key(i);
-//     result = (key !== null) ? key.includes(name) : false;
-//     if (result) {
-//       return result;
-//     }
-//   }
-//   return result;
-// }
 
 export class DispatcherStorage {
   readonly datas: Record<string, any> | undefined;
@@ -75,17 +63,20 @@ export class DispatcherStorage {
     if (chacke) {
       // const resultStr = localStorage.getItem(key) as string;
       const resultJson = this.getItemOfKey(key);// JSON.parse(resultStr);
-      /* ---------------- -- */
+      /* ------ */
       const ordersArr = (resultJson?.data.order as Array<Position>);
+      /* below ,  are conditions for a one position*/
       for (let i = 0; i < ordersArr.length; i++) {
-        if (ordersArr[i].id === this.datas.order[0].id as Position) {
+        if ((ordersArr[i].id === this.datas.order[0].id as Position) &&
+          !(ordersArr[i].size?.includes(this.datas.order[0].site))) {
+
           ordersArr[i].quantility += this.datas.order[0].quantility;
           localStorage.removeItem(key);
           this.setItemByKey(key, JSON.stringify({ data: { order: ordersArr } }));
           return
         }
       }
-      /* ---------------- -- */
+      /* ------ */
 
       (resultJson.data.order).push(this.datas.order[0] as Position);
       this.setItemByKey(key, JSON.stringify({ data: { order: resultJson.data.order } }));
@@ -121,12 +112,16 @@ export class DispatcherStorage {
       const arr = (result?.data.order as Array<Position>);
       const newArr = [];
       for (let i = 0; i < arr.length; i++) {
-        if (arr[i].id !== Number(idLine)) {
+        if (i !== (idLine - 1)) {
           newArr.push(arr[i]);
         }
       }
       localStorage.removeItem(key);
       this.setItemByKey(key, JSON.stringify({ data: { order: newArr } }));
     }
+  }
+
+  removAll(key: string): void {
+    localStorage.removeItem(key);
   }
 }

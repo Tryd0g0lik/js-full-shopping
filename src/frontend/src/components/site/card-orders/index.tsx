@@ -1,6 +1,6 @@
 // `src\frontend\src\components\site\table\index.tsx`
 import React, { JSX } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { Position } from '@type';
 
 
@@ -11,6 +11,7 @@ import { Position } from '@type';
  * @returns teble, it's React.JSX.Element
  */
 export default function CartFc({ ...props }): JSX.Element {
+  const navigate = useNavigate();
   let sum = 0;
   const rest = props.order;
   for (let i = 0; i < props.order.length; i++) {
@@ -19,6 +20,11 @@ export default function CartFc({ ...props }): JSX.Element {
     sum += (quantility * price);
   } 
 
+  const handlerProductNameReference = (ref: string): (e: MouseEvent) => void => {
+    return (e: MouseEvent): void => {
+      navigate(ref);
+    }
+  }
   return (
     <table className="table table-bordered">
       <thead>
@@ -36,15 +42,16 @@ export default function CartFc({ ...props }): JSX.Element {
         {
           (rest).map((item: Position, index: number) => (
             <tr key={index}>
-              <td scope="row">{index}</td>
-              <td><a href="/products/1.(html">{(item as Position).title ?? ''} </a></td>
+              <td scope="row">{index + 1}</td>
+              <td><a href={item.pathname} onClick={handlerProductNameReference(item.pathname as string)}>{(item as Position).title ?? ''} </a></td>
               <td>{(item as Position).size !== (undefined) ? (item as Position).size : ''}</td>
               <td>{(item as Position).quantility !== (undefined) ? (item as Position).quantility : ''}</td>
               <td>{(item as Position).price !== (undefined) ? (item as Position).price : '0 '} руб.</td>
 
-              <td > {((item as Position).quantility !== (undefined)) ? ((item as Position).quantility) : 0 *
-                ((((item).price) !== undefined) ? (item).price : 0)} руб.</td >
-              <td><button data-index={String(item.id)} className="btn btn-outline-danger btn-sm">Удалить</button></td>
+              <td > {((item.quantility !== undefined) && (item.price !== undefined))
+                ? ((item.quantility as number) * item.price)
+                : 0} руб.</td >
+              <td><button data-row={index + 1} data-index={String(item.id)} className="btn btn-outline-danger btn-sm">Удалить</button></td>
             </tr >
           ))
         }

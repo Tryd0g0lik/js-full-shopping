@@ -1,7 +1,7 @@
 // src\frontend\src\services\server.ts
 import { PositionFC } from '@site/Positions';
 import {
-  Str, Request, Val, Position,
+  Str, Requests, POSTRequests, Val, Position,
   PromiseOne, ReadOnlyFunction,
   Categories, Category, HandlerPositionVal
 } from '@type';
@@ -20,6 +20,8 @@ export class SFetch {
 
   q_: { q: string } | undefined;
 
+  orders: Requests["order"] | undefined;
+
   topSales: boolean | undefined;
 
   index: number;
@@ -34,16 +36,19 @@ export class SFetch {
   }
 
   /**
-   * Here an one parameter is before request for server
+   * This's a SET-function. Here only create data for to sends
+   * Here an one parameter geting before request to the server
+   * The Enntry point getting the 'value' param 
    *
-   * Here must send `{offset: number}` or `{q: string}` or `{'top-sales': boolean }`
-   * or `{'categories': true }` to the entry point.
+   * 
+   * 
    * @param `value` is `{offset: number}` or `{q: string}`or `{'top-sales': true }` or `{'categories': true }`
-   *
+   * or `{order: }` -  JSON
+   * @returns < not descriptions >, The 'this.orders' has a value '{order: < JSON >}'
    */
-  set requestOneBefore(value: Request) {
+  set requestOneBefore(value: Requests) {
     const keys: string = Array.from(Object.keys({ ...value }))[0];
-    const val: string | number | boolean = Array.from(Object.values({ ...value }))[0];
+    const val: string | number | boolean | Requests["order"] = Array.from(Object.values({ ...value }))[0];
 
     if (keys.includes('offset')) {
       this.offsetsNumber = { offset: val as number };
@@ -51,28 +56,33 @@ export class SFetch {
       this.topSales = true;
     } else if (keys.includes('categories')) {
       this.categories = true;
+    } else if (keys.includes('order')) {
+      this.orders = val as Requests["order"];
     } else {
       this.q_ = { q: val as string };
     }
   }
 
   /**
-   *  Here we getting an one parameter before request for the server
+   *  This's GET-function.
+   *  Here only recive a data from the SET-function and transfer to the method 'requestOneParamAsync'
    *
    * @returns `{offset: number}` - Here is a dowloand more.
    * Or `{q: string}` - Here is a text for a surching row.
    * Or `{ 'top-sales': boolean }` - Here is a top of sales.
    * Or `{'top-sales': boolean }` - Here is an array categories
-   *
+   * Or the 'this.orders'. It's has a value '{order: < JSON.stringify >}'
    */
   get requestOneBefore(): { offset: number } | { q: string } | { 'top-sales': boolean } |
-  { categories: boolean } {
+  { categories: boolean } | { 'api-order': true } {
     if (this.offsetsNumber !== undefined) {
       return this.offsetsNumber;
     } else if (this.topSales !== undefined) {
       return { 'top-sales': true };
     } else if (this.categories !== undefined) {
       return { categories: true };
+    } else if (this.orders !== undefined) {
+      return { 'api-order': true };
     }
     return this.q_ as { q: string };
   }
@@ -95,8 +105,11 @@ export class SFetch {
   }
 
   /**
-   *  Here is received datas after a request for the server.
-   *
+   * 
+   *  Here is: 
+   *  - sending datas to the server througth 'Fetch'.
+   *  - received datas after a request for the server.
+   *  
    * This a method getting datas from a `this.requestOneBefore`. It's a firs row.
    * It keep value of type `{ offset: number }` or `{ q: string }`.
    *
@@ -106,12 +119,12 @@ export class SFetch {
    *  - a `q` to return the path name `?q=${val}`. `http://localhost:7070/api/items?q=<text for search row>`
    *  - a `top-sales` to return the path name `top-sales` `http://localhost:7070/api/top-sales`.
    *  - a `categories` to return the path name `categories``http://localhost:7070/api/categories`.
+   *  - a `api-order` to return the path name `categories``http://localhost:7070/api/order`. It's 'POST' request
    * After creating the URL-addres server do requst from `fetch()`
    * ....
    *
    * Type: 'PromisePosition' => 'void | Position[]'
-   *
-   * Type: 'Position[]' =>
+   *  @type: 'Position[]': =>
    *  @prop `id?`: `number`
     * @prop `category?`: `number`
     * @prop `title?`: `string`
@@ -127,13 +140,18 @@ export class SFetch {
     * @prop `oldPrice?`: `number`
     * @prop `sizes?`: `[Record<string, boolean>]`
     * @prop `children?`: React.JSX.Elements
+    * @prop `{order: Requests["order"]}` for sending an order from user
+    * 
+    * @param `handler` : `typeof useState` 
+    * @param `get`: `boolean`. Default value is 'true'. It's a 'GET' type request.  Value 'false' means a 'POST" type request.
    * @returns type 'Promise<PromisePosition>'
    */
-  async requestOneParamAsync(handler: (value: HandlerPositionVal) => void): Promise<HandlerPositionVal | void> {
+  async getRrequestOneParamServer(handler: (value: HandlerPositionVal | number) => void, get = true): Promise<HandlerPositionVal | void> {
     const value: { offset: number } |
     { q: string } | { 'top-sales': boolean } |
-    { categories: boolean } = this.requestOneBefore;
-
+    { categories: boolean } | { 'api-order': boolean } = this.requestOneBefore;
+    // debugger
+    /* ------------------- */
     const url = this.urls.slice(0);
     let pathName: Val = '';
     /* receive the key name */
@@ -141,37 +159,64 @@ export class SFetch {
     /* received data from values */
     const val = Array.from(Object.values(value))[0];
 
-    /* */
-    if (key.includes('offset')) {
-      pathName = `/items/?offset=${val}`;
-    } else if (key.includes('top-sales') && (val === true)) {
-      pathName = '/top-sales';
-    } else if (key.includes('categories') && (val === true)) {
-      pathName = '/categories';
+    /* ------------------- */
+    if (get === true) {
+      if (key.includes('offset')) {
+        pathName = `/items/?offset=${val}`;
+      } else if (key.includes('top-sales') && (val === true)) {
+        pathName = '/top-sales';
+      } else if (key.includes('categories') && (val === true)) {
+        pathName = '/categories';
+      }
+      else {
+        pathName = `/items/?q=${val}`;
+      }
     } else {
-      pathName = `/items/?q=${val}`;
+      if ((key.includes('order'))) {
+        pathName = '/api/order';
+      }
     }
 
+    /* ----------server.ts:231 The fetch request was aborted:  TypeError: Failed to construct 'Request': Invalid name--------- */
     const signal = this.controller.signal;
     try {
-      const answer = await fetch(url + pathName, { signal });
+      const objEmpty = new Object();
+      const params = (get === true)
+        ? objEmpty
+        : {
+          method: 'POST',
+          body: {
+            ...this.orders
+          },
+          headers: {
+            "Content-Type:": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        } as POSTRequests;
+
+      const req = url + pathName;
+      const answer = await fetch(req, params);
 
       if (answer.ok) {
         const answerJson = await this.parserResponseAsJson(answer);
 
         /* Below: The useState hook for update state from a React */
+
         let responce: unknown | Position[] = '';
         if ((answerJson !== null) && (answerJson !== undefined)) {
           responce = answerJson;
           if (key.includes('offset')) {
             responce = Array.from(Object.values({ ...answerJson }));
-            // handler(oldOffset as Position[]);
-            // handler(responce as Position[]);
-            // console.log(`[server.ts/SFetch][/offset 6+] Recived: ${Array.isArray(responce)} first Value: ${(responce as Position[]).length}`);
             handler(responce as Position[]);
             return;
           }
+          if (get === false) {
+            handler((-1))
+            return
+          }
+
           handler(responce as Position[]);
+
         }
 
         // this.offsetsNumber = undefined;
@@ -187,6 +232,7 @@ export class SFetch {
       console.warn('The fetch request was aborted: ', err);
     }
   }
+
 
   cansellFetch<ReadOnlyFunction>(): void {
     this.controller.abort();

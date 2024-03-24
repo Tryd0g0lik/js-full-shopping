@@ -8,16 +8,13 @@ import ImageFC from '@site/Img.tsx';
 
 /* Teble */
 import CartFc from '@site/card-orders/index.tsx';
-/* Levels from a form */
-import FormFC from '@site/Forms/index.tsx';
-import InputsFC from '@site/Forms/Imputs.tsx';
-import LabelFC from '@site/Forms/Lebel.tsx';
-import ButtonFC from '@site/Forms/Button.tsx';
 
 import { DispatcherStorage } from '@service/postman';
 import { Position } from '@type';
 
 import useAddCard from '@service/card/add';
+import CartFormFC from '@site/CartForm';
+import { SFetch } from '@service/server';
 const dispatch = new DispatcherStorage();
 function oldStatePositions(): Position[] {
   const adding = useAddCard();
@@ -39,24 +36,99 @@ function oldStatePositions(): Position[] {
  */
 export function CartMainFC(): JSX.Element {
   const [orders, setOrders] = useState<Position[]>(() => oldStatePositions());
+  const [zero, setZero] = useState<number>(0);
+
   const handlerDeleter = useCallback((ev: React.MouseEvent) => {
     ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);
     if ((indexLine.tagName.includes('BUTTON')) && (indexLine.innerText.includes('Удалить'))) {
-      const n: number = Number(indexLine.dataset.index);
+      const n: number = Number(indexLine.dataset.row);
+
       dispatch.deleteOneOfLocalStorage('order', n);
 
       const dataObj = dispatch.getOfLocalStorage('order');
       const datas = (dataObj as { data: { order: Array<Position[]> } }).data.order as Position[];
+      setZero(1)
       setOrders([...datas]);
     }
 
   }, []);
+  const hadlerform = useCallback((ev: React.MouseEvent) => {
+    ev.preventDefault();
+    const indexLine = (ev.target as HTMLElement);
+    if (orders.length === 0) return
+    // debugger
+    const ordersArr = [...orders];
+    if ((indexLine.localName.includes('button')) && (indexLine.innerText.includes('Оформить'))) {
+      const userPhones = (document.getElementById('phone') as HTMLInputElement).value
+      const userAddress = (document.getElementById('address') as HTMLInputElement).value;
+
+      const checker = true
+      /**
+       const checker = (((phoneDiv !== null) && (phoneDiv.innerHTML.length > 5))
+        ? (
+          ((addressDiv !== null) && (addressDiv.innerHTML.length > 5))
+            ? (((checkbox !== null) && (checkbox.checked))
+                          ? true
+                          : false
+                        )
+            : false
+        )
+        : false
+      ); 
+      * /
+      /**
+       * Below is a template data
+       * {
+       *   "owner": {
+       *     "phone": "+7xxxxxxxxxxx",
+       *     "address": "Moscow City",
+       *   },
+       *   "items": [
+       *     {
+       *       "id": 1,
+       *       "price": 34000,
+       *       "count": 1
+       *     }
+       *   ]
+       * }
+       *  
+       */
+      // debugger
+      // if (checker === true) {
+      let newStateOrders: { id: number; price: number; count: number; }[] = []
+      ordersArr.forEach((elem) => {
+        newStateOrders.push({
+          id: elem.id as number,
+          price: elem.price as number,
+          count: elem.quantility as number
+        });
+      });
+      const orders = {
+        owner: {
+          phone: userPhones,
+          address: userAddress,
+        },
+        items: newStateOrders
+      }
+      // debugger
+      const url = process.env.REACT_APP_URL as string + ':' + process.env.REACT_APP_BPORT as string;
+      const request = new SFetch(url);
+      request.requestOneBefore = { order: { ...orders } };
+      request.getRrequestOneParamServer(setZero as typeof useState, false);
+
+      // }
+      if (zero < 0) {
+        dispatch.removAll('order');
+        setOrders([]);
+      }
+    }
+  }, [orders, zero])
   const remov = { order: orders }
 
   return (
     <>
-      <main className="container">
+      <main className="container" >
         <div className="row">
           <div className="col">
             {/** Баннер (top) - К весне готовы */}
@@ -69,31 +141,13 @@ export function CartMainFC(): JSX.Element {
             <section onClick={(e: React.MouseEvent) => { handlerDeleter(e) }} className="cart">
               {/* Корзина  - заголовок & таблица */}
               <HeadFC number={2} classes='text-center' title='Корзина' />
-              <CartFc {...remov} />              
-              {/* <CardMemo {...orders} /> */}
+              <CartFc {...remov} />
             </section>
-            <section className="order">
+            <section onClick={(e: React.MouseEvent) => hadlerform(e)} className="order">
               {/* Оформить заказ */}
-              <HeadFC number={2} classes='text-center' title='Оформить заказ' />
-              <div className="card" style={{ maxWidth: '30rem', margin: '0 auto' }}>
-                <FormFC classes='card-body'>
-                  <Fragment>
-                    <div className="form-group">
-                      <LabelFC htmlfor='phone' context='Телефон' />
-                      <InputsFC classes='form-control' ind="phone" placeholder="Ваш телефон" />
-                    </div>
-                    <div className="form-group">
-                      <LabelFC htmlfor="address" context='Адрес доставки' />
-                      <InputsFC classes='form-control' ind="address" placeholder="Адрес доставки" />
-                    </div>
-                    <div className="form-group form-check">
-                      <InputsFC classes='form-check-input' types='checkbox' ind="agreement" />
-                      <LabelFC classes='form-check-label' htmlfor="agreement" context='Согласен с правилами доставки' />
-                    </div>
-                    <ButtonFC classes='btn btn-outline-secondary' context='Оформить' />
-                  </Fragment>
-                </FormFC>
-              </div>
+              {
+                (orders.length > 0) ? <CartFormFC /> : null
+              }
             </section>
           </div>
         </div>

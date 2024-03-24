@@ -1,5 +1,5 @@
 // src\frontend\src\components\site\Forms\index.tsx
-import React, { FormEvent, JSX } from 'react';
+import React, { JSX } from 'react';
 import { MultiProps } from '@type';
 // const handler = (e: FormEvent): void => {
 //   e.preventDefault();

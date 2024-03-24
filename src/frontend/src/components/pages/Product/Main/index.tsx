@@ -1,6 +1,6 @@
 import { Position } from '@type';
-import React, { JSX, useEffect } from 'react';
-import { useAsyncValue } from 'react-router-dom';
+import React, { JSX } from 'react';
+import { useAsyncValue, useLocation } from 'react-router-dom';
 import { handlerMinus } from './handler-events/calculator.ts';
 import { handlerSize } from './handler-events/sizer.ts';
 import { handlerButtom } from './handler-events/handlerButton.ts';
@@ -8,6 +8,7 @@ import baner from '@img/banner.jpg';
 import { storeGetstate } from '@reduxs/store.ts';
 
 export function ProductMainFC(): JSX.Element {
+
   const params = useAsyncValue() as Position;
   const { id, images, price, title, sku, manufacturer, color, material, season, reason, sizes, ...param } = { ...params };
 
@@ -29,7 +30,7 @@ export function ProductMainFC(): JSX.Element {
                 <img src={img}
                   className="img-fluid" alt="" />
               </div>
-              <div className="col-7">
+              <div className="col-7" onMouseOver={handlerChackeOrder}>
                 <table className="table table-bordered">
                   <tbody>
                     <tr>
@@ -75,14 +76,14 @@ export function ProductMainFC(): JSX.Element {
                       })
                     }
                   </p>
-                  <p>Количество: <span className="btn-group btn-group-sm pl-2" onClick={handlerMinus}>
+                  <p onClick={handlerMinus}>Количество: <span className="btn-group btn-group-sm pl-2" >
                     <button className="btn btn-secondary" data-type='minus'>-</button>
                     <span data-type="quantility" className="btn btn-outline-primary">0</span>
                     <button className="btn btn-secondary" data-type='plus'>+</button>
                   </span>
                   </p>
                 </div>
-                <button className="btn btn-danger btn-block btn-lg" onClick={handlerButtom}>В корзину</button>
+                <button className="btn btn-block btn-lg" data-type='sendOrder' onClick={handlerButtom}>В корзину</button>
               </div>
             </div>
           </section>
@@ -91,3 +92,15 @@ export function ProductMainFC(): JSX.Element {
     </main>
   );
 }
+
+const handlerChackeOrder: React.MouseEventHandler<HTMLDivElement> = (e) => {
+  const sizes = (document.querySelector('span[data-size].catalog-item-size.selected') as HTMLElement);
+  const countQuantility = (document.querySelector('span[data-type="quantility"]') as HTMLElement);
+
+  if (((countQuantility !== null) && (Number(countQuantility.innerHTML) === 0)) || (sizes === null)) {
+    const button = (document.querySelector('button[data-type="sendOrder"]') as HTMLElement);
+    button.classList.remove('btn-danger');
+  }
+
+}
+

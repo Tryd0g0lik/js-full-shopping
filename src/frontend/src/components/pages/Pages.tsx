@@ -1,23 +1,20 @@
 import React, { JSX } from 'react';
-import { Pages, Position, PositionLoader } from '@type';
+import { Pages, PositionLoader } from '@type';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HomepageFC } from './Home/index.tsx';
-/* below is a code for loaded.html */
-import { LoadedpageFC } from './Loaded/index.tsx';
 /* below is a code for contacts.html */
 import { ContactspageFC } from './Contacts/index.tsx';
 /* below is a code for catalog.html */
 import { CatalogpageFC } from './Catalog/index.tsx';
 /* below is a code for catalog.html */
-import { CartFC, CartpageFC } from './Cart/imdex.tsx';
+import { CartpageFC } from './Cart/imdex.tsx';
 /* below is a code for about.html */
 import { AboutpageFC } from './About/index.tsx';
 /* below is a code for 404.html */
 import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
-import ReactDOM from 'react-dom';
-import { createRoot } from 'react-dom/client';
+import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
 
 /**
  * Determine the route
@@ -52,11 +49,7 @@ export function PagesFC(): JSX.Element {
       path: Pages.Contacts,
       element: < ContactspageFC />
     },
-    // <Route path={Pages.Loaded} element={<LoadedpageFC />} />
-    {
-      path: Pages.Loaded,
-      element: < LoadedpageFC />
-    },
+
     // <Route path={Pages.Home} element={<HomepageFC />} />
     {
       path: Pages.Home,
@@ -68,27 +61,28 @@ export function PagesFC(): JSX.Element {
       element: < UnderfinedpageFC />
     },
     {
-      path: '/card',
+      path: Pages.Cart,
       element: <CartpageFC />
     },
     {
-      path: '/',
+      path: Pages.Home,
       loader: LoaderCatalogId,
-      id: 'root',
+      id: 'subroot',
       children: [
         {
-          path: '/catalog/:id',
+          path: Pages.Product,
           loader: LoaderCatalogId,
           element: <ProductFC />
         }
       ],
       element: <ProductFC />
-    }
+    },
+
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <AuthSearchProvider>
+      {/* все что обврнули, получает 'text' черезе 'useContext' */}
+      < RouterProvider router={router} />
+    </AuthSearchProvider>
+  )
 }
-
-
-// createRoot(el).render(
-//   <RouterProvider router={router} />
-// );

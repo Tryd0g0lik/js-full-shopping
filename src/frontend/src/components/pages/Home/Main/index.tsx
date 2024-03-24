@@ -6,87 +6,50 @@ import ImageFC from '@site/Img.tsx';
 import ImLoader from '@site/ImgLoader.tsx';
 import { PositionFC } from '@site/Positions/index.tsx';
 import { SFetch } from '@service/server.ts';
-import { HandlerPositionVal } from '@type';
-import UseCategoriesFC from '@site/Categories.tsx';
+import { CatalogSearched, HandlerPositionVal, Position } from '@type';
+import Categories from '@site/Categories/index.tsx';
 
-/* REDUX */
-import { storeDispatch } from '@reduxs/store.ts';
-
-import changeCategory from '@reduxs/changeCategoryDispatch.ts';
-import { Categories } from '@reduxs/interfaces.ts';
-import { CatalogFC } from '@site/Catalog.tsx';
+import handlerCategories from '@site/Categories/handlers.ts'
+import useSearchedJSX from '@site/catalog-searcher/UseSearched';
 
 const REACT_APP_URL = process.env.REACT_APP_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
-
-const setUserCategory = (intstate: number = 1): void => {
-  const state = changeCategory(intstate);
-  const categories: Categories = {
-    type: 'CATEGORY',
-    name: state.name,
-    payload: state.payload
-  };
-  storeDispatch({ ...categories });
-};
-
 /* The top-sales from a server request */
 /**
  * `src\frontend\src\components\pages\Home\Main\index.tsx`
  *
- * `import { UseMainFC } from './Main/index.tsx';`
- *
+ * `import { UseMainFC } from './Main/index.tsx';` \
  * This  works with a `Redux` funnction
  */
 export function UseMainFC(): JSX.Element {
   // /* REDUX tools */
   /* This datas  is a state for the top-sales */
   const [topsales, useTopsales] = useState<HandlerPositionVal>(); // top-sales
-  const [category, useCategory] = useState<HandlerPositionVal>(); // THis a dashbord of ctegories
+  const [category, setCategory] = useState<HandlerPositionVal>();
 
   useEffect(() => {
     const serverTopSales = new SFetch(url);
     /* create a request to the server | '/top-sales' */
     serverTopSales.requestOneBefore = { 'top-sales': true };
-    serverTopSales.requestOneParamAsync(useTopsales);
+    serverTopSales.getRrequestOneParamServer(useTopsales as typeof useState);
   }, [useTopsales]);
-
   useEffect(() => {
     const serverCategory = new SFetch(url);
-    /* create a request to the server | '/categories' */
+    /* Categories - create a request to the server. Loade the category title list  */
     serverCategory.requestOneBefore = { categories: true };
-    serverCategory.requestOneParamAsync(useCategory);
-  }, [useCategory]);
+    serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
 
-  /* There is below a request to server | '/items/?offset=6' and
-  * here the is listener for listening a button name 'Загрузить ещё'
-  */
-  /* There is below a filter categories. It's a category number  | '/categories'  */
+  }, [setCategory]);
 
-  const handlerFilterCategories = (event: MouseEvent): void => {
-    event.preventDefault();
-    const target = (event.target as HTMLAnchorElement);
+  /* ------ */
+  useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
+  const catalogSearched: CatalogSearched = {
+    categoryNumber: 1 as CatalogSearched['categoryNumber'],
+    inputValue: undefined
+  }
 
-    const categoryUSerNumber = Number(target.dataset.category);
-    setUserCategory(categoryUSerNumber);
-  };
-
-  const handlerCaegoriesForUseEffect = (): () => void => {
-    const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item'));
-
-    for (let i = 0; i < navCategories.length; i++) {
-      (navCategories[i] as HTMLLIElement).addEventListener('click', handlerFilterCategories);
-    }
-
-    return () => {
-      /* object will be removed */
-      for (let i = 0; i < navCategories.length; i++) {
-        (navCategories[i] as HTMLLIElement).removeEventListener('click', handlerFilterCategories);
-      }
-    };
-  };
-  useEffect(handlerCaegoriesForUseEffect, [handlerFilterCategories]);
-
+  let catalog: JSX.Element = useSearchedJSX({ ...catalogSearched })
   return (
     <main className="container">
       <div className="row">
@@ -119,21 +82,13 @@ export function UseMainFC(): JSX.Element {
           </section>
           <section className="catalog">
             <HeadFC number={2} classes='text-center' title='Каталог' />
-            {/* Category menu. It is based at variable: "category". | '/items/?offset=6'
-             It's type Array ("Position[]|undefined") */
-              (category !== undefined)
-                ? (
-                  <UseCategoriesFC {...category} />
-                )
-                : (
-                  < ImLoader />
-                )
-            }
+            <Categories order={category as Position[]} />
             { /* -------------- */}
-            <CatalogFC />
+            {catalog}
           </section>
         </div>
       </div>
     </main>
-  );
+  )
 }
+

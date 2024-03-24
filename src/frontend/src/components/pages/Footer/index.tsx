@@ -3,7 +3,6 @@ import LiFC from '@site/Li.tsx';
 import AncorFC from '@site/Ancor.tsx';
 import { Pages } from '@type';
 import HeadFC from '@site/Headers.tsx';
-import { HeaderFC } from '@pages/Header/index.tsx';
 import DivFC from '@site/Div.tsx';
 
 const footerMenuArr = [

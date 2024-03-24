@@ -3,10 +3,11 @@
 import { PositionsCard } from '@type';
 import { storeDispatch } from '@reduxs/store.ts';
 import { DispatcherStorage } from '@service/postman';
-import { Position } from '@type';
-import { useNavigate } from 'react-router-dom';
+
 export function handlerButtom(event: React.MouseEvent): void {
+
   event.stopPropagation();
+
   const position = document.querySelector('.catalog-item') as HTMLElement;
   const index = (document.querySelector('section[data-ind]') as HTMLElement);
   const name = (document.querySelector('h2.text-center') as HTMLElement);
@@ -21,7 +22,6 @@ export function handlerButtom(event: React.MouseEvent): void {
   if (sizes === null) {
     return;
   }
-  console.log(`#1 [Product/Main][ProductMainFC][handlerEvent] Index: ${index.dataset.ind} `);
 
   /* Note: 'storeDispatch' is below.
   Bossible in delete/
@@ -37,12 +37,13 @@ export function handlerButtom(event: React.MouseEvent): void {
       title: name.innerHTML,
       size: sizes.innerHTML,
       quantility: Number(countQuantility.innerHTML),
-      price: Number(prices)
+      price: Number(prices),
+      pathname: location.pathname
     }]
   };
 
   storeDispatch(order);
   const dispatch = new DispatcherStorage(order);
   dispatch.setToLocalStorage('order');
-  location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT + '/card';
+  location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT + '/cart';
 }
