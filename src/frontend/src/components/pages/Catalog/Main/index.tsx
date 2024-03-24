@@ -19,9 +19,9 @@ import handlerCategories from '@site/Categories/handlers.ts'
 import BigSerachFormFC from '@site/catalog-searcher/bigSearchForm.tsx';
 import useSearchedJSX from '@site/catalog-searcher/UseSearched.tsx';
 
-const REACT_APP_URL = process.env.REACT_APP_URL as string;
+const REACT_APP_RENDER_URL = process.env.REACT_APP_RENDER_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
-const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
+const url = REACT_APP_RENDER_URL + ':' + REACT_APP_BPORT + '/api';
 
 /**
  * src\frontend\src\components\pages\Catalog\Main\index.tsx

@@ -30,7 +30,7 @@ export function PositionFC({ title, id, category = undefined, price = 0, childre
 
   const ind: string = (id !== undefined) ? String(id) : '9999';
   const pathes = `/catalog/${ind}`;
-  // process.env.REACT_APP_URL = process.env.REACT_APP_FPORT + pathes;
+
   const result = (category !== undefined)
     ? (
       <div className="col-4" data-category={category}>

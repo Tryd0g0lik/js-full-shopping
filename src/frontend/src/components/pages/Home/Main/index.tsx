@@ -12,9 +12,9 @@ import Categories from '@site/Categories/index.tsx';
 import handlerCategories from '@site/Categories/handlers.ts'
 import useSearchedJSX from '@site/catalog-searcher/UseSearched';
 
-const REACT_APP_URL = process.env.REACT_APP_URL as string;
+const REACT_APP_RENDER_URL = process.env.REACT_APP_RENDER_URL as string;
 const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
-const url = REACT_APP_URL + ':' + REACT_APP_BPORT + '/api';
+const url = REACT_APP_RENDER_URL + ':' + REACT_APP_BPORT + '/api';
 /* The top-sales from a server request */
 /**
  * `src\frontend\src\components\pages\Home\Main\index.tsx`
