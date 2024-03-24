@@ -19,7 +19,8 @@ module.exports = merge(webpackFront, {
       patterns: [
         { from: './public/manifest.json', to: './', },
         { from: './public/logo512.png', to: './', },
-        { from: './public/logo192.png', to: './', }
+        { from: './public/logo192.png', to: './', },
+        { from: './src/backend/src', to: './server' }
       ],
     }),
     new HtmlWebpackPlugin({
