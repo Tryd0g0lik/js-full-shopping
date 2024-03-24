@@ -8,7 +8,7 @@
     "starts": "forever ./src/server.js",
     "watch": "forever -w ./src/server.js",
     "start": "node ./src/server.js localhost 7070",
-    "build:render": "webpack"
+    "build:render": "npm run starts"
   },
   "author": "",
   "license": "ISC",
