@@ -19,7 +19,7 @@ import { Location } from 'react-router-dom';
 import { ProductMainFC } from './Product/Main/index.tsx';
 
 
-const rootPathName = process.env.REACT_APP_ROOT_PATH_NAME || '';
+const rootPathName = process.env.REACT_APP_GITHUB_URL || '';
 
 
 /**
