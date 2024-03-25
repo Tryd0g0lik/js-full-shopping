@@ -13,22 +13,22 @@ const topMenuArr = [
   {
     id: 1,
     title: 'Главная',
-    path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Home) : Pages.Home)  // Pages.Home
+    path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Home) : Pages.Home  // Pages.Home
   },
   {
     id: 2,
     title: 'Каталог',
-    path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Catalog) : Pages.Catalog)  // Pages.Catalog
+    path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Catalog) : Pages.Catalog  // Pages.Catalog
   },
   {
     id: 3,
     title: 'О магазине',
-    path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Cart) : Pages.Cart), // Pages.About
+    path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Cart) : Pages.Cart, // Pages.About
   },
   {
     id: 4,
     title: 'Контакты',
-    path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Contacts) : Pages.Contacts)  // Pages.Contacts
+    path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Contacts) : Pages.Contacts  // Pages.Contacts
   }
 ];
 

@@ -35,39 +35,39 @@ export function PagesFC(): JSX.Element {
   const router = createBrowserRouter([
     // <Route path={Pages.About} element={<AboutpageFC />} />
     {
-      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.About) : Pages.About), // Pages.About,
+      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.About) : Pages.About, // Pages.About,
       element: <AboutpageFC />
     },
     // <Route path={Pages.Cart} element={<CartpageFC />} />
     {
-      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Cart) : Pages.Cart), // Pages.About,
+      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Cart) : Pages.Cart, // Pages.About,
       element: <CartpageFC />
     },
     // <Route path={Pages.Catalog} element={<CatalogpageFC />} />
     {
-      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Catalog) : Pages.Catalog), // Pages.Catalog,
+      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Catalog) : Pages.Catalog, // Pages.Catalog,
       element: < CatalogpageFC />
     },
     {
       // < Route path = { Pages.Contacts } element = {< ContactspageFC />} />
-      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Contacts) : Pages.Contacts), // Pages.Contacts,
+      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Contacts) : Pages.Contacts, // Pages.Contacts,
       element: < ContactspageFC />
     },
     {
-      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Home) : Pages.Home), // Pages.Home,
+      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Home) : Pages.Home, // Pages.Home,
       element: < HomepageFC />
     },
     {
-      path: (rootPathName.includes('shopping/') ? ('/shopping' + '*') : '*'), // '*',
+      path: '*', // '*',
       element: < UnderfinedpageFC />
     },
     {
-      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Home) : Pages.Home), // Pages.Home,
+      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Home) : Pages.Home, // Pages.Home,
       loader: LoaderCatalogId,
       id: 'subroot',
       children: [
         {
-          path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Product) : Pages.Product), // Pages.Product,
+          path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Product) : Pages.Product, // Pages.Product,
           loader: LoaderCatalogId,
           element: <ProductFC />
         }
