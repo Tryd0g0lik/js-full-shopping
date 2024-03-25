@@ -91,14 +91,14 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     reduxSetUserCatalog(position);
   }
 
-  const sercgedPosition = ((prop.inputValue !== undefined) && (prop.inputValue.length > 0))
-    ? searching(prop.inputValue, (position !== undefined) ? position : [])
+  const sercgedPosition = ((prop.val !== undefined) && (prop.val.length > 0))
+    ? searching(prop.val, (position !== undefined) ? position : [])
     : (position !== undefined) ? position : [];
 
   const catalog: CatalogSearched = {
     categoryNumber: categoryNumbers,
     positions: sercgedPosition,
-    inputValue: undefined
+    val: undefined
   } 
 
   return <CatalogFC {...catalog} />

@@ -16,7 +16,7 @@ export const AuthSearchProvider = ({ children }: any) => {
 
 
   return ( // Провайдер - обхватим ве страницы
-    <OurContext.Provider value={{ searchly: text as string, method: searcher } as SearchContext}>
+    <OurContext.Provider value={{ searchly: text as string, method: searcher }}>
       {children}
     </OurContext.Provider>)
 }

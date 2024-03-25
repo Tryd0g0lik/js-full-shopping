@@ -1,9 +1,7 @@
 // src\frontend\src\services\server.ts
 import { PositionFC } from '@site/Positions';
 import {
-  Str, Requests, POSTRequests, Val, Position,
-  PromiseOne, ReadOnlyFunction,
-  Categories, Category, HandlerPositionVal
+  Str, Requests, POSTRequests, Val, Position, HandlerPositionVal
 } from '@type';
 import { ErrorInfo } from 'react';
 /**

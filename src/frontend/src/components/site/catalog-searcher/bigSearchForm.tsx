@@ -15,7 +15,7 @@ export default function BigSerachFormFC({ ...props }: SearchForm): React.JSX.Ele
       e.preventDefault();
     }
   }
-
+  // debugger
   return (
     <form className='catalog-search-form form-inline'  >
       <label htmlFor="search" onKeyDown={handlerKeyboardEnter}>

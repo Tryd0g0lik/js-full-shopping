@@ -34,7 +34,9 @@ export default function SmallSerachFormFC(): React.JSX.Element {
     searchTime = setTimeout(() => {
       if ((target.value).includes(oldSearchly)) {
         method(oldSearchly as string, () => navigate(fromPage, { state: { searchly: oldSearchly } }) as SearchContext['method']);
+        // method(oldSearchly as string, () => navigate(fromPage, { state: { searchly: null } }) as SearchContext['method']);
       }
+
     }, 700);
   }
 

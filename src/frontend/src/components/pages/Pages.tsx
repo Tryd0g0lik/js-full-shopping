@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
-import { Pages, PositionLoader } from '@type';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Pages, Position, PositionLoader } from '@type';
+import { useNavigate, createBrowserRouter, RouterProvider, RelativeRoutingType } from 'react-router-dom';
 import { HomepageFC } from './Home/index.tsx';
 /* below is a code for contacts.html */
 import { ContactspageFC } from './Contacts/index.tsx';
@@ -15,6 +15,9 @@ import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
 import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
+import { Location } from 'react-router-dom';
+import { ProductMainFC } from './Product/Main/index.tsx';
+
 
 /**
  * Determine the route
@@ -22,7 +25,7 @@ import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
  */
 export function PagesFC(): JSX.Element {
   const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
-    const respons = await fetch(`http://localhost:7070/api/items/${params.id}`);
+    const respons = await fetch(process.env.REACT_APP_RENDER_URL + `/api/items/${params.id}`);
     if (!respons.ok) {
       throw new Error('Status of respons is 404 (position not found)');
     }
@@ -49,13 +52,10 @@ export function PagesFC(): JSX.Element {
       path: Pages.Contacts,
       element: < ContactspageFC />
     },
-
-    // <Route path={Pages.Home} element={<HomepageFC />} />
     {
       path: Pages.Home,
       element: < HomepageFC />
     },
-    // <Route path='*' element={<UnderfinedpageFC />} />
     {
       path: '*',
       element: < UnderfinedpageFC />

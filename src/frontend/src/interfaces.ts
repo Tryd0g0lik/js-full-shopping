@@ -283,5 +283,5 @@ export interface SearchForm {
 export interface CatalogSearched {
   categoryNumber: 1 | 11 | 12 | 13 | 14 | 15
   positions?: Position[]
-  inputValue: string | undefined
+  val: string | undefined
 }

@@ -1,7 +1,7 @@
 // src\frontend\src\components\pages\Catalog\Main\index.tsx
 
 import React, { Fragment, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
@@ -20,6 +20,7 @@ import BigSerachFormFC from '@site/catalog-searcher/bigSearchForm.tsx';
 import useSearchedJSX from '@site/catalog-searcher/UseSearched.tsx';
 
 const REACT_APP_RENDER_URL = process.env.REACT_APP_RENDER_URL as string;
+const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
 const url = REACT_APP_RENDER_URL + '/api';
 
 /**
@@ -37,6 +38,7 @@ const url = REACT_APP_RENDER_URL + '/api';
 // export function DMainFC({ categories }: Categories): JSX.Element {
 export function DMainFC(): JSX.Element {
   const location = useLocation();
+  const [smallForm, setSmallForm] = useState<string | undefined>();
   const [category, setCategory] = useState<HandlerPositionVal>();
   const [valueSearch, setValueSearch] = useState<string | undefined>(undefined);
 
@@ -54,7 +56,7 @@ export function DMainFC(): JSX.Element {
     /* Categories - create a request to the server. Loade the category title list  */
     serverCategory.requestOneBefore = { categories: true };
     serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
-
+    setSmallForm(inputValue)
     setValueSearch(inputValue);
   }, [setCategory]);
 
@@ -65,30 +67,37 @@ export function DMainFC(): JSX.Element {
     clearTimeout(changeTime);
     const target = ev.target as HTMLInputElement;
 
-    if ((location?.state !== undefined) && (location.state.searchly !== undefined)) {
-      location.state.searchly === undefined
-    }
-    inputValue = target.value;
+    // if ((location?.state !== undefined) && (location.state.searchly !== undefined)) {
+    //   setValueSearch(location.state.searchly);
+    //   inputValue = valueSearch?.slice(0);
 
-    setValueSearch(inputValue)
+    // } else {
+    //   // debugger
+    //   inputValue = target.value || '';
+    // }
+
+    inputValue = undefined;
+    setSmallForm(inputValue);
+    setValueSearch(target.value);
 
 
   }
-
+  // debugger
   /* ------ */
   useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
 
   /* ------ */
   const catalogSearched = {
     categoryNumber: 1 as CatalogSearched['categoryNumber'],
-    inputValue: valueSearch
+    val: valueSearch
   }
   let catalog: JSX.Element = useSearchedJSX({ ...catalogSearched })
 
   const searchForm = {
-    search: inputValue
+    search: smallForm || ''
   }
 
+  // setTimeout(() => location.state.searchly = undefined, 1000);
   return (
     <>
       <main className="container">
