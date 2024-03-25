@@ -8,7 +8,7 @@ import { Pages, Position } from '@type';
 import { DispatcherStorage } from '@service/postman';
 import { QuantilityOrdersFC } from '@site/Orders';
 import SmallSerachFormFC from '@site/catalog-searcher/smallSearchForm';
-const rootPathName = ((window.location.pathname as string).includes('shopping')) ? '/shopping' : '';
+const rootPathName = ((window.location.pathname as string).includes('/shopping/')) ? '/shopping' : '';
 const topMenuArr = [
   {
     id: 1,
