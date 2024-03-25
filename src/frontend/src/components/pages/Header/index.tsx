@@ -8,27 +8,27 @@ import { Pages, Position } from '@type';
 import { DispatcherStorage } from '@service/postman';
 import { QuantilityOrdersFC } from '@site/Orders';
 import SmallSerachFormFC from '@site/catalog-searcher/smallSearchForm';
-const rootPathName = ((window.location.pathname as string).includes('shopping')) ? '/shopping' : '';
+const rootPathName = ((window.location.pathname as string).includes('/shopping/')) ? '/shopping' : '';
 const topMenuArr = [
   {
     id: 1,
     title: 'Главная',
-    path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Home) : Pages.Home  // Pages.Home
+    path: rootPathName + Pages.Home
   },
   {
     id: 2,
     title: 'Каталог',
-    path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Catalog) : Pages.Catalog  // Pages.Catalog
+    path: rootPathName + Pages.Catalog
   },
   {
     id: 3,
     title: 'О магазине',
-    path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Cart) : Pages.Cart, // Pages.About
+    path: rootPathName + Pages.Cart
   },
   {
     id: 4,
     title: 'Контакты',
-    path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Contacts) : Pages.Contacts  // Pages.Contacts
+    path: rootPathName + Pages.Contacts
   }
 ];
 

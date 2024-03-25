@@ -35,26 +35,26 @@ export function PagesFC(): JSX.Element {
   const router = createBrowserRouter([
     // <Route path={Pages.About} element={<AboutpageFC />} />
     {
-      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.About) : Pages.About, // Pages.About,
+      path: rootPathName + Pages.About,
       element: <AboutpageFC />
     },
     // <Route path={Pages.Cart} element={<CartpageFC />} />
     {
-      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Cart) : Pages.Cart, // Pages.About,
+      path: rootPathName + Pages.Cart,
       element: <CartpageFC />
     },
     // <Route path={Pages.Catalog} element={<CatalogpageFC />} />
     {
-      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Catalog) : Pages.Catalog, // Pages.Catalog,
+      path: rootPathName + Pages.Catalog,
       element: < CatalogpageFC />
     },
     {
       // < Route path = { Pages.Contacts } element = {< ContactspageFC />} />
-      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Contacts) : Pages.Contacts, // Pages.Contacts,
+      path: rootPathName + Pages.Contacts,
       element: < ContactspageFC />
     },
     {
-      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Home) : Pages.Home, // Pages.Home,
+      path: rootPathName + Pages.Home,
       element: < HomepageFC />
     },
     {
@@ -62,12 +62,12 @@ export function PagesFC(): JSX.Element {
       element: < UnderfinedpageFC />
     },
     {
-      path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Home) : Pages.Home, // Pages.Home,
+      path: rootPathName + Pages.Home,
       loader: LoaderCatalogId,
       id: 'subroot',
       children: [
         {
-          path: (rootPathName.includes('shopping/')) ? ('/shopping' + Pages.Product) : Pages.Product, // Pages.Product,
+          path: rootPathName + Pages.Product,
           loader: LoaderCatalogId,
           element: <ProductFC />
         }
