@@ -7,14 +7,16 @@ let timeoutForm: NodeJS.Timeout;
 
 
 function timeout(time: number) {
-  const target: HTMLElement | null = document.querySelector('header-controls-search-form');
+
   clearTimeout(timeoutForm);
 
 
   timeoutForm = setTimeout(() => {
+    const target: HTMLElement = document.querySelector('div.header-controls-search-form') as HTMLElement;
 
     ((target !== null) && String(target.classList).includes('header-controls-search-form'))
       ? (
+
         target.classList.remove('header-controls-search-form'),
         target.innerHTML = ''
       ) : null
@@ -24,21 +26,16 @@ function timeout(time: number) {
 };
 export default function SmallSerachFormFC(): React.JSX.Element {
   const [smallSearchForm, setSmallSearchForm] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation()
   const { method } = useSearch();
 
-  let fromPage = location.pathname || '/'; // location.state?.from?.pathname ||
-  // if (location.pathname !== undefined &&
-  //   (location.pathname as string).includes('/catalog')) { // смотрим откуда была переадресайия
-  //   null
-  // } else {
-  fromPage = '/catalog';
-  // }
+  let fromPage = '/catalog';
+  let oldSearchly = "";
 
   const handlerSmallSearchFormOpen = (event: React.MouseEvent<HTMLDivElement>): void => {
     const target = event.target as HTMLDivElement;
-    //header-controls-search-form
     (String(target.classList).includes('header-controls-search'))
       ? (
         setSmallSearchForm(true)
@@ -47,12 +44,17 @@ export default function SmallSerachFormFC(): React.JSX.Element {
   }
   let searchTime: string | number | NodeJS.Timeout | undefined;
   const handlerSmallSearchForm = (event: ChangeEvent<HTMLInputElement>) => {
-    let oldSearchly = "";
     const target = event.target;
-    oldSearchly += target.value;
+
 
     clearTimeout(searchTime);
     searchTime = setTimeout(() => {
+      oldSearchly += target.value;
+      ((window.location.pathname as string).includes('catalog'))
+        ? (
+          (document.querySelector('input#search') as HTMLInputElement).value = oldSearchly
+        ) : null;
+
       ((target.value).includes(oldSearchly))
         ? (
           method(oldSearchly as string, () => navigate(fromPage, { state: { searchly: oldSearchly } }) as SearchContext['method'])
