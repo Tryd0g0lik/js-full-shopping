@@ -10,7 +10,7 @@ import { QuantilityOrdersFC } from '@site/Orders';
 import SmallSerachFormFC from '@site/catalog-searcher/smallSearchForm';
 
 
-const rootPathName = process.env.REACT_APP_ROOT_PATH_NAME || ""
+const rootPathName = process.env.REACT_APP_GITHUB_URL || ""
 
 const topMenuArr = [
   {
