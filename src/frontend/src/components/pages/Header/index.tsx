@@ -9,7 +9,8 @@ import { DispatcherStorage } from '@service/postman';
 import { QuantilityOrdersFC } from '@site/Orders';
 import SmallSerachFormFC from '@site/catalog-searcher/smallSearchForm';
 
-const rootPathName = '/shopping';
+
+const rootPathName = process.env.REACT_APP_ROOT_PATH_NAME as string;
 
 const topMenuArr = [
   {
@@ -25,7 +26,7 @@ const topMenuArr = [
   {
     id: 3,
     title: 'О магазине',
-    path: rootPathName + Pages.Cart
+    path: rootPathName + Pages.About
   },
   {
     id: 4,

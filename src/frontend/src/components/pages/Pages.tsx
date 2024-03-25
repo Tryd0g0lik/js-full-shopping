@@ -19,7 +19,7 @@ import { Location } from 'react-router-dom';
 import { ProductMainFC } from './Product/Main/index.tsx';
 
 
-const rootPathName = '/shopping';
+const rootPathName = process.env.REACT_APP_ROOT_PATH_NAME as string;
 
 
 /**
@@ -28,7 +28,8 @@ const rootPathName = '/shopping';
  */
 export function PagesFC(): JSX.Element {
   const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
-    const respons = await fetch(process.env.REACT_APP_RENDER_URL + `/api/items/${params.id}`);
+    const pathname = process.env.REACT_APP_RENDER_URL as string;
+    const respons = await fetch(pathname + `/api/items/${params.id}`);
     if (!respons.ok) {
       throw new Error('Status of respons is 404 (position not found)');
     }
