@@ -10,33 +10,57 @@ export default function SmallSerachFormFC(): React.JSX.Element {
   const { method } = useSearch();
 
   let fromPage = location.pathname || '/'; // location.state?.from?.pathname ||
-  if (location.pathname !== undefined &&
-    (location.pathname as string).includes('/catalog')) { // смотрим откуда была переадресайия
-    null
-  } else {
+  // if (location.pathname !== undefined &&
+  //   (location.pathname as string).includes('/catalog')) { // смотрим откуда была переадресайия
+  //   null
+  // } else {
     fromPage = '/catalog';
-  }
+  // }
+  let timeoutForm: NodeJS.Timeout;
+
+  function timeout() {
+    const target: HTMLElement | null = document.querySelector('header-controls-search-form');
+    clearTimeout(timeoutForm);
+
+
+    timeoutForm = setTimeout(() => {
+
+      ((target !== null) && String(target.classList).includes('header-controls-search-form'))
+        ? (
+          target.classList.remove('header-controls-search-form'),
+          target.innerHTML = ''
+        ) : null
+
+    }, 3000);
+
+  };
 
   const handlerSmallSearchFormOpen = (event: React.MouseEvent<HTMLDivElement>): void => {
     const target = event.target as HTMLDivElement;
-    if (String(target.classList).includes('header-controls-search')) {
-      setSmallSearchForm(true)
-    }
+    //header-controls-search-form
+    (String(target.classList).includes('header-controls-search'))
+      ? (
+        setSmallSearchForm(true)
+
+      ) : null
+    //   if (String(target.classList).includes('header-controls-search')) {
+    //     setSmallSearchForm(true)
+    //   }
   }
   let searchTime: string | number | NodeJS.Timeout | undefined;
   const handlerSmallSearchForm = (event: ChangeEvent<HTMLInputElement>) => {
     let oldSearchly = "";
-
-
     const target = event.target;
     oldSearchly += target.value;
+
     clearTimeout(searchTime);
     searchTime = setTimeout(() => {
-      if ((target.value).includes(oldSearchly)) {
-        method(oldSearchly as string, () => navigate(fromPage, { state: { searchly: oldSearchly } }) as SearchContext['method']);
-        // method(oldSearchly as string, () => navigate(fromPage, { state: { searchly: null } }) as SearchContext['method']);
-      }
-
+      ((target.value).includes(oldSearchly))
+        ? (
+          method(oldSearchly as string, () => navigate(fromPage, { state: { searchly: oldSearchly } }) as SearchContext['method'])
+        )
+        : null;
+      timeout();
     }, 700);
   }
 
@@ -46,7 +70,7 @@ export default function SmallSerachFormFC(): React.JSX.Element {
       </div>
     )
     : (
-      <div data-id="search-expander" className="header-controls-pic header-controls-search header-controls-search-form">
+      <div data-id="search-expander" onClick={handlerSmallSearchFormOpen} className="header-controls-pic header-controls-search header-controls-search-form">
         <form >
           <input name="searchup" className="form-control" type='text' onChange={handlerSmallSearchForm} /> {/* value={inputValue} */}
         </form>
