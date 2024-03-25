@@ -18,6 +18,7 @@ import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
 import { Location } from 'react-router-dom';
 import { ProductMainFC } from './Product/Main/index.tsx';
 
+const rootPathName = window.location.pathname || '';
 
 /**
  * Determine the route
@@ -34,43 +35,39 @@ export function PagesFC(): JSX.Element {
   const router = createBrowserRouter([
     // <Route path={Pages.About} element={<AboutpageFC />} />
     {
-      path: Pages.About,
+      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.About) : Pages.About), // Pages.About,
       element: <AboutpageFC />
     },
     // <Route path={Pages.Cart} element={<CartpageFC />} />
     {
-      path: Pages.About,
+      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Cart) : Pages.Cart), // Pages.About,
       element: <CartpageFC />
     },
     // <Route path={Pages.Catalog} element={<CatalogpageFC />} />
     {
-      path: Pages.Catalog,
+      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Catalog) : Pages.Catalog), // Pages.Catalog,
       element: < CatalogpageFC />
     },
     {
       // < Route path = { Pages.Contacts } element = {< ContactspageFC />} />
-      path: Pages.Contacts,
+      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Contacts) : Pages.Contacts), // Pages.Contacts,
       element: < ContactspageFC />
     },
     {
-      path: Pages.Home,
+      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Home) : Pages.Home), // Pages.Home,
       element: < HomepageFC />
     },
     {
-      path: '*',
+      path: (rootPathName.includes('shopping/') ? ('/shopping' + '*') : '*'), // '*',
       element: < UnderfinedpageFC />
     },
     {
-      path: Pages.Cart,
-      element: <CartpageFC />
-    },
-    {
-      path: Pages.Home,
+      path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Home) : Pages.Home), // Pages.Home,
       loader: LoaderCatalogId,
       id: 'subroot',
       children: [
         {
-          path: Pages.Product,
+          path: (rootPathName.includes('shopping/') ? ('/shopping' + Pages.Product) : Pages.Product), // Pages.Product,
           loader: LoaderCatalogId,
           element: <ProductFC />
         }
