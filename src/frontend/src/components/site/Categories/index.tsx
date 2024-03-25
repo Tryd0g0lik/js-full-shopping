@@ -36,7 +36,7 @@ function UseCategoriesFC(categoriesArr: Position[]): JSX.Element {
 	return (
 		<>
 			<LiFC key={useId()} classes='nav-item'>
-				<AncorFC classes='nav-link' dataCategory={1} path='#' context='Все' />
+        <AncorFC classes='nav-link active' dataCategory={1} path='#' context='Все' />
 			</LiFC>
 			{
 				arr.map((obj) => (
