@@ -18,7 +18,9 @@ import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
 import { Location } from 'react-router-dom';
 import { ProductMainFC } from './Product/Main/index.tsx';
 
+
 const rootPathName = '/shopping';
+
 
 /**
  * Determine the route
