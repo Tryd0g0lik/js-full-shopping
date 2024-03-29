@@ -62,6 +62,7 @@
     "server:front": "webpack server --mode=development",
     "build:dev": "webpack --mode=development --config ./webpack.config.js",
     "build": "npm run build:dev",
+    "installs": "npm install -W package.json && npm --workspace=frontend install package.json && npm --workspace=backend install package.json",
     "watch": "npm --workspace=backend run watch",
     "build:render": "npm install -W package.json && npm --workspace=backend install package.json",
     "test": "react-scripts test",

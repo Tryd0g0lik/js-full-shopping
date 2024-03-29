@@ -1,5 +1,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/am7vyx8sbywcqe1b/branch/master?svg=true)](https://ci.appveyor.com/project/Tryd0g0lik/shopping/branch/master)
 
+## Устанавливаем проект
+`npm run installs`
+
 ## Run a frontend
 `npm run server:front`
 
