@@ -1,6 +1,6 @@
 // src\frontend\src\components\pages\Cart\Main\index.tsx
 
-import React, { JSX, Fragment, useState, useCallback } from 'react';
+import React, { JSX, Fragment, useState, useCallback, useEffect, MouseEventHandler, HTMLAttributes } from 'react';
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
 import BannerFC from '@site/Baners.tsx';
@@ -39,7 +39,7 @@ export function CartMainFC(): JSX.Element {
   const [zero, setZero] = useState<number>(0);
 
   const handlerDeleter = useCallback((ev: React.MouseEvent) => {
-    ev.preventDefault();
+    // ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);
     if ((indexLine.tagName.includes('BUTTON')) && (indexLine.innerText.includes('Удалить'))) {
       const n: number = Number(indexLine.dataset.row);
@@ -53,30 +53,22 @@ export function CartMainFC(): JSX.Element {
     }
 
   }, []);
-  const hadlerform = useCallback((ev: React.MouseEvent) => {
+  const hadlerform = useCallback((ev: React.MouseEvent): void | null => {
     ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);
     if (orders.length === 0) return
     // debugger
     const ordersArr = [...orders];
+    /* ------ */
+
     if ((indexLine.localName.includes('button')) && (indexLine.innerText.includes('Оформить'))) {
       const userPhones = (document.getElementById('phone') as HTMLInputElement).value
       const userAddress = (document.getElementById('address') as HTMLInputElement).value;
+      const checkbox = (document.querySelector('#agreement.active'));
+      if ((checkbox === null) || (userAddress === null) || (userPhones === null)) {
+        return null;
+      };
 
-      const checker = true
-      /**
-       const checker = (((phoneDiv !== null) && (phoneDiv.innerHTML.length > 5))
-        ? (
-          ((addressDiv !== null) && (addressDiv.innerHTML.length > 5))
-            ? (((checkbox !== null) && (checkbox.checked))
-                          ? true
-                          : false
-                        )
-            : false
-        )
-        : false
-      ); 
-      * /
       /**
        * Below is a template data
        * {
@@ -94,8 +86,6 @@ export function CartMainFC(): JSX.Element {
        * }
        *  
        */
-      // debugger
-      // if (checker === true) {
       let newStateOrders: { id: number; price: number; count: number; }[] = []
       ordersArr.forEach((elem) => {
         newStateOrders.push({
@@ -112,7 +102,7 @@ export function CartMainFC(): JSX.Element {
         items: newStateOrders
       }
       // debugger
-      const url = process.env.REACT_APP_RENDER_URL as string as string;
+      const url = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_BPORT as string; //REACT_APP_RENDER_URL as string as string;
       const request = new SFetch(url);
       request.requestOneBefore = { order: { ...orders } };
       request.getRrequestOneParamServer(setZero as typeof useState, false);
@@ -123,14 +113,33 @@ export function CartMainFC(): JSX.Element {
         setOrders([]);
       }
     }
-  }, [orders, zero])
-  const remov = { order: orders }
 
+  }, [orders, zero])
+
+  const remov = { order: orders };
+
+  const handlerCheckbox = useCallback((e: React.MouseEvent) => {
+    if (((e.target as HTMLDivElement).id !== null) &&
+      (((e.target as HTMLDivElement).id as string).includes('agreement'))) {
+      const checkboxDiv = (e.target as HTMLDivElement);
+      (String(checkboxDiv.classList).includes('active'))
+        ? (
+          checkboxDiv.innerText = '',
+          checkboxDiv.classList.remove('active')
+        )
+        : (
+          checkboxDiv.classList.add('active'),
+          checkboxDiv.innerText = 'v'
+
+        )
+    }
+
+  }, [])
   return (
     <>
       <main className="container" >
         <div className="row">
-          <div className="col">
+          <div className="col" onClick={(e: React.MouseEvent) => { handlerCheckbox(e) }}>
             {/** Баннер (top) - К весне готовы */}
             <BannerFC>
               <Fragment>

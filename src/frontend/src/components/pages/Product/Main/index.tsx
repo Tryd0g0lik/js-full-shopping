@@ -94,8 +94,10 @@ export function ProductMainFC(): JSX.Element {
 }
 
 const handlerChackeOrder: React.MouseEventHandler<HTMLDivElement> = (e) => {
+
   const sizes = (document.querySelector('span[data-size].catalog-item-size.selected') as HTMLElement);
   const countQuantility = (document.querySelector('span[data-type="quantility"]') as HTMLElement);
+
 
   if (((countQuantility !== null) && (Number(countQuantility.innerHTML) === 0)) || (sizes === null)) {
     const button = (document.querySelector('button[data-type="sendOrder"]') as HTMLElement);

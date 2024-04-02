@@ -56,7 +56,7 @@ export function HeaderFC(): JSX.Element {
   }
   const [counter, stateCounter] = useState(count);
   useEffect(() => {
-    window.addEventListener('click', handlerCaunter);
+    // window.addEventListener('click', handlerCaunter);
 
     /* --- Active Ancor from a dashbord up --- */
     const htmlLiArr = Array.from(document.querySelectorAll('.navbar .nav-item'));
@@ -75,7 +75,7 @@ export function HeaderFC(): JSX.Element {
     });
 
     return () => {
-      window.removeEventListener('click', handlerCaunter);
+      // window.removeEventListener('click', handlerCaunter);
     }
 
   }, [counter])
@@ -94,7 +94,7 @@ export function HeaderFC(): JSX.Element {
   }
   const handlerrEntre = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key.includes('Enter')) {
-      e.preventDefault();
+      // e.preventDefault();
     }
   }
 

@@ -184,16 +184,14 @@ export class SFetch {
         ? objEmpty
         : {
           method: 'POST',
-          body: {
-            ...this.orders
-          },
+          body: this.orders,
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
           }
         } as unknown as POSTRequests;
 
-      const req = url + pathName;
+      const req = new URL(url + pathName);
+
       const answer = await fetch(req, params);
 
       if (answer.ok) {

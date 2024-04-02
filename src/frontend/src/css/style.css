@@ -317,3 +317,19 @@ h2, .h2 {
   background-color: #727e86;
   border-color: #727e86;
 }
+/* added */
+#agreement {
+  display: inline-block;
+  width: 13px;
+  min-height: 13px;
+  max-height: 13px;
+  border: 1px solid #ced4da;
+}
+
+#agreement.active {
+  background: #007bff;
+  color: #fff;
+  border: 0;
+  line-height: 0.8;
+  text-align: center;
+}

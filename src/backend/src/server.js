@@ -2,6 +2,7 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const Koa = require('koa');
+
 const logger = require("koa-logger");
 const Router = require('koa-router');
 const cors = require('koa2-cors');
@@ -10,7 +11,8 @@ const categoriesFs = fs.readFileSync(path.resolve(__dirname, './data/categories.
 const productsFs = fs.readFileSync(path.resolve(__dirname, './data/products.json'));
 const categories = JSON.parse(categoriesFs);
 const items = JSON.parse(productsFs);
-
+// const categories = require('./data/categories.json');
+// const categories = require('./data/categories.json')
 const topSaleIds = [66, 65, 73];
 const moreCount = 6;
 
@@ -29,6 +31,7 @@ const randomNumber = (start, stop) => {
 const fortune = (ctx, body = null, status = 200) => {
     // Uncomment for delay
     // const delay = randomNumber(1, 10) * 1000;
+
     const delay = 0;
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -48,8 +51,10 @@ const fortune = (ctx, body = null, status = 200) => {
 const app = new Koa();
 app.use(logger());
 app.use(cors());
+
 const server = http.createServer(app.callback());
 const port = process.env.PORT || 7070; 
+;
 
 app.use(koaBody({
     json: true
@@ -92,31 +97,35 @@ router.get('/api/items/:id', async (ctx, next) => {
 });
 
 router.post('/api/order', async (ctx, next) => {
-  console.warn(`[REQ]: ${ctx.request.body}`);
-    const { owner: { phone, address }, items } = ctx.request.body;
-    if (typeof phone !== 'string') {
-        return fortune(ctx, 'Bad Request: Phone', 400);
+
+  console.warn(`[REQ]: ${JSON.stringify(ctx.request.body)}`);
+  const { owner: { phone, address }, items } = ctx.request.body;
+  if (typeof phone !== 'string') {
+    return fortune(ctx, 'Bad Request: Phone', 400);
+  }
+  if (typeof address !== 'string') {
+    return fortune(ctx, 'Bad Request: Address', 400);
+  }
+  if (!Array.isArray(items)) {
+    return fortune(ctx, 'Bad Request: Items', 400);
+  }
+
+  if (!items.every(({ id, price, count }) => {
+    if (typeof id !== 'number' || id <= 0) {
+      return false;
     }
-    if (typeof address !== 'string') {
-        return fortune(ctx, 'Bad Request: Address', 400);
+
+    if (typeof price !== 'number' || price <= 0) {
+      return false;
     }
-    if (!Array.isArray(items)) {
-        return fortune(ctx, 'Bad Request: Items', 400);
+
+    if (typeof count !== 'number' || count <= 0) {
+      return false;
     }
-    if (!items.every(({ id, price, count }) => {
-        if (typeof id !== 'number' || id <= 0) {
-            return false;
-        }
-        if (typeof price !== 'number' || price <= 0) {
-            return false;
-        }
-        if (typeof count !== 'number' || count <= 0) {
-            return false;
-        }
-        return true;
-    })) {
-        return fortune(ctx, 'Bad Request', 400);
-    }
+    return true;
+  })) {
+    return fortune(ctx, 'Bad Request', 400);
+  }
 
     return fortune(ctx, null, 204);
 });
