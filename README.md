@@ -9,6 +9,21 @@
 ## Run the backend
 `npm run watch`
 
+## Настроить для localhost
+
+Файл `.env` переменные для проекта. 
+- *`REACT_APP_ROOT_PATH_NAME = 'shopping'`* изаменить на *`REACT_APP_ROOT_PATH_NAME = ''`*
+
+Файл *`src\frontend\src\components\pages\Cart\Main\index.tsx`*
+- *`const url = process.env.REACT_APP_RENDER_URL as string;`* изаменить на *`const url = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_BPORT as string;`*
+
+Файл *`src\frontend\src\components\pages\Product\Main\handler-events\handlerButton.ts`*
+- *`location.href = process.env.REACT_APP_GITHUB_URL + '/' + process.env.REACT_APP_ROOT_PATH_NAME + '/cart';`* изменить на *`location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT + '/cart';`* 
+
+Файл *`src\frontend\src\components\pages\Header\index.tsx`*
+- *`const rootPathName = process.env.REACT_APP_GITHUB_URL + '/' process.env.REACT_APP_ROOT_PATH_NAME || ""`* * изменить на *`location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT`*
+
+Файл *`src\frontend\src\components\pages\Pages.tsx`* является роутерем. В нём  ни каких изменений проводить не стоит. Достаточно изменtyий в *`.env`* 
 
 ## Приложение содержит следующие самостоятельные экраны (страницы):
 
