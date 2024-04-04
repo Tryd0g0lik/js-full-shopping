@@ -25,6 +25,9 @@
 
 Файл *`src\frontend\src\components\pages\Pages.tsx`* является роутерем. В нём  ни каких изменений проводить не стоит. Достаточно изменtyий в *`.env`* 
 
+Файл *`src\frontend\webpack.config.js`*
+- *`webpack.output.publicPath = './'`* изменить *`webpack.output.publicPath = './'`*
+
 ## Приложение содержит следующие самостоятельные экраны (страницы):
 
  - Главная страница.

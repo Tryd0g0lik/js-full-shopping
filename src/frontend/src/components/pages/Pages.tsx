@@ -15,74 +15,69 @@ import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
 import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
-import { Location } from 'react-router-dom';
-import { ProductMainFC } from './Product/Main/index.tsx';
+const rootPathName = (process.env.REACT_APP_ROOT_PATH_NAME != null) || '';
 
+const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
+  const pathname = process.env.REACT_APP_RENDER_URL as string;
+  const respons = await fetch(pathname + `/api/items/${params.id}`);
+  if (!respons.ok) {
+    throw new Error('Status of respons is 404 (position not found)');
+  }
+  return respons;
+};
 
-const rootPathName = process.env.REACT_APP_ROOT_PATH_NAME || '';
+const Router = createBrowserRouter([
+  {
+    path: rootPathName + Pages.About,
+    element: <AboutpageFC />
+  },
+  {
+    path: rootPathName + Pages.Cart,
+    element: <CartpageFC />
+  },
+  {
+    path: rootPathName + Pages.Catalog,
+    element: < CatalogpageFC />
+  },
+  {
+    path: rootPathName + Pages.Contacts,
+    element: < ContactspageFC />
+  },
+  {
+    path: rootPathName + Pages.Home,
+    element: < HomepageFC />
+  },
+  {
+    path: '*', // '*',
+    element: < UnderfinedpageFC />
+  },
+  {
+    path: rootPathName + Pages.Home,
+    loader: LoaderCatalogId,
+    id: 'subroot',
+    children: [
+      {
+        path: rootPathName + Pages.Product,
+        loader: LoaderCatalogId,
+        element: <ProductFC />
+      }
+    ],
+    element: <ProductFC />
+  }
 
+]);
 
+const authSearchProvider = (
+  <AuthSearchProvider>
+    {/* все что обврнули, получает 'text' черезе 'useContext' */}
+    < RouterProvider router={Router} />
+  </AuthSearchProvider>
+);
+type SP = typeof authSearchProvider;
 /**
  * Determine the route
  * @returns
  */
-export function PagesFC(): JSX.Element {
-  const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
-    const pathname = process.env.REACT_APP_RENDER_URL as string;
-    const respons = await fetch(pathname + `/api/items/${params.id}`);
-    if (!respons.ok) {
-      throw new Error('Status of respons is 404 (position not found)');
-    }
-    return respons;
-  };
-  const router = createBrowserRouter([
-    // <Route path={Pages.About} element={<AboutpageFC />} />
-    {
-      path: rootPathName + Pages.About,
-      element: <AboutpageFC />
-    },
-    // <Route path={Pages.Cart} element={<CartpageFC />} />
-    {
-      path: rootPathName + Pages.Cart,
-      element: <CartpageFC />
-    },
-    // <Route path={Pages.Catalog} element={<CatalogpageFC />} />
-    {
-      path: rootPathName + Pages.Catalog,
-      element: < CatalogpageFC />
-    },
-    {
-      // < Route path = { Pages.Contacts } element = {< ContactspageFC />} />
-      path: rootPathName + Pages.Contacts,
-      element: < ContactspageFC />
-    },
-    {
-      path: rootPathName + Pages.Home,
-      element: < HomepageFC />
-    },
-    {
-      path: '*', // '*',
-      element: < UnderfinedpageFC />
-    },
-    {
-      path: rootPathName + Pages.Home,
-      loader: LoaderCatalogId,
-      id: 'subroot',
-      children: [
-        {
-          path: rootPathName + Pages.Product,
-          loader: LoaderCatalogId,
-          element: <ProductFC />
-        }
-      ],
-      element: <ProductFC />
-    },
-
-  ]);
-  return (
-    <AuthSearchProvider>
-      {/* все что обврнули, получает 'text' черезе 'useContext' */}
-      < RouterProvider router={router} />
-    </AuthSearchProvider>
-  )
+export function PagesFC(): SP {
+  return authSearchProvider;
 }

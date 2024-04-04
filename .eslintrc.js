@@ -34,6 +34,7 @@ module.exports = {
   },
   "plugins": [
     "react",
+    "react-hooks",
     "eslint-plugin-react",
     "@typescript-eslint",
     "@stylistic",
@@ -59,7 +60,7 @@ module.exports = {
       ignoreTypeValueShadow: true,
       ignoreFunctionTypeParameterNameValueShadow: true
     }],
-    "react/display-name": ["error", { ignoreTranspilerName: true, displayName: true }],
+    "react/display-name": "off",
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-explicit-any": ["error", { fixToUnknown: false, ignoreRestArgs: true }],

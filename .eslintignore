@@ -1,5 +1,5 @@
 
-
+src/backend/*
 *.js
 __tests__/**/*.js
 src/*.js

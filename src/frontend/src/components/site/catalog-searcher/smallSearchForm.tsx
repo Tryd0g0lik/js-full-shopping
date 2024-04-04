@@ -1,22 +1,17 @@
 import { SearchContext } from '@type';
 import React, { ChangeEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSearch } from './useSearch';
+import { useSearch } from './useSearch.ts';
 
 let timeoutForm: NodeJS.Timeout;
 
-
 function timeout(time: number) {
-
   clearTimeout(timeoutForm);
-
-
   timeoutForm = setTimeout(() => {
     const target: HTMLElement = document.querySelector('div.header-controls-search-form') as HTMLElement;
 
     ((target !== null) && String(target.classList).includes('header-controls-search-form'))
       ? (
-
         target.classList.remove('header-controls-search-form'),
         target.innerHTML = ''
       ) : null
