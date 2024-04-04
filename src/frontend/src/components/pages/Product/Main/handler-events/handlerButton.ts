@@ -45,5 +45,5 @@ export function handlerButtom(event: React.MouseEvent): void {
   storeDispatch(order);
   const dispatch = new DispatcherStorage(order);
   dispatch.setToLocalStorage('order');
-  location.href = (process.env.REACT_APP_GITHUB_URL as string) + (process.env.REACT_APP_ROOT_PATH_NAME as string) + '/cart';
+  location.href = location.href = process.env.REACT_APP_GITHUB_URL + '/cart';
 }
