@@ -23,7 +23,7 @@ import { MultiProps } from '@type';
     ```
  */
 export default function DivFC({ classes, children }: MultiProps): JSX.Element {
-  const responce = (children !== undefined)
+	const response = (children !== undefined)
     ? (
       <div className={classes}>
         {children}
@@ -32,5 +32,5 @@ export default function DivFC({ classes, children }: MultiProps): JSX.Element {
     : (
       <div className={classes}></div>
     );
-  return responce;
+	return response;
 }

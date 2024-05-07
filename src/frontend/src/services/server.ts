@@ -185,7 +185,6 @@ export class SFetch {
           method: 'POST',
           body: this.orders,
           headers: {
-            caches: 'no-cache',
             'X-CSRFToken': getCookie('csrftoken'),
             'Content-Type': 'application/json'
           }
@@ -200,12 +199,12 @@ export class SFetch {
 
         /* Below: The useState hook for update state from a React */
 
-        let responce: unknown | Position[] = '';
+        let response: unknown | Position[] = '';
         if ((answerJson !== null) && (answerJson !== undefined)) {
-          responce = answerJson;
+          response = answerJson;
           if (key.includes('offset')) {
-            responce = Array.from(Object.values({ ...answerJson }));
-            handler(responce as Position[]);
+            response = Array.from(Object.values({ ...answerJson }));
+            handler(response as Position[]);
             return;
           }
           if (!get) {
@@ -213,7 +212,7 @@ export class SFetch {
             return;
           }
 
-          handler(responce as Position[]);
+          handler(response as Position[]);
         }
 
         // this.offsetsNumber = undefined;

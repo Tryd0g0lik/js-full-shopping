@@ -52,6 +52,7 @@ export function CartMainFC(): JSX.Element {
       setOrders([...datas]);
     }
   }, []);
+
   const hadlerform = useCallback((ev: React.MouseEvent): void | null => {
     ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);
