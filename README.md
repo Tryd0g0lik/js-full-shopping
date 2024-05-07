@@ -1,32 +1,17 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/am7vyx8sbywcqe1b/branch/master?svg=true)](https://ci.appveyor.com/project/Tryd0g0lik/shopping/branch/master)
 
-## Устанавливаем проект
-`npm run installs`
+## Project installs
+`npm run installs package.json` <=> from the root;
 
-## Run a frontend
+## build project
+`npm run build:dev`
+
+## Run a server of frontend. It's 'http://localhost'
 `npm run server:front`
 
-## Run the backend
+## Run the backend It's 'http://localhost:7070'
 `npm run watch`
 
-## Настроить для localhost
-
-Файл `.env` переменные для проекта. 
-- *`REACT_APP_ROOT_PATH_NAME = 'shopping'`* изаменить на *`REACT_APP_ROOT_PATH_NAME = ''`*
-
-Файл *`src\frontend\src\components\pages\Cart\Main\index.tsx`*
-- *`const url = process.env.REACT_APP_RENDER_URL as string;`* изаменить на *`const url = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_BPORT as string;`*
-
-Файл *`src\frontend\src\components\pages\Product\Main\handler-events\handlerButton.ts`*
-- *`location.href = process.env.REACT_APP_GITHUB_URL + '/' + process.env.REACT_APP_ROOT_PATH_NAME + '/cart';`* изменить на *`location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT + '/cart';`* 
-
-Файл *`src\frontend\src\components\pages\Header\index.tsx`*
-- *`const rootPathName = process.env.REACT_APP_GITHUB_URL + '/' process.env.REACT_APP_ROOT_PATH_NAME || ""`* * изменить на *`location.href = process.env.REACT_APP_URL + ':' + process.env.REACT_APP_FPORT`*
-
-Файл *`src\frontend\src\components\pages\Pages.tsx`* является роутерем. В нём  ни каких изменений проводить не стоит. Достаточно изменtyий в *`.env`* 
-
-Файл *`src\frontend\webpack.config.js`*
-- *`webpack.output.publicPath = './'`* изменить *`webpack.output.publicPath = './'`*
 
 ## Приложение содержит следующие самостоятельные экраны (страницы):
 
