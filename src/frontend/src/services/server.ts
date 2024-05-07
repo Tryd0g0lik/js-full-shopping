@@ -176,7 +176,7 @@ export class SFetch {
 
     /* ----------server.ts:231 The fetch request was aborted:  TypeError: Failed to construct 'Request': Invalid name--------- */
     const signal = this.controller.signal;
-
+    debugger
     try {
       const objEmpty = new Object();
       const params = (get)
@@ -190,7 +190,7 @@ export class SFetch {
             'Content-Type': 'application/json'
           }
         } as unknown as POSTRequests;
-
+      debugger
       const req = new URL(url + pathName);
 
       const answer = await fetch(req, params);

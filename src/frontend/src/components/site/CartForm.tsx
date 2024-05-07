@@ -1,11 +1,9 @@
 import React, { JSX } from 'react';
-import FormFC from './Forms';
-import ButtonFC from './Forms/Button';
-import InputsFC from './Forms/Imputs';
-import LabelFC from './Forms/Lebel';
-import HeadFC from './Headers';
-import { debug } from 'webpack';
-
+import FormFC from './Forms/index.tsx';
+import ButtonFC from './Forms/Button.tsx';
+import InputsFC from './Forms/Imputs.tsx';
+import LabelFC from './Forms/Lebel.tsx';
+import HeadFC from './Headers.tsx';
 
 export default function CartFormFC(): JSX.Element {
   return (
@@ -35,7 +33,7 @@ export default function CartFormFC(): JSX.Element {
         </FormFC>
       </div>
     </>
-  )
+  );
 }
 
 // onChange = {(e) => {

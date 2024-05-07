@@ -17,7 +17,6 @@ export function handlerSize(event: React.MouseEvent): void {
   const count = Number((countQuantility).innerHTML);
   console.log(`${(sizes !== null)} && ${(count !== 0)}`);
   if ((sizes !== null) && (count !== 0)) {
-
     const button = (document.querySelector('button[data-type="sendOrder"]') as HTMLElement);
     button.classList.add('btn-danger');
   }

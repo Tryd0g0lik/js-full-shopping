@@ -13,9 +13,8 @@ import { CatalogSearched, HandlerPositionVal, Position } from '@type';
 /* Categories */
 import { SFetch } from '@service/server.ts';
 
-
 import Categories from '@site/Categories/index.tsx';
-import handlerCategories from '@site/Categories/handlers.ts'
+import handlerCategories from '@site/Categories/handlers.ts';
 import BigSerachFormFC from '@site/catalog-searcher/bigSearchForm.tsx';
 import useSearchedJSX from '@site/catalog-searcher/UseSearched.tsx';
 
@@ -43,12 +42,10 @@ export function DMainFC(): JSX.Element {
   const [valueSearch, setValueSearch] = useState<string | undefined>(undefined);
 
   /* ------ */
-  let inputValue: string | undefined = undefined;
+  let inputValue: string | undefined;
   if ((location?.state?.searchly !== undefined) && (location?.state?.searchly.length > 0)) {
-
     /* Here getting datas from the search form small of other page. */
-    inputValue = location?.state?.searchly as string
-
+    inputValue = location?.state?.searchly as string;
   }
 
   useEffect(() => {
@@ -56,10 +53,9 @@ export function DMainFC(): JSX.Element {
     /* Categories - create a request to the server. Loade the category title list  */
     serverCategory.requestOneBefore = { categories: true };
     serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
-    setSmallForm(inputValue)
+    setSmallForm(inputValue);
     setValueSearch(inputValue);
   }, [setCategory]);
-
 
   let changeTime: NodeJS.Timeout | undefined;
   function hadlerChangeInput(ev: React.ChangeEvent<HTMLInputElement>) {
@@ -79,8 +75,6 @@ export function DMainFC(): JSX.Element {
     inputValue = undefined;
     setSmallForm(inputValue);
     setValueSearch(target.value);
-
-
   }
   // debugger
   /* ------ */
@@ -90,12 +84,12 @@ export function DMainFC(): JSX.Element {
   const catalogSearched = {
     categoryNumber: 1 as CatalogSearched['categoryNumber'],
     val: valueSearch
-  }
-  let catalog: JSX.Element = useSearchedJSX({ ...catalogSearched })
+  };
+  const catalog: JSX.Element = useSearchedJSX({ ...catalogSearched });
 
   const searchForm = {
     search: smallForm || ''
-  }
+  };
 
   // setTimeout(() => location.state.searchly = undefined, 1000);
   return (

@@ -86,13 +86,20 @@ export function CartMainFC(): JSX.Element {
        *
        */
       const newStateOrders: Array<{ id: number; price: number; count: number }> = [];
-      ordersArr.forEach((elem) => {
+      // ordersArr.forEach((elem) => {
+      //   newStateOrders.push({
+      //     id: elem.id as number,
+      //     price: elem.price as number,
+      //     count: elem.quantility as number
+      //   });
+      // });
+      for (let i = 0; i < ordersArr.length; i++) {
         newStateOrders.push({
-          id: elem.id as number,
-          price: elem.price as number,
-          count: elem.quantility as number
+          id: ordersArr[i].id as number,
+          price: ordersArr[i].price as number,
+          count: ordersArr[i].quantility as number
         });
-      });
+      }
       const orders = {
         owner: {
           phone: userPhones,

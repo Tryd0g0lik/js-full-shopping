@@ -13,7 +13,9 @@ import { Position } from '@type';
 export default function CartFc({ ...props }): JSX.Element {
   const navigate = useNavigate();
   let sum = 0;
-  const rest = props.order;
+  const { order, ...data } = { ...props };
+  // const rest = props.order;
+  const rest = order;
   for (let i = 0; i < props.order.length; i++) {
     const quantility = ((rest[i] as Position).quantility as number);
     const price = ((rest[i] as Position).price as number);
@@ -44,9 +46,9 @@ export default function CartFc({ ...props }): JSX.Element {
             <tr key={index}>
               <td scope="row">{index + 1}</td>
               <td><a href={item.pathname} onClick={handlerProductNameReference(item.pathname as string)}>{(item as Position).title ?? ''} </a></td>
-              <td>{(item as Position).size !== (undefined) ? (item as Position).size : ''}</td>
-              <td>{(item as Position).quantility !== (undefined) ? (item as Position).quantility : ''}</td>
-              <td>{(item as Position).price !== (undefined) ? (item as Position).price : '0 '} руб.</td>
+              <td>{(item).size !== (undefined) ? (item).size : ''}</td>
+              <td>{(item).quantility !== (undefined) ? (item).quantility : ''}</td>
+              <td>{(item).price !== (undefined) ? (item).price : '0 '} руб.</td>
 
               <td > {((item.quantility !== undefined) && (item.price !== undefined))
                 ? ((item.quantility as number) * item.price)

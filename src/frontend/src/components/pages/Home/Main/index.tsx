@@ -9,7 +9,7 @@ import { SFetch } from '@service/server.ts';
 import { CatalogSearched, HandlerPositionVal, Position } from '@type';
 import Categories from '@site/Categories/index.tsx';
 
-import handlerCategories from '@site/Categories/handlers.ts'
+import handlerCategories from '@site/Categories/handlers.ts';
 import useSearchedJSX from '@site/catalog-searcher/UseSearched';
 
 const REACT_APP_RENDER_URL = process.env.REACT_APP_RENDER_URL as string;
@@ -38,7 +38,6 @@ export function UseMainFC(): JSX.Element {
     /* Categories - create a request to the server. Loade the category title list  */
     serverCategory.requestOneBefore = { categories: true };
     serverCategory.getRrequestOneParamServer(setCategory as typeof useState);
-
   }, [setCategory]);
 
   /* ------ */
@@ -46,9 +45,9 @@ export function UseMainFC(): JSX.Element {
   const catalogSearched: CatalogSearched = {
     categoryNumber: 1 as CatalogSearched['categoryNumber'],
     inputValue: undefined
-  }
+  };
 
-  let catalog: JSX.Element = useSearchedJSX({ ...catalogSearched })
+  let catalog: JSX.Element = useSearchedJSX({ ...catalogSearched });
   return (
     <main className="container">
       <div className="row">
