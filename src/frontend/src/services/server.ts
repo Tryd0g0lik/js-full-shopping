@@ -55,6 +55,7 @@ export class SFetch {
     } else if (keys.includes('categories')) {
       this.categories = true;
     } else if (keys.includes('order')) {
+      debugger
       this.orders = val as Requests['order'];
     } else {
       this.q_ = { q: val as string };
@@ -176,6 +177,7 @@ export class SFetch {
 
     /* ----------server.ts:231 The fetch request was aborted:  TypeError: Failed to construct 'Request': Invalid name--------- */
     const signal = this.controller.signal;
+    const ordersStr = JSON.stringify(this.orders);
     // debugger;
     try {
       const objEmpty = new Object();
@@ -184,7 +186,7 @@ export class SFetch {
         : {
           method: 'POST',
           mode: 'no-cors',
-          body: this.orders,
+          body: ordersStr,
           headers: {
             'X-CSRFToken': getCookie('csrftoken'),
             'Content-Type': 'application/json'
@@ -193,6 +195,9 @@ export class SFetch {
       // debugger
       const urls = new URL(pathName, url);
       // const urls = new URL('api/order', 'https://shopping-ipsn.onrender.com/');
+      // const urls = new URL('api/order', 'http://localhost:7070');
+
+      // urls.searchParams.set('order', { ...orders });
       // 'X-CSRFToken': getCookie('csrftoken'),
       const answer = await fetch(urls, params);
 
@@ -223,7 +228,7 @@ export class SFetch {
         // this.categories = undefined;
       } else {
         console.warn('[Ошибка HTTP]: ' + answer.status);
-        console.warn('[Ошибка HTTP]: ' + answer.statusText);
+        console.warn('[Ошибка HTTP]: ' + answer.message);
       }
     } catch (error) {
       const err = error;
