@@ -1,5 +1,5 @@
 // src\frontend\src\interfaces.ts
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 /**
  * file: `src\frontend\src\interfaces.ts`
  *

@@ -114,7 +114,10 @@ export function CartMainFC(): JSX.Element {
       request.requestOneBefore = { order: { ...orders } };
       const sZero = setZero as typeof useState;
       request.getRrequestOneParamServer(sZero, false);
-
+      /* ------ cleaned ------ */
+      (document.getElementById('phone') as HTMLInputElement).value = '';
+      (document.getElementById('address') as HTMLInputElement).value = '';
+      (document.querySelector('#agreement.active'))?.classList.remove('active');
       // }
       if (zero < 0) {
         dispatch.removAll('order');

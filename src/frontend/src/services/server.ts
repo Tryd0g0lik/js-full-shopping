@@ -161,13 +161,13 @@ export class SFetch {
     /* ------------------- */
     if (get) {
       if (key.includes('offset')) {
-        pathName = `/items/?offset=${val}`;
+        pathName = `/api/items/?offset=${val}`;
       } else if (key.includes('top-sales') && (val === true)) {
-        pathName = '/top-sales';
+        pathName = '/api/top-sales';
       } else if (key.includes('categories') && (val === true)) {
-        pathName = '/categories';
+        pathName = '/api/categories';
       } else {
-        pathName = `/items/?q=${val}`;
+        pathName = `/api/items/?q=${val}`;
       }
     } else {
       if ((key.includes('order'))) {
@@ -192,15 +192,9 @@ export class SFetch {
             'Content-Type': 'application/json'
           }
         } as unknown as POSTRequests;
-      // debugger
+
       const urls = new URL(pathName, url);
-      // const urls = new URL('api/order', 'https://shopping-ipsn.onrender.com/');
-      // const urls = new URL('api/order', 'http://localhost:7070');
-
-      // urls.searchParams.set('order', { ...orders });
-      // 'X-CSRFToken': getCookie('csrftoken'),
       const answer = await fetch(urls, params);
-
       if (answer.ok) {
         const answerJson = await this.parserResponseAsJson(answer);
 
@@ -221,14 +215,8 @@ export class SFetch {
 
           handler(response as Position[]);
         }
-
-        // this.offsetsNumber = undefined;
-        // this.q_ = undefined;
-        // this.topSales = undefined;
-        // this.categories = undefined;
       } else {
         console.warn('[Ошибка HTTP]: ' + answer.status);
-        console.warn('[Ошибка HTTP]: ' + answer.message);
       }
     } catch (error) {
       const err = error;
