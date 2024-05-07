@@ -190,9 +190,16 @@ export class SFetch {
           }
         } as unknown as POSTRequests;
       debugger
-      const req = new URL(url + pathName);
+      const urls = new URL(pathName, url);
 
-      const answer = await fetch(req, params);
+      // 'X-CSRFToken': getCookie('csrftoken'),
+      const answer = await fetch(urls, {
+        method: 'POST',
+        body: this.orders,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
       if (answer.ok) {
         const answerJson = await this.parserResponseAsJson(answer);
