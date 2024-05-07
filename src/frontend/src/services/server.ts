@@ -176,30 +176,25 @@ export class SFetch {
 
     /* ----------server.ts:231 The fetch request was aborted:  TypeError: Failed to construct 'Request': Invalid name--------- */
     const signal = this.controller.signal;
-    debugger
+    debugger;
     try {
       const objEmpty = new Object();
       const params = (get)
         ? objEmpty
         : {
           method: 'POST',
+          mode: 'no-cors',
           body: this.orders,
           headers: {
             'X-CSRFToken': getCookie('csrftoken'),
             'Content-Type': 'application/json'
           }
         } as unknown as POSTRequests;
-      debugger
-      const urls = new URL(pathName, url);
-
+      // debugger
+      // const urls = new URL(pathName, url);
+      // const urls = new URL('api/order', 'https://shopping-ipsn.onrender.com/');
       // 'X-CSRFToken': getCookie('csrftoken'),
-      const answer = await fetch(urls, {
-        method: 'POST',
-        body: this.orders,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const answer = await fetch(urls, params);
 
       if (answer.ok) {
         const answerJson = await this.parserResponseAsJson(answer);
