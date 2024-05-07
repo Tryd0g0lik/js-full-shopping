@@ -21,11 +21,9 @@ export default function CartFormFC(): JSX.Element {
               <InputsFC classes='form-control' ind="address" placeholder="Адрес доставки" />
             </div>
             <div className="form-group form-check">
-              {/* <input className='form-check-input' checked={true} readOnly={true} type='checkbox' id="agreement" /> */}
               <label htmlFor='agreement' className='form-check-label'>
                 <div id="agreement" className='form-check-input'></div> Согласен с правилами доставки
               </label>
-              {/* <LabelFC classes='form-check-label' htmlfor="agreement" context='Согласен с правилами доставки' /> */}
             </div>
             <ButtonFC classes='btn btn-outline-secondary' context='Оформить' />
 
@@ -35,10 +33,3 @@ export default function CartFormFC(): JSX.Element {
     </>
   );
 }
-
-// onChange = {(e) => {
-//   debugger
-//   ((e.target as HTMLInputElement).checked === true)
-//     ? (e.target as HTMLInputElement).checked = false
-//     : (e.target as HTMLInputElement).checked = true;
-// }}

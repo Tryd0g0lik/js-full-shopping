@@ -3,10 +3,8 @@ import React, { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Position } from '@type';
 
-
 /**
- * That an data tenmplate on entrypoint. {"data":{"order":[{"id":66,"title":"Босоножки 'Myer' с завязкой на щиколотке","size":"18 US","quantility":1,"price":34000},{"id":66,"title":"Босоножки 'Myer' с завязкой на щиколотке","size":"18 US","quantility":1,"price":34000},{"id":73,"title":"Супергеройские кеды","size":"16 US","quantility":1,"price":1400},{"id":26,"title":"Кроссовки с рынка","size":"10 US","quantility":1,"price":1500},{"id":27,"title":"Кроссовки пёстрые","size":"10 US","quantility":1,"price":1750},{"id":28,"title":"Туфли-долматинцы","size":"10 US","quantility":1,"price":4000}]}}
- * 
+ * That an data tenmplate on entrypoint. {"data":{"order":[{"id":66,"title":"Босоножки 'Myer' с завязкой на щиколотке","size":"18 US","quantility":1,"price":34000},{"id":66,"title":"Босоножки 'Myer' с завязкой на щиколотке","size":"18 US","quantility":1,"price":34000},{"id":73,"title":"Супергеройские кеды","size":"16 US","quantility":1,"price":1400},{"id":26,"title":"Кроссовки с рынка","size":"10 US","quantility":1,"price":1500},{"id":27,"title":"Кроссовки пёстрые","size":"10 US","quantility":1,"price":1750},{"id":28,"title":"Туфли-долматинцы","size":"10 US","quantility":1,"price":4000}]}} 
  * This is the order table for the cart
  * @returns teble, it's React.JSX.Element
  */
@@ -20,13 +18,13 @@ export default function CartFc({ ...props }): JSX.Element {
     const quantility = ((rest[i] as Position).quantility as number);
     const price = ((rest[i] as Position).price as number);
     sum += (quantility * price);
-  } 
+  }
 
   const handlerProductNameReference = (ref: string): (e: MouseEvent) => void => {
     return (e: MouseEvent): void => {
       navigate(ref);
-    }
-  }
+    };
+  };
   return (
     <table className="table table-bordered">
       <thead>
@@ -51,7 +49,7 @@ export default function CartFc({ ...props }): JSX.Element {
               <td>{(item).price !== (undefined) ? (item).price : '0 '} руб.</td>
 
               <td > {((item.quantility !== undefined) && (item.price !== undefined))
-                ? ((item.quantility as number) * item.price)
+                ? ((item.quantility) * item.price)
                 : 0} руб.</td >
               <td><button data-row={index + 1} data-index={String(item.id)} className="btn btn-outline-danger btn-sm">Удалить</button></td>
             </tr >

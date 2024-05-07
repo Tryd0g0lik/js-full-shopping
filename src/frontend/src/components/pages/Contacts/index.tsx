@@ -2,7 +2,6 @@
 
 import React, { JSX, Fragment } from 'react';
 import { Child } from '@type';
-// import { Child } from '../../../interfaces.ts';
 
 import { HeaderFC } from '@pages/Header/index.tsx';
 import { FooterFC } from '@pages/Footer/index.tsx';

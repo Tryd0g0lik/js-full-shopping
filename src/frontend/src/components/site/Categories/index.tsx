@@ -19,34 +19,34 @@ import ImLoader from '@site/ImgLoader.tsx';
  * title: string
  * ...
  * }`
-	```
+  ```
 
-	```html
-	<ul class="catalog-categories nav justify-content-center">
-		<li class="nav-item"><a class="nav-link" href="#">Все</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Мужская обувь</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Женская обувь</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Обувь унисекс</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Детская обувь</a></li>
-		</ul>
-	```
+  ```html
+  <ul class="catalog-categories nav justify-content-center">
+    <li class="nav-item"><a class="nav-link" href="#">Все</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Мужская обувь</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Женская обувь</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Обувь унисекс</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Детская обувь</a></li>
+    </ul>
+  ```
  */
 function UseCategoriesFC(categoriesArr: Position[]): JSX.Element {
-	const arr = Object.values(categoriesArr);
-	return (
-		<>
-			<LiFC key={useId()} classes='nav-item'>
+  const arr = Object.values(categoriesArr);
+  return (
+    <>
+      <LiFC key={useId()} classes='nav-item'>
         <AncorFC classes='nav-link active' dataCategory={1} path='#' context='Все' />
-			</LiFC>
-			{
-				arr.map((obj) => (
-					<LiFC key={useId()} classes='nav-item'>
-						<AncorFC classes='nav-link' dataCategory={obj.id} path='#' context={obj.title} />
-					</LiFC>
-				))
-			}
-		</>
-	);
+      </LiFC>
+      {
+        arr.map((obj) => (
+          <LiFC key={useId()} classes='nav-item'>
+            <AncorFC classes='nav-link' dataCategory={obj.id} path='#' context={obj.title} />
+          </LiFC>
+        ))
+      }
+    </>
+  );
 }
 
 export default function Categories({ order }: { order: Position[] }) {
@@ -64,5 +64,5 @@ export default function Categories({ order }: { order: Position[] }) {
           )
       }
     </ul>
-  )
+  );
 }

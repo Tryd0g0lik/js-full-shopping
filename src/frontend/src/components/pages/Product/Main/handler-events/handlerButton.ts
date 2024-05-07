@@ -5,7 +5,6 @@ import { storeDispatch } from '@reduxs/store.ts';
 import { DispatcherStorage } from '@service/postman';
 
 export function handlerButtom(event: React.MouseEvent): void {
-
   event.stopPropagation();
 
   const position = document.querySelector('.catalog-item') as HTMLElement;

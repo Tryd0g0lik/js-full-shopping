@@ -5,7 +5,7 @@ import { useSearch } from './useSearch.ts';
 
 let timeoutForm: NodeJS.Timeout;
 
-function timeout(time: number) {
+function timeout(time: number): void {
   clearTimeout(timeoutForm);
   timeoutForm = setTimeout(() => {
     const target: HTMLElement = document.querySelector('div.header-controls-search-form') as HTMLElement;
@@ -22,7 +22,6 @@ export default function SmallSerachFormFC(): React.JSX.Element {
   const [smallSearchForm, setSmallSearchForm] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
   const { method } = useSearch();
 
   const fromPage = '/catalog';

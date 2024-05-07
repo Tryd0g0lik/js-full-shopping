@@ -16,7 +16,6 @@ export function handlerMinus(event: React.MouseEvent): void {
   /* ------ */
   const sizes = (document.querySelector('span[data-size].catalog-item-size.selected') as HTMLElement);
   if ((result > 0) && (sizes !== null)) {
-
     const button = (document.querySelector('button[data-type="sendOrder"]') as HTMLElement);
     button.classList.add('btn-danger');
   }

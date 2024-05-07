@@ -1,7 +1,7 @@
 // src\frontend\src\components\pages\Catalog\Main\index.tsx
 
 import React, { Fragment, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Banner from '@img/banner.jpg';
 import HeadFC from '@site/Headers.tsx';
@@ -19,7 +19,7 @@ import BigSerachFormFC from '@site/catalog-searcher/bigSearchForm.tsx';
 import useSearchedJSX from '@site/catalog-searcher/UseSearched.tsx';
 
 const REACT_APP_RENDER_URL = process.env.REACT_APP_RENDER_URL as string;
-const REACT_APP_BPORT = process.env.REACT_APP_BPORT as string;
+
 const url = REACT_APP_RENDER_URL + '/api';
 
 /**
@@ -59,24 +59,14 @@ export function DMainFC(): JSX.Element {
 
   let changeTime: NodeJS.Timeout | undefined;
   function hadlerChangeInput(ev: React.ChangeEvent<HTMLInputElement>) {
-    // location.state.searchly = undefined
     clearTimeout(changeTime);
     const target = ev.target as HTMLInputElement;
-
-    // if ((location?.state !== undefined) && (location.state.searchly !== undefined)) {
-    //   setValueSearch(location.state.searchly);
-    //   inputValue = valueSearch?.slice(0);
-
-    // } else {
-    //   // debugger
-    //   inputValue = target.value || '';
-    // }
 
     inputValue = undefined;
     setSmallForm(inputValue);
     setValueSearch(target.value);
   }
-  // debugger
+
   /* ------ */
   useEffect(handlerCategories.handlerCategoriesForUseEffect(), [handlerCategories.handlerFilterCategories]);
 
@@ -91,7 +81,6 @@ export function DMainFC(): JSX.Element {
     search: smallForm || ''
   };
 
-  // setTimeout(() => location.state.searchly = undefined, 1000);
   return (
     <>
       <main className="container">
@@ -104,7 +93,7 @@ export function DMainFC(): JSX.Element {
                 <HeadFC number={2} classes='banner-header' title='К весне готовы!' />
               </Fragment>
             </BannerFC>
-            <section className="catalog" onChange={hadlerChangeInput} > {/* onKeyDown={handlerKeyboardEnter} */}
+            <section className="catalog" onChange={hadlerChangeInput} >
               <HeadFC number={2} classes='text-center' title='Каталог' />
               {/* Top form search by directory */}
               <Categories order={category as Position[]} />

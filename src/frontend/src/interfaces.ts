@@ -175,10 +175,6 @@ export interface DataToCart extends React.Component<any> {
   props: { order: Position[] }
 }
 
-// export interface : {
-//   id: number;
-//   order: Position;
-// } []
 export interface PositionLoader { params: Position }
 
 /**

@@ -27,7 +27,6 @@ import { Position } from '@type';
   ```
  */
 export function PositionFC({ title, id, category = undefined, price = 0, children }: Position): JSX.Element {
-
   const ind: string = (id !== undefined) ? String(id) : '9999';
   const path = process.env.REACT_APP_ROOT_PATH_NAME || '';
   const pathes = path + `/catalog/${ind}`;

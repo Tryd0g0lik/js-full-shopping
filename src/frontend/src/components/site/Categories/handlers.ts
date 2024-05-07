@@ -12,16 +12,13 @@ const setUserCategory = (intstate: number = 1): void => {
     payload: state.payload
   };
 
-
   storeDispatch({ ...categories });
 };
-
 
 /**
  * through a redux (setUserCategory) he working
  * There is below a filter categories. It's a category number  | '/categories'  */
 const handlerFilterCategories = (event: MouseEvent): void => {
-
   event.preventDefault();
   const target = (event.target as HTMLAnchorElement);
 
@@ -29,12 +26,11 @@ const handlerFilterCategories = (event: MouseEvent): void => {
   /* ------ */
   const navCategories = Array.from(document.querySelectorAll('.catalog-categories.nav.justify-content-center .nav-item a'));
   navCategories.forEach((item) => {
-    (item as HTMLElement).classList.remove('active')
+    (item as HTMLElement).classList.remove('active');
   });
   (target as HTMLElement).classList.add('active');
 
   setUserCategory(categoryUSerNumber);
-
 };
 
 /* Thi's a handler for the change event/ It's listener for '<input value>' of seach form */
@@ -52,5 +48,4 @@ const handlerCategoriesForUseEffect = (): () => void => {
   };
 };
 
-
-export default { handlerCategoriesForUseEffect, handlerFilterCategories }
+export default { handlerCategoriesForUseEffect, handlerFilterCategories };

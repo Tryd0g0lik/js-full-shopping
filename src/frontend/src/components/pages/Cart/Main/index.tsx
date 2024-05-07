@@ -39,7 +39,6 @@ export function CartMainFC(): JSX.Element {
   const [zero, setZero] = useState<number>(0);
 
   const handlerDeleter = useCallback((ev: React.MouseEvent) => {
-    // ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);
     if ((indexLine.tagName.includes('BUTTON')) && (indexLine.innerText.includes('Удалить'))) {
       const n: number = Number(indexLine.dataset.row);
@@ -57,7 +56,7 @@ export function CartMainFC(): JSX.Element {
     ev.preventDefault();
     const indexLine = (ev.target as HTMLElement);
     if (orders.length === 0) return;
-    // debugger
+
     const ordersArr = [...orders];
     /* ------ */
 
@@ -87,13 +86,6 @@ export function CartMainFC(): JSX.Element {
        *
        */
       const newStateOrders: Array<{ id: number; price: number; count: number }> = [];
-      // ordersArr.forEach((elem) => {
-      //   newStateOrders.push({
-      //     id: elem.id as number,
-      //     price: elem.price as number,
-      //     count: elem.quantility as number
-      //   });
-      // });
       for (let i = 0; i < ordersArr.length; i++) {
         newStateOrders.push({
           id: ordersArr[i].id as number,
@@ -108,8 +100,8 @@ export function CartMainFC(): JSX.Element {
         },
         items: newStateOrders
       };
-      // debugger
-      const url = process.env.REACT_APP_RENDER_URL as string; // REACT_APP_RENDER_URL as string as string;
+
+      const url = process.env.REACT_APP_RENDER_URL as string;
       const request = new SFetch(url);
       request.requestOneBefore = { order: { ...orders } };
       const sZero = setZero as typeof useState;
@@ -118,7 +110,7 @@ export function CartMainFC(): JSX.Element {
       (document.getElementById('phone') as HTMLInputElement).value = '';
       (document.getElementById('address') as HTMLInputElement).value = '';
       (document.querySelector('#agreement.active'))?.classList.remove('active');
-      // }
+
       if (zero < 0) {
         dispatch.removAll('order');
         setOrders([]);

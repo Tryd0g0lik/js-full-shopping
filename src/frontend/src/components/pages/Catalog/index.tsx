@@ -9,11 +9,9 @@ import { DMainFC } from './Main/index.tsx';
 export function CatalogpageFC(): JSX.Element {
   return (
     <>
-      {/* <Fragment> */}
       <HeaderFC />
       <DMainFC />
       <FooterFC />
-      {/* </Fragment> */}
     </>
   );
 }

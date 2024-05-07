@@ -1,5 +1,4 @@
 import React, { createContext, useState, JSX } from 'react';
-import { SearchContext } from '@type';
 
 // формируем данные для работы в поиске на страниАХ
 export const OurContext = createContext({ searchly: '', method: (newText: string, cb: () => void) => { } });

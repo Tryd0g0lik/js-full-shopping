@@ -8,13 +8,11 @@ import baner from '@img/banner.jpg';
 import { storeGetstate } from '@reduxs/store.ts';
 
 export function ProductMainFC(): JSX.Element {
-
   const params = useAsyncValue() as Position;
   const { id, images, price, title, sku, manufacturer, color, material, season, reason, sizes, ...param } = { ...params };
 
   const img = ((images !== undefined) && (Array.isArray(images))) ? ((images.length > 0) ? images[1] : images[1]) : '';
-  const orders = storeGetstate();
-  console.log(`[TEST]: ${orders.type}`);
+
   return (
     <main className="container">
       <div className="row">
@@ -94,15 +92,11 @@ export function ProductMainFC(): JSX.Element {
 }
 
 const handlerChackeOrder: React.MouseEventHandler<HTMLDivElement> = (e) => {
-
   const sizes = (document.querySelector('span[data-size].catalog-item-size.selected') as HTMLElement);
   const countQuantility = (document.querySelector('span[data-type="quantility"]') as HTMLElement);
-
 
   if (((countQuantility !== null) && (Number(countQuantility.innerHTML) === 0)) || (sizes === null)) {
     const button = (document.querySelector('button[data-type="sendOrder"]') as HTMLElement);
     button.classList.remove('btn-danger');
   }
-
-}
-
+};

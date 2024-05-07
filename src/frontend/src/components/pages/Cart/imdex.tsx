@@ -6,10 +6,7 @@ import { FooterFC } from '@pages/Footer/index.tsx';
 
 import { CartMainFC } from './Main/index.tsx';
 
-
 export function CartpageFC(): JSX.Element {
-
-
   return (
     <>
       <HeaderFC />
@@ -17,4 +14,4 @@ export function CartpageFC(): JSX.Element {
       <FooterFC />
     </>
   );
-};
+}

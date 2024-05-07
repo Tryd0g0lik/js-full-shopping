@@ -19,4 +19,4 @@ const searching = (serchlyStr: string, positionsList: Position[]): Position[] =>
   });
   return newPositionsList;
 };
-export default searching
+export default searching;

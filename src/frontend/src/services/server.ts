@@ -1,5 +1,5 @@
 // src\frontend\src\services\server.ts
-import { PositionFC } from '@site/Positions';
+
 import {
   Str, Requests, POSTRequests, Val, Position, HandlerPositionVal
 } from '@type';
@@ -55,7 +55,6 @@ export class SFetch {
     } else if (keys.includes('categories')) {
       this.categories = true;
     } else if (keys.includes('order')) {
-      debugger
       this.orders = val as Requests['order'];
     } else {
       this.q_ = { q: val as string };
@@ -149,7 +148,7 @@ export class SFetch {
     const value: { offset: number } |
     { q: string } | { 'top-sales': boolean } |
     { categories: boolean } | { 'api-order': boolean } = this.requestOneBefore;
-    // debugger
+
     /* ------------------- */
     const url = this.urls.slice(0);
     let pathName: Val = '';
@@ -175,10 +174,7 @@ export class SFetch {
       }
     }
 
-    /* ----------server.ts:231 The fetch request was aborted:  TypeError: Failed to construct 'Request': Invalid name--------- */
-    const signal = this.controller.signal;
     const ordersStr = JSON.stringify(this.orders);
-    // debugger;
     try {
       const objEmpty = new Object();
       const params = (get)
@@ -216,7 +212,7 @@ export class SFetch {
           handler(response as Position[]);
         }
       } else {
-        console.warn('[Ошибка HTTP]: ' + answer.status);
+        console.warn('[HTTP]: ');
       }
     } catch (error) {
       const err = error;

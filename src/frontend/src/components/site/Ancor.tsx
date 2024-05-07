@@ -28,8 +28,6 @@ export default function AncorFC({ classes, path, dataCategory = undefined, conte
     ? (
       <a className={classes} data-category={dataCategory} href={path}>{context}</a>
     )
-    : (
-    <a className={classes} href={path}>{context}</a>
-    );
+    : (<a className={classes} href={path}>{context}</a>);
   return result;
 }

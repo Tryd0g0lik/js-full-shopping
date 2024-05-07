@@ -87,6 +87,5 @@ export function UseMainFC(): JSX.Element {
         </div>
       </div>
     </main>
-  )
+  );
 }
-

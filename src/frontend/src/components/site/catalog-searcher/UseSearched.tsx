@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react';
 
 import { CatalogSearched, HandlerPositionVal, Position } from '@type';
 
-import { storeGetstate } from '@reduxs/store.ts';
 import { PositionsCatalog } from '@reduxs/interfaces.ts';
 
-import { RootDispatch, storeDispatch } from '@reduxs/store.ts';
+import { RootDispatch, storeDispatch, storeGetstate } from '@reduxs/store.ts';
 import loadPage from '@site/Catalog/hablerLoaderMore.ts';
 
 import searching from '@site/catalog-searcher/doSearch.ts';
@@ -41,7 +40,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     /**
      * This function works through the setInterval
      * Here is recived a category number of Redux.category.playload. It's after a push event of user
-     *  
+     *
      * The variable 'stateCategory' update/ It's a number type for the 'useFilter'
      */
     const categorySetInaterval = setInterval(() => {
@@ -68,7 +67,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     loadPage.requestSFetch(6, usePositions as typeof useState)
 
     /**
-    * 
+    *
     * There is below a request to server | '/items/?offset=6' and
     * here the is listener for listening a button name 'Загрузить ещё'
     */
@@ -99,7 +98,7 @@ export default function useSearchedJSX(prop: CatalogSearched): JSX.Element {
     categoryNumber: categoryNumbers,
     positions: sercgedPosition,
     val: undefined
-  } 
+  };
 
-  return <CatalogFC {...catalog} />
+  return <CatalogFC {...catalog} />;
 }

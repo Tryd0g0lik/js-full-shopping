@@ -14,16 +14,18 @@ export default function BigSerachFormFC({ ...props }: SearchForm): React.JSX.Ele
     if (e.key.includes('Enter')) {
       e.preventDefault();
     }
-  }
-  // debugger
+  };
+
   return (
     <form className='catalog-search-form form-inline'  >
       <label htmlFor="search" onKeyDown={handlerKeyboardEnter}>
         <input type="text" className="form-control" id="search"
           placeholder={
-            ((props.search !== undefined) && // valSearch
-              ((props.search).length > 0)) ? props.search : 'Поиск'} />
+            ((props.search !== undefined) &&
+              ((props.search).length > 0))
+              ? props.search
+              : 'Поиск'} />
       </label>
     </form>
-  )
+  );
 }

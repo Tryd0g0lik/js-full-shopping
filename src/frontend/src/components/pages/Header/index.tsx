@@ -9,8 +9,7 @@ import { DispatcherStorage } from '@service/postman';
 import { QuantilityOrdersFC } from '@site/Orders';
 import SmallSerachFormFC from '@site/catalog-searcher/smallSearchForm';
 
-
-const rootPathName = process.env.REACT_APP_GITHUB_URL + process.env.REACT_APP_ROOT_PATH_NAME || ""
+const rootPathName = process.env.REACT_APP_GITHUB_URL || '';
 
 const topMenuArr = [
   {
@@ -51,13 +50,12 @@ export function HeaderFC(): JSX.Element {
     */
     const ordersData = (dispatch.getOfLocalStorage('order'));
     const ordersArr = (ordersData !== null)
-      ? ordersData.data.order : [];
+      ? ordersData.data.order
+      : [];
     count += ordersArr.length;
   }
   const [counter, stateCounter] = useState(count);
   useEffect(() => {
-    // window.addEventListener('click', handlerCaunter);
-
     /* --- Active Ancor from a dashbord up --- */
     const htmlLiArr = Array.from(document.querySelectorAll('.navbar .nav-item'));
     const currentPathname = location.pathname.slice(0);
@@ -66,19 +64,18 @@ export function HeaderFC(): JSX.Element {
       const ancor = item.querySelector('a') as HTMLAnchorElement
       item.classList.remove('active');
       if (((ancor.href).includes(currentPathname)) && (currentPathname.length > 1)) {
-        (item as HTMLElement).classList.add('active')
-
-      } else if (((window.location.pathname as string).length === 1) &&
+        (item as HTMLElement).classList.add('active');
+      } else if (
+        ((window.location.pathname as string).length === 1) &&
         (ancor.innerText.includes('Главная'))) {
-        (item as HTMLElement).classList.add('active')
+        (item as HTMLElement).classList.add('active');
       }
     });
 
     return () => {
       // window.removeEventListener('click', handlerCaunter);
-    }
-
-  }, [counter])
+    };
+  }, [counter]);
 
   const handlerCaunter = (e: MouseEvent) => {
     const indexLine = (e.target as HTMLElement);
@@ -86,24 +83,20 @@ export function HeaderFC(): JSX.Element {
       const dataObj = dispatch.getOfLocalStorage('order');
       const datas = (dataObj as { data: { order: Array<Position[]> } }).data.order as Position[];
       stateCounter(datas.length);
-
     } else {
       stateCounter(count);
     }
-
-  }
+  };
   const handlerrEntre = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key.includes('Enter')) {
-      // e.preventDefault();
+      null;
     }
-  }
+  };
 
   const handlerToCartReference: MouseEventHandler<HTMLDivElement> = (e) => {
-
     navigate('/cart');
-  }
+  };
   const counterValueCart = QuantilityOrdersFC(counter);
-
 
   return (
     <header className="container">
@@ -130,9 +123,6 @@ export function HeaderFC(): JSX.Element {
               <div>
                 <div className="header-controls-pics" onKeyDown={handlerrEntre}>
                   <SmallSerachFormFC />
-                  {/* <div data-id="search-expander" className="header-controls-pic header-controls-search header-controls-search-form">
-                    <input name="search" className="form-control" type='text' />
-                  </div> */}
                   { /* <!-- Do programmatic navigation on click to /cart.html --> */}
                   <div className="header-controls-pic header-controls-cart" onClick={handlerToCartReference}>
                     {counterValueCart}
@@ -151,4 +141,3 @@ export function HeaderFC(): JSX.Element {
 
   );
 }
-
