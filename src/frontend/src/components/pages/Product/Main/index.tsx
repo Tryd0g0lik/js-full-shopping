@@ -11,7 +11,13 @@ export function ProductMainFC(): JSX.Element {
   const params = useAsyncValue() as Position;
   const { id, images, price, title, sku, manufacturer, color, material, season, reason, sizes, ...param } = { ...params };
 
-  const img = ((images !== undefined) && (Array.isArray(images))) ? ((images.length > 0) ? images[1] : images[1]) : '';
+  const img = ((images !== undefined) && (Array.isArray(images)))
+    ? ((images.length > 0)
+      ? ((images[1] !== undefined)
+        ? (images[1])
+        : images[0])
+      : images[1])
+    : '';
 
   return (
     <main className="container">

@@ -15,12 +15,13 @@ import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
 import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
+import { ProductBasisFC } from './basis.tsx';
 const rootPathName: string | undefined | null = process.env.REACT_APP_ROOT_PATH_NAME || '';
 
 const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
   const pathname = process.env.REACT_APP_RENDER_URL as string;
-  debugger
   const respons = await fetch(pathname + `/api/items/${params.id}`);
+
   if (!respons.ok) {
     throw new Error('Status of respons is 404 (position not found)');
   }
@@ -63,11 +64,6 @@ const Router = createBrowserRouter([
         element: <ProductFC />
       }
     ],
-    element: <ProductFC />
-  },
-  {
-    path: rootPathName + Pages.Product,
-    loader: LoaderCatalogId,
     element: <ProductFC />
   }
 

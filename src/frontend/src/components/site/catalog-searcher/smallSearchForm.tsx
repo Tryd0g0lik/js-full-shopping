@@ -10,7 +10,8 @@ function timeout(time: number): void {
   timeoutForm = setTimeout(() => {
     const target: HTMLElement = document.querySelector('div.header-controls-search-form') as HTMLElement;
 
-    ((target !== null) && String(target.classList).includes('header-controls-search-form'))
+    ((target !== null) &&
+      (String(target.classList).includes('header-controls-search-form')))
       ? (
         target.classList.remove('header-controls-search-form'),
         target.innerHTML = ''
@@ -29,7 +30,7 @@ export default function SmallSerachFormFC(): React.JSX.Element {
 
   const handlerSmallSearchFormOpen = (event: React.MouseEvent<HTMLDivElement>): void => {
     const target = event.target as HTMLDivElement;
-    String(target.classList).includes('header-controls-search')
+    (String(target.classList).includes('header-controls-search'))
       ? setSmallSearchForm(true)
       : null;
   };
@@ -38,6 +39,7 @@ export default function SmallSerachFormFC(): React.JSX.Element {
     const target = event.target;
 
     clearTimeout(searchTime);
+
     searchTime = setTimeout(() => {
       oldSearchly += target.value;
       ((window.location.pathname).includes('catalog'))
@@ -55,9 +57,13 @@ export default function SmallSerachFormFC(): React.JSX.Element {
     timeout(3000);
   };
 
+  const styles = (String(window.location.pathname).includes('catalog') ||
+    String(window.location.pathname).includes('/cart'))
+    ? { display: 'none' }
+    : { display: 'block' };
   const smallForm = (!smallSearchForm)
     ? (
-      <div data-id="search-expander" onClick={handlerSmallSearchFormOpen} className="header-controls-pic header-controls-search">
+      <div data-id="search-expander" style={styles} onClick={handlerSmallSearchFormOpen} className="header-controls-pic header-controls-search">
       </div>
     )
     : (

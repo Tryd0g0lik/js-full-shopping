@@ -334,3 +334,10 @@ h2, .h2 {
   line-height: 0.8;
   text-align: center;
 }
+
+/* correct */
+p.card-text {
+  min-height: 25px;
+  max-height: 25px;
+  overflow-y: hidden;
+}
