@@ -15,7 +15,6 @@ import { UnderfinedpageFC } from './Undefined/index.tsx';
 /* below is a code for 1.html */
 import { ProductFC } from './Product/index.tsx';
 import { AuthSearchProvider } from '@site/catalog-searcher/OurProvider.tsx';
-import { ProductBasisFC } from './basis.tsx';
 const rootPathName: string | undefined | null = process.env.REACT_APP_ROOT_PATH_NAME || '';
 
 const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
