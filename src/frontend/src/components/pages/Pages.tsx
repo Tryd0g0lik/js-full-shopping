@@ -19,7 +19,7 @@ const rootPathName: string | undefined | null = process.env.REACT_APP_ROOT_PATH_
 
 const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
   const pathname = process.env.REACT_APP_RENDER_URL as string;
-  debugger
+
   const respons = await fetch(pathname + `/api/items/${params.id}`);
   if (!respons.ok) {
     throw new Error('Status of respons is 404 (position not found)');
