@@ -12,7 +12,7 @@ module.exports = {
   output: {
     
     path: path.resolve(__dirname, '../../dist'),
-    publicPath: '/shopping'
+    publicPath: './shopping'
    
     /*
     './' - поулчаем '<script defer="" src="./main.js"></script>' НО! ошибка при F5 страниц (проекта) с динамической сылкой
