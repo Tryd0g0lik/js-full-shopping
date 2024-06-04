@@ -53,7 +53,7 @@ const Router = createBrowserRouter([
     element: < UnderfinedpageFC />
   },
   {
-    path: rootPathName + Pages.Home,
+    path: rootPathName + Pages.Home + 'shopping/',
     loader: LoaderCatalogId,
     id: 'subroot',
     children: [
