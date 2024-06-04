@@ -21,11 +21,11 @@ export enum Pages {
   'Home' = '/shopping/',
   'Loaded' = '/loaded',
   'Contacts' = '/contacts',
-  'Catalog' = '/shopping/catalog',
+  'Catalog' = '/catalog',
   'Cart' = '/cart',
   'About' = '/about',
   '404_' = '/404',
-  'Product' = '/shopping/catalog/:id'
+  'Product' = '/catalog/:id'
 }
 
 /**
@@ -36,7 +36,7 @@ export enum Pages {
   */
 export enum PTitle {
   '/shopping/' = 'Главная',
-  '/shopping/catalog' = 'Каталог',
+  '/catalog' = 'Каталог',
   '/about' = 'О магазине',
   '/contacts' = 'Контакты',
   '/404' = 'Не найден'
