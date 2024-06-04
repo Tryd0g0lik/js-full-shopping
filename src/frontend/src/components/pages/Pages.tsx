@@ -29,23 +29,23 @@ const LoaderCatalogId = async ({ params }: PositionLoader): Promise<any> => {
 
 const Router = createBrowserRouter([
   {
-    path: rootPathName + Pages.About,
+    path: '.' + Pages.About,
     element: <AboutpageFC />
   },
   {
-    path: rootPathName + Pages.Cart,
+    path: '.' + Pages.Cart,
     element: <CartpageFC />
   },
   {
-    path: rootPathName + Pages.Catalog,
+    path: '.' + Pages.Catalog,
     element: < CatalogpageFC />
   },
   {
-    path: rootPathName + Pages.Contacts,
+    path: '.' + Pages.Contacts,
     element: < ContactspageFC />
   },
   {
-    path: rootPathName + Pages.Home,
+    path: '.' + Pages.Home,
     element: < HomepageFC />
   },
   {
@@ -53,12 +53,12 @@ const Router = createBrowserRouter([
     element: < UnderfinedpageFC />
   },
   {
-    path: rootPathName + Pages.Home,
+    path: '.' + Pages.Home,
     loader: LoaderCatalogId,
     id: 'subroot',
     children: [
       {
-        path: rootPathName + Pages.Product,
+        path: '.' + Pages.Product,
         loader: LoaderCatalogId,
         element: <ProductFC />
       }
