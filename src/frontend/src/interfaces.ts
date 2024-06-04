@@ -18,7 +18,7 @@ import React, { useState } from 'react';
   ```
  */
 export enum Pages {
-  'Home' = '/',
+  'Home' = '/shopping/',
   'Loaded' = '/loaded',
   'Contacts' = '/contacts',
   'Catalog' = '/catalog',
