@@ -1,6 +1,6 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-
+const rootPathName: string | undefined | null = process.env.REACT_APP_ROOT_PATH_NAME || '';
 module.exports = {
   // devtool: 'evel-'
 
@@ -12,7 +12,7 @@ module.exports = {
   output: {
     
     path: path.resolve(__dirname, '../../dist'),
-    publicPath: '/'
+    publicPath: rootPathName
    
     /*
     './' - поулчаем '<script defer="" src="./main.js"></script>' НО! ошибка при F5 страниц (проекта) с динамической сылкой

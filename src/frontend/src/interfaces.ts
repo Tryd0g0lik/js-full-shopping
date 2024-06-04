@@ -18,10 +18,10 @@ import React, { useState } from 'react';
   ```
  */
 export enum Pages {
-  'Home' = '/shopping/',
+  'Home' = '/',
   'Loaded' = '/loaded',
   'Contacts' = '/shopping/contacts',
-  'Catalog' = 'catalog',
+  'Catalog' = '/catalog',
   'Cart' = '/cart',
   'About' = '/shopping/about',
   '404_' = '/shopping/404',
@@ -35,8 +35,8 @@ export enum Pages {
  *
   */
 export enum PTitle {
-  '/shopping/' = 'Главная',
-  'catalog' = 'Каталог',
+  '/' = 'Главная',
+  '/catalog' = 'Каталог',
   '/shopping/about' = 'О магазине',
   '/shopping/contacts' = 'Контакты',
   '/shopping/404' = 'Не найден'
