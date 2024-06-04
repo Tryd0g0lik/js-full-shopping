@@ -36,7 +36,7 @@ export enum Pages {
   */
 export enum PTitle {
   '/shopping/' = 'Главная',
-  '/catalog' = 'Каталог',
+  '/shopping/catalog' = 'Каталог',
   '/about' = 'О магазине',
   '/contacts' = 'Контакты',
   '/404' = 'Не найден'
