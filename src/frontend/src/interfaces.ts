@@ -19,13 +19,13 @@ import React, { useState } from 'react';
  */
 export enum Pages {
   'Home' = '/shopping/',
-  'Loaded' = '/shopping/loaded',
+  'Loaded' = '/loaded',
   'Contacts' = '/shopping/contacts',
   'Catalog' = 'catalog',
   'Cart' = '/cart',
   'About' = '/shopping/about',
   '404_' = '/shopping/404',
-  'Product' = '/shopping/catalog/:id'
+  'Product' = '/catalog/:id'
 }
 
 /**
