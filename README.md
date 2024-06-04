@@ -1,4 +1,13 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/am7vyx8sbywcqe1b/branch/master?svg=true)](https://ci.appveyor.com/project/Tryd0g0lik/shopping/branch/master)
+## Stack: 
+ - TS,
+ - React,
+ - Redux,
+ - localStorage
+ - webpack
+ - fetch
+ - babel
+
 
 ## Project installs
 `npm run installs package.json` <=> from the root;
@@ -124,6 +133,11 @@
 После успешного оформления заказа все данные корзины должны быть вычищены из state и из localStorage.
 
 Не забудьте показать пользователю loader и сообщение об успехе.
+
+Note: 
+- 50 секунд после запуска [главной страницы](https://tryd0g0lik.github.io/shopping/), чтоб запустился сервер
+- на github-pages только главная страница. Остальные вернут 404. (не смог настроить react-router под github-pages и [https://render.com](https://render.com) )
+- [На главной (github-pages)](https://tryd0g0lik.github.io/shopping/) рабочие фильтр категорий каталога + кнопка "Загрузить ешё" 
 
 ## 404
 При вводе несуществующего URL, не соответствующего ни одному из путей, пользователю должна показываться страница 404.html.
