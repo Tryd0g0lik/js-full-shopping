@@ -36,10 +36,10 @@ export enum Pages {
   */
 export enum PTitle {
   '/shopping/' = 'Главная',
-  '/shopping/catalog' = 'Каталог',
-  '/shopping/about' = 'О магазине',
-  '/shopping/contacts' = 'Контакты',
-  '/shopping/404' = 'Не найден'
+  '/catalog' = 'Каталог',
+  '/about' = 'О магазине',
+  '/contacts' = 'Контакты',
+  '/404' = 'Не найден'
 }
 
 export enum FilterCategories {
