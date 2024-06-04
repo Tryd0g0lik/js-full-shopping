@@ -21,7 +21,7 @@ export enum Pages {
   'Home' = '/shopping/',
   'Loaded' = '/loaded',
   'Contacts' = '/contacts',
-  'Catalog' = '/catalog',
+  'Catalog' = '/shopping/catalog',
   'Cart' = '/cart',
   'About' = '/about',
   '404_' = '/404',
