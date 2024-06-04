@@ -1,6 +1,6 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const rootPathName: string | undefined | null = process.env.REACT_APP_ROOT_PATH_NAME || '';
+const rootPathName = process.env.REACT_APP_ROOT_PATH_NAME || '';
 module.exports = {
   // devtool: 'evel-'
 
