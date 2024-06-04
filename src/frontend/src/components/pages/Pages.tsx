@@ -45,7 +45,7 @@ const Router = createBrowserRouter([
     element: < ContactspageFC />
   },
   {
-    path: rootPathName + Pages.Home + 'shopping/',
+    path: rootPathName + Pages.Home,
     element: < HomepageFC />
   },
   {

@@ -18,14 +18,14 @@ import React, { useState } from 'react';
   ```
  */
 export enum Pages {
-  'Home' = '/',
-  'Loaded' = '/loaded',
-  'Contacts' = '/contacts',
-  'Catalog' = '/catalog',
-  'Cart' = '/cart',
-  'About' = '/about',
-  '404_' = '/404',
-  'Product' = '/catalog/:id'
+  'Home' = '/shopping/',
+  'Loaded' = '/shopping/loaded',
+  'Contacts' = '/shopping/contacts',
+  'Catalog' = '/shopping/catalog',
+  'Cart' = '/shopping/cart',
+  'About' = '/shopping/about',
+  '404_' = '/shopping/404',
+  'Product' = '/shopping/catalog/:id'
 }
 
 /**
@@ -35,11 +35,11 @@ export enum Pages {
  *
   */
 export enum PTitle {
-  '/' = 'Главная',
-  '/catalog' = 'Каталог',
-  '/about' = 'О магазине',
-  '/contacts' = 'Контакты',
-  '/404' = 'Не найден'
+  '/shopping/' = 'Главная',
+  '/shopping/catalog' = 'Каталог',
+  '/shopping/about' = 'О магазине',
+  '/shopping/contacts' = 'Контакты',
+  '/shopping/404' = 'Не найден'
 }
 
 export enum FilterCategories {
