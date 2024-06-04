@@ -25,7 +25,7 @@ export enum Pages {
   'Cart' = '/cart',
   'About' = '/about',
   '404_' = '/404',
-  'Product' = '/catalog/:id'
+  'Product' = '/shopping/catalog/:id'
 }
 
 /**
