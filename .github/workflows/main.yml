@@ -1,4 +1,4 @@
-name: shoping
+name: table
 on: [push, pull_request]
 # Down scope as necessary via https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
 permissions:
@@ -30,13 +30,19 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       # - name: Install dependencies
-      #   run: cd src/app/frontend && npm run build:dev
+      #   run: cd src/app/frontend && yarn run build:dev
       - name: Install dependencies
-        run: npm install
+        run: yarn install
+
+      - name: Build-folder-BackandDb
+        run: |
+          mkdir -p dist/result
+          mkdir -p dist/server/web-socket
+          mkdir -p dist/server/web-socket/functions
+          mkdir -p dist/server/db
           
       - name: Build-All
-        run: npm run build
-
+        run: yarn run build:dev
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
